@@ -27,14 +27,8 @@ public class LoginScreen extends JFrame
 		
 		acmeCourierServiceLogo = Utility.getImage(filePath + separator + "images" + separator + "AcmeCourierServiceLogo.jpg");
 		
-//      Image playlistGeneratorIcon = Utility.getImage(filePath + separator + "images" + separator + "start_button2.png");
-//      playlistGeneratorButton = new JButton(new ImageIcon(playlistGeneratorIcon));
-//    	
-//    	Image marketingReportGeneratorIcon = Utility.getImage(filePath + separator + "images" + separator + "howto_button2.png");
-//    	marketingReportGeneratorButton = new JButton(new ImageIcon(marketingReportGeneratorIcon));
-//    	
-//    	Image exitButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "exit_button2.png");
-//    	exitButton = new JButton(new ImageIcon(exitButtonIcon));
+//      Image loginButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "start_button2.png");
+//      loginButton = new JButton(new ImageIcon(loginButtonIcon));
     	
         SetUpView();
     }
