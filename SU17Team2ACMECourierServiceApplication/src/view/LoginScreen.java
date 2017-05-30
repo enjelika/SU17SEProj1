@@ -25,7 +25,7 @@ public class LoginScreen extends JFrame
     {
 		layeredPane = getLayeredPane();
 		
-		acmeCourierServiceLogo = Utility.getImage(filePath + separator + "images" + separator + "AcmeCourierServiceLogo.jpg");
+		acmeCourierServiceLogo = Utility.getImage(filePath + separator + "images" + separator + "AcmeCourierServiceLogo.png");
 		
 //      Image loginButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "start_button2.png");
 //      loginButton = new JButton(new ImageIcon(loginButtonIcon));

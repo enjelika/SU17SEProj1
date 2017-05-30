@@ -2,7 +2,7 @@ package main;
 
 import javax.swing.JFrame;
 
-//import view.View;
+import view.LoginScreen;
 
 public class Main extends JFrame
 {
@@ -10,7 +10,7 @@ public class Main extends JFrame
 	
 	public static void main(String[] args)
 	{
-//		window = new View();      
+		window = new LoginScreen();      
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		window.setResizable(false);
