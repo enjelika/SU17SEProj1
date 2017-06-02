@@ -24,7 +24,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import controller.LoginController;
+import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -39,14 +39,14 @@ public class LoginScreen extends JFrame
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
-    private LoginController loginController;
+    private ButtonController loginController;
 
     /*
      * Constructor
      */
-    public LoginScreen()
+    public LoginScreen(ButtonController buttonController)
     {
-    	loginController = new LoginController();
+    	loginController = buttonController;
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -134,7 +134,7 @@ public class LoginScreen extends JFrame
 		passwordTextbox.setBorder(new CompoundBorder(marginP, borderP));
 		loginCredentials.add(passwordTextbox);
 		
-        // -- Login Button  ** CENTER THIS
+        // -- Login Button
 		loginButton.setName("loginButton");
 		loginButton.setOpaque(false);
 		loginButton.setContentAreaFilled(false);

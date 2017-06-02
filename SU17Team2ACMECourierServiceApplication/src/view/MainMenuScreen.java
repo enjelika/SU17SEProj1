@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +20,9 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import controller.ButtonController;
+import model.Utility;
 
 @SuppressWarnings("serial")
 public class MainMenuScreen extends JFrame
@@ -29,18 +36,62 @@ public class MainMenuScreen extends JFrame
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
-    public MainMenuScreen()
+    private ButtonController mainMenuController;
+    
+    public MainMenuScreen(ButtonController buttonController)
     {
+    	mainMenuController = buttonController;
+    	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
     	
     	// Container for the menu buttons
     	mainMenuContainer = new JPanel();
     	Border border = new LineBorder(Color.BLUE, 1);
-    	Border margin = new EmptyBorder(0, 300, 75, 300);
+    	Border margin = new EmptyBorder(0, 300, 0, 300);
     	mainMenuContainer.setBorder(new CompoundBorder(margin, border));
     	mainMenuContainer.setAlignmentX(CENTER_ALIGNMENT);
     	mainMenuContainer.setAlignmentY(CENTER_ALIGNMENT);
+    	
+		// Set the Logo image for the North part of the window
+		try 
+		{ 
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "acmeCourierServiceLogo.png"));
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
+    	/*
+    	 *  Setup the images for each button
+    	 */
+    	// Admin Menu Button
+    	Image adminMenuButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "adminMenuButton.png");
+    	adminMenuButton = new JButton(new ImageIcon(adminMenuButtonIcon));   	
+    	
+    	// Customer Maintenance Button
+    	Image customerMaintenanceButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "customerMaintenanceButton.png");
+    	customerMaintenanceButton = new JButton(new ImageIcon(customerMaintenanceButtonIcon));     	
+    	
+    	// Delivery Ticket Button
+    	Image deliveryTicketButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "deliveryTicketButton.png");
+    	deliveryTicketButton = new JButton(new ImageIcon(deliveryTicketButtonIcon));      	
+    	
+    	// Reports Button
+    	Image reportsButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "reportsButton.png");
+    	reportsButton = new JButton(new ImageIcon(reportsButtonIcon));    	
+    	
+    	// Settings Button
+    	Image settingsButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "settingsButton.png");
+    	settingsButton = new JButton(new ImageIcon(settingsButtonIcon));
+    	
+    	// Logout Button
+		Image logoutButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "logoutButton.png");
+		logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+    	
+    	// Setup the View
+    	SetUpView();
     }
     
     public void SetUpView()
@@ -50,15 +101,76 @@ public class MainMenuScreen extends JFrame
         setLocationRelativeTo(null);
         JFrame.setDefaultLookAndFeelDecorated(true); 
         
-        // Logo
+        /*
+         *  Logo
+         */
         imgContainer = new JPanel();	
 		imgContainer.setSize(new Dimension(75, 50));
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 50, 10));
+		imgContainer.setBorder(new EmptyBorder(35, 10, 15, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
+		/*
+		 *  Outer box for the Main Menu buttons
+		 */
+		mainMenuContainer.setLayout(new BoxLayout(mainMenuContainer, BoxLayout.Y_AXIS));
+		mainMenuContainer.setOpaque(false);
+		mainMenuContainer.setBounds(375, 400, 400, 175);
+		
+        // -- Admin Menu Button
+		adminMenuButton.setName("adminMenuButton");
+		adminMenuButton.setOpaque(false);
+		adminMenuButton.setContentAreaFilled(false);
+		adminMenuButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		adminMenuButton.addActionListener(mainMenuController);
+		mainMenuContainer.add(adminMenuButton);
+		
+        // -- Customer Maintenance Button
+		customerMaintenanceButton.setName("customerMaintenanceButton");
+		customerMaintenanceButton.setOpaque(false);
+		customerMaintenanceButton.setContentAreaFilled(false);
+		customerMaintenanceButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		customerMaintenanceButton.addActionListener(mainMenuController);
+		mainMenuContainer.add(customerMaintenanceButton);
+		
+        // -- Delivery Ticket Button
+		deliveryTicketButton.setName("deliveryTicketButton");
+		deliveryTicketButton.setOpaque(false);
+		deliveryTicketButton.setContentAreaFilled(false);
+		deliveryTicketButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		deliveryTicketButton.addActionListener(mainMenuController);
+		mainMenuContainer.add(deliveryTicketButton);
+		
+        // -- Reports Button
+		reportsButton.setName("reportsButton");
+		reportsButton.setOpaque(false);
+		reportsButton.setContentAreaFilled(false);
+		reportsButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		reportsButton.addActionListener(mainMenuController);
+		mainMenuContainer.add(reportsButton);
+		
+        // -- Settings Button
+		settingsButton.setName("settingsButton");
+		settingsButton.setOpaque(false);
+		settingsButton.setContentAreaFilled(false);
+		settingsButton.setBorder(new EmptyBorder(25, 75, 25, 75));
+		settingsButton.addActionListener(mainMenuController);
+		mainMenuContainer.add(settingsButton);
+		
+		// --- end of Box for Menu buttons
+		
+		mainPane.add(mainMenuContainer, BorderLayout.CENTER);
+		
+		logoutButton.setName("logoutButton");
+		logoutButton.setOpaque(false);
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
+		logoutButton.addActionListener(mainMenuController);
+		mainPane.add(logoutButton, BorderLayout.SOUTH);
+		
+		setContentPane(mainPane);
 		
     }
 }
