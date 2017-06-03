@@ -51,6 +51,24 @@ public class ButtonController implements ActionListener
 				System.out.println(buttonID + " was pressed");
 				break;  
 			
+			/*
+			 * Customer Maintenance Menu Buttons	
+			 */
+				case "addCustomerButton":
+					// TODO: Add a Customer Customer Maintenance Menu action here
+					System.out.println(buttonID + " was pressed");
+					break; 
+					
+				case "editCustomerButton":
+					// TODO: Edit a Customer Customer Maintenance Menu action here
+					System.out.println(buttonID + " was pressed");
+					break;  
+					
+				case "deleteCustomerButton":
+					// TODO: Delete a Customer Customer Maintenance Menu action here
+					System.out.println(buttonID + " was pressed");
+					break;  
+				
     		/*
     		 * Main Menu Buttons
     		 */
