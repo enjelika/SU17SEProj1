@@ -16,6 +16,24 @@ public class ButtonController implements ActionListener
     	switch(buttonID)
     	{
     		/*
+    		 * Admin Menu Buttons
+    		 */
+			case "coInfoMaintenanceButton":
+				// TODO: Co Info Maintenance Admin Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;
+				
+			case "courierMaintenanceButton":
+				// TODO: Courier Maintenance Admin Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;
+				
+			case "staffMaintenanceButton":
+				// TODO: Staff Maintenance Admin Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;    	
+    	    	
+    		/*
     		 * Main Menu Buttons
     		 */
     		case "adminMenuButton":
