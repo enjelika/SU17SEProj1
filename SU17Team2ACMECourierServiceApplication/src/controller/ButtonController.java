@@ -32,7 +32,25 @@ public class ButtonController implements ActionListener
 				// TODO: Staff Maintenance Admin Menu action here
 				System.out.println(buttonID + " was pressed");
 				break;    	
-    	    	
+			
+			/*
+			 * Courier Maintenance Menu Buttons	
+			 */
+			case "addCourierButton":
+				// TODO: Add a Courier Courier Maintenance Menu action here
+				System.out.println(buttonID + " was pressed");
+				break; 
+				
+			case "editCourierButton":
+				// TODO: Edit a Courier Courier Maintenance Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;  
+				
+			case "deleteCourierButton":
+				// TODO: Delete a Courier Courier Maintenance Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;  
+			
     		/*
     		 * Main Menu Buttons
     		 */
