@@ -115,6 +115,24 @@ public class ButtonController implements ActionListener
     			System.out.println(buttonID + " was pressed");
     			break;
     			
+   			/*
+   			 * Customer Maintenance Menu Buttons	
+   			 */
+   				case "coPerformanceReportButton":
+   					// TODO: Company Performance Report Reports Menu action here
+   					System.out.println(buttonID + " was pressed");
+   					break; 
+    					
+   				case "courierPerformanceReportButton":
+   					// TODO: Courier Performance Report Reports Menu action here
+   					System.out.println(buttonID + " was pressed");
+   					break;  
+    					
+   				case "customerBillingReportButton":
+   					// TODO: Customer Billing Report Reports Menu action here
+   					System.out.println(buttonID + " was pressed");
+   					break;  
+    					
     		/*
     		 * Back Button
     		 */
