@@ -118,29 +118,47 @@ public class ButtonController implements ActionListener
    			/*
    			 * Customer Maintenance Menu Buttons	
    			 */
-   				case "coPerformanceReportButton":
-   					// TODO: Company Performance Report Reports Menu action here
-   					System.out.println(buttonID + " was pressed");
-   					break; 
+   			case "coPerformanceReportButton":
+   				// TODO: Company Performance Report Reports Menu action here
+   				System.out.println(buttonID + " was pressed");
+   				break; 
     					
-   				case "courierPerformanceReportButton":
-   					// TODO: Courier Performance Report Reports Menu action here
-   					System.out.println(buttonID + " was pressed");
-   					break;  
+   			case "courierPerformanceReportButton":
+   				// TODO: Courier Performance Report Reports Menu action here
+   				System.out.println(buttonID + " was pressed");
+   				break;  
     					
-   				case "customerBillingReportButton":
-   					// TODO: Customer Billing Report Reports Menu action here
-   					System.out.println(buttonID + " was pressed");
-   					break;  
+   			case "customerBillingReportButton":
+   				// TODO: Customer Billing Report Reports Menu action here
+   				System.out.println(buttonID + " was pressed");
+   				break;  
     		
    			/*
    			 * Settings Menu Button
    			 */
-   				case "updatePasswordButton":
-   					// TODO: Update Password Settings Menu action here
-   					System.out.println(buttonID + " was pressed");
-   					break; 
-   					
+   			case "updatePasswordButton":
+   				// TODO: Update Password Settings Menu action here
+   				System.out.println(buttonID + " was pressed");
+   				break; 
+
+    		/*
+   	   		 * Staff Maintenance Menu Buttons	
+   	   		 */
+   	   		case "addUserButton":
+   	   			// TODO: Add a User Staff Maintenance Menu action here
+   	   			System.out.println(buttonID + " was pressed");
+   	   			break; 
+   	    					
+   	   		case "editUserButton":
+   	   			// TODO: Edit a User Staff Maintenance Menu action here
+   	   			System.out.println(buttonID + " was pressed");
+   	   			break;  
+   	    					
+   	   		case "deleteUserButton":
+   	   			// TODO: Delete a User Staff Maintenance Menu action here
+   	   			System.out.println(buttonID + " was pressed");
+   	   			break; 
+   				
     		/*
     		 * Back Button
     		 */
