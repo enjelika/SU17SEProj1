@@ -171,6 +171,5 @@ public class MainMenuScreen extends JFrame
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		
 		setContentPane(mainPane);
-		
     }
 }

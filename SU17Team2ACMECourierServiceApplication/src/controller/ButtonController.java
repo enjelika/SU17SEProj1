@@ -44,6 +44,32 @@ public class ButtonController implements ActionListener
     			break;
     			
     		/*
+    		 * Delivery Ticket Menu Buttons
+    		 */
+    		case "createNewTicketButton":
+    			// TODO: Create a New Ticket action here
+    			System.out.println(buttonID + " was pressed");
+    			break;
+    			
+    		case "editTicketButton":
+    			// TODO: Edit a Ticket action here
+    			System.out.println(buttonID + " was pressed");
+    			break;
+    			
+    		case "cancelTicketButton":
+    			// TODO: Cancel a Ticket action here
+    			System.out.println(buttonID + " was pressed");
+    			break;
+    			
+    		/*
+    		 * Back Button
+    		 */
+    		case "backButton":
+    			// TODO: Back action here
+    			System.out.println(buttonID + " was pressed");
+    			break;	
+    			
+    		/*
     		 * Login Screen Button
     		 */
     		case "loginButton":
