@@ -116,7 +116,7 @@ public class ReportsMenuScreen extends JFrame
 		reportsMenuContainer.setOpaque(false);
 		reportsMenuContainer.setBounds(375, 400, 400, 175);
 		
-		// -- Delivery Ticket Label
+		// -- Reports Menu Label
 		JLabel reportsMenuLabel = new JLabel();
 		reportsMenuLabel.setText("Reports");
 		reportsMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 24));

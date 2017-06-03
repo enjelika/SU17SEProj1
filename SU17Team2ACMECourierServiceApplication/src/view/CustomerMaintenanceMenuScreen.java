@@ -116,7 +116,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		customerMenuContainer.setOpaque(false);
 		customerMenuContainer.setBounds(375, 400, 400, 175);
 		
-		// -- Delivery Ticket Label
+		// -- Courier Maintenance Menu Label
 		JLabel courierMaintenanceMenuLabel = new JLabel();
 		courierMaintenanceMenuLabel.setText("Customer Maintenance");
 		courierMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 24));

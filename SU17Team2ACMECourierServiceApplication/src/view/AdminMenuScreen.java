@@ -116,7 +116,7 @@ public class AdminMenuScreen extends JFrame
 		adminMenuContainer.setOpaque(false);
 		adminMenuContainer.setBounds(375, 400, 400, 175);
 		
-		// -- Delivery Ticket Label
+		// -- Admin Menu Label
 		JLabel adminMenuLabel = new JLabel();
 		adminMenuLabel.setText("Admin Menu");
 		adminMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 24));

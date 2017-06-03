@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import controller.ButtonController;
 import view.LoginScreen;
+import view.SettingsMenuScreen;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame
