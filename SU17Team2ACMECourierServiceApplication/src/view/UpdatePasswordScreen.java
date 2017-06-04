@@ -218,7 +218,7 @@ public class UpdatePasswordScreen extends JFrame
 		saveButtonContainer.setBorder(new EmptyBorder(5, 0, 15, 0));
 		
         // -- Save Button
-		saveButton.setName("addCourierButton");
+		saveButton.setName("saveButton");
 		saveButton.setOpaque(false);
 		saveButton.setContentAreaFilled(false);
 		saveButton.setBorder(new EmptyBorder(5, 0, 0, 0));
