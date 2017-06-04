@@ -132,7 +132,15 @@ public class ButtonController implements ActionListener
    				// TODO: Customer Billing Report Reports Menu action here
    				System.out.println(buttonID + " was pressed");
    				break;  
-    		
+   				
+   	   		/*
+   	   		 *  Save Button
+   	   		 */
+   	   		case "resetButton":
+   	   			// TODO: Reset Button action here
+   	   			System.out.println(buttonID + " was pressed");
+   	   			break;
+   	   				
    			/*
    			 *  Save Button
    			 */
