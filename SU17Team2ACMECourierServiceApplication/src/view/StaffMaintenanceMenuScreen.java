@@ -25,6 +25,7 @@ import javax.swing.border.LineBorder;
 import controller.ButtonController;
 import model.Utility;
 
+@SuppressWarnings("serial")
 public class StaffMaintenanceMenuScreen extends JFrame
 {
 	private JButton addUserButton, editUserButton, deleteUserButton, backButton, logoutButton;
