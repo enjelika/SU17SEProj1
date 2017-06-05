@@ -6,11 +6,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -18,7 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -27,6 +24,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -39,15 +37,17 @@ public class LoginScreen extends JFrame
 	private String title = "ACME Courier Service";
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
-    private final Toolkit t = Toolkit.getDefaultToolkit();
-    
     private BufferedImage acmeCourierServiceLogo;
+    
+    private ButtonController loginController;
 
     /*
      * Constructor
      */
-    public LoginScreen()
+    public LoginScreen(ButtonController buttonController)
     {
+    	loginController = buttonController;
+    	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
     	
@@ -65,7 +65,6 @@ public class LoginScreen extends JFrame
 		} 
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -81,7 +80,7 @@ public class LoginScreen extends JFrame
     public void SetUpView()
     {
         setTitle(title);
-        setSize(1000, 900);
+        setSize(900, 800);
         setLocationRelativeTo(null);
         JFrame.setDefaultLookAndFeelDecorated(true); 
         
@@ -135,10 +134,12 @@ public class LoginScreen extends JFrame
 		passwordTextbox.setBorder(new CompoundBorder(marginP, borderP));
 		loginCredentials.add(passwordTextbox);
 		
-        // -- Login Button  ** CENTER THIS
+        // -- Login Button
+		loginButton.setName("loginButton");
 		loginButton.setOpaque(false);
 		loginButton.setContentAreaFilled(false);
 		loginButton.setBorder(new EmptyBorder(75, 50, 25, 50));
+		loginButton.addActionListener(loginController);
 		loginCredentials.add(loginButton, BorderLayout.SOUTH);
 		
 		mainPane.add(loginCredentials, BorderLayout.CENTER);
