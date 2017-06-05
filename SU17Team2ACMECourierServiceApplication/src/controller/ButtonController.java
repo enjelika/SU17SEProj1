@@ -198,7 +198,6 @@ public class ButtonController implements ActionListener
     		case "loginButton":
     			// TODO: Login action here
     			btnListener.screenChanged("MainMenuScreen");
-    			System.out.println(buttonID + " was pressed");
     			break;
     			
     		/*
