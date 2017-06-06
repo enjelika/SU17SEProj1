@@ -3,10 +3,6 @@ package main;
 import javax.swing.JFrame;
 
 import controller.ButtonController;
-import view.ButtonListener;
-
-import view.LoginScreen;
-import view.MainMenuScreen;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame
@@ -18,22 +14,10 @@ public class Main extends JFrame
 	{
 		buttonController = new ButtonController();
 		
-		buttonController.setButtonListener(new ButtonListener(){
-			public void screenChanged(String screen)
-			{
-				window = new MainMenuScreen(buttonController);
-				window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				window.setVisible(true);
-				window.setResizable(false);
-				window.setLocationRelativeTo(null);
-			}
-			
-		});
-		
-		window = new LoginScreen(buttonController);      
+		window = new view.MainWindow(buttonController);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setVisible(true);
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 	}
 }

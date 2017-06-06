@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -27,13 +26,12 @@ import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
-public class AddCourierScreen extends JFrame
+public class AddCourierScreen extends JPanel
 {
 	private JButton saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel addCourierContainer, southButtonContainer, mainPane, imgContainer;
-	
-	private String title = "ACME Courier Service";
+
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -90,13 +88,8 @@ public class AddCourierScreen extends JFrame
     
     public void SetUpView()
     {
-        setTitle(title);
-        setSize(1000, 900);
-        setLocationRelativeTo(null);
-        JFrame.setDefaultLookAndFeelDecorated(true); 
-        
         /*
-         *  Logo
+         *  Logo header
          */
         imgContainer = new JPanel();	
 		imgContainer.setSize(new Dimension(75, 50));
@@ -223,7 +216,6 @@ public class AddCourierScreen extends JFrame
 		// -- end of southButtonContainer
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
-		
-		setContentPane(mainPane);
+		this.add(mainPane);
     }
 }

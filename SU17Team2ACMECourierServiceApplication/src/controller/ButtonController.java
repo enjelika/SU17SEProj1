@@ -4,24 +4,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-
-import view.ButtonListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class ButtonController implements ActionListener
 {
-	ButtonListener btnListener;
+	JFrame mainFrame;
+	JPanel previousScreen;
 	
-	
-	public void setButtonListener(ButtonListener listener)
+	public ButtonController() 
 	{
-		this.btnListener = listener;
+//		this.mainFrame = mainFrame;
 	}
+	
+	public void setMainFrame(JFrame mainFrame)
+	{
+		this.mainFrame = mainFrame;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) 
 	{
 		JButton sender = (JButton) ae.getSource();
     	String buttonID = sender.getName();
-
+		//previousScreen = (JPanel)mainFrame.getContentPane();
+		
     	switch(buttonID)
     	{
     		/*
@@ -34,12 +41,22 @@ public class ButtonController implements ActionListener
 				
 			case "courierMaintenanceButton":
 				// TODO: Courier Maintenance Admin Menu action here
-				System.out.println(buttonID + " was pressed");
+				System.out.println("Going to the Courier Maintenance Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CourierMaintenanceMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
 				break;
 				
 			case "staffMaintenanceButton":
 				// TODO: Staff Maintenance Admin Menu action here
-				System.out.println(buttonID + " was pressed");
+				System.out.println("Going to the Staff Maintenance Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.StaffMaintenanceMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
 				break;    	
 			
 			/*
@@ -83,27 +100,52 @@ public class ButtonController implements ActionListener
     		 */
     		case "adminMenuButton":
     			// TODO: Admin Menu action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to the Admin Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.AdminMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		case "customerMaintenanceButton":
     			// TODO: Customer Maintenance Menu action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to the Customer Maintenance Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CustomerMaintenanceMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		case "deliveryTicketButton":
     			// TODO: Delivery Ticket Menu action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to the Delivery Ticket Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.DeliveryTicketMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		case "reportsButton":
     			// TODO: Reports Menu action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to the Reports Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.ReportsMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		case "settingsButton":
     			// TODO: Settings Menu action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to the Settings Menu Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.SettingsMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		/*
@@ -188,8 +230,13 @@ public class ButtonController implements ActionListener
     		 * Back Button
     		 */
     		case "backButton":
-    			// TODO: Back action here
-    			System.out.println(buttonID + " was pressed");
+    			// TODO: Back action here - not quite working
+    			System.out.println("Going back to the previous screen..."); // + previousScreen.toString());
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.MainMenuScreen(this)); //previousScreen); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;	
     			
     		/*
@@ -197,7 +244,12 @@ public class ButtonController implements ActionListener
     		 */
     		case "loginButton":
     			// TODO: Login action here
-    			btnListener.screenChanged("MainMenuScreen");
+    			System.out.println("To the Main Menu...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.MainMenuScreen(this));
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		/*
@@ -205,7 +257,12 @@ public class ButtonController implements ActionListener
     		 */
     		case "logoutButton":
     			// TODO: Logout action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going back to the Login Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.LoginScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		/*

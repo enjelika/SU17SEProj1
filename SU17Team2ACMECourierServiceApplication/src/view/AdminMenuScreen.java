@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -26,13 +25,12 @@ import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
-public class AdminMenuScreen extends JFrame
+public class AdminMenuScreen extends JPanel
 {
 	private JButton coInfoMaintenanceButton, courierMaintenanceButton, staffMaintenanceButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel adminMenuContainer, mainPane, imgContainer;
 	
-	private String title = "ACME Courier Service";
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -93,11 +91,6 @@ public class AdminMenuScreen extends JFrame
     
     public void SetUpView()
     {
-        setTitle(title);
-        setSize(1000, 900);
-        setLocationRelativeTo(null);
-        JFrame.setDefaultLookAndFeelDecorated(true); 
-        
         /*
          *  Logo
          */
@@ -166,7 +159,6 @@ public class AdminMenuScreen extends JFrame
 		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
 		logoutButton.addActionListener(adminMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
-		
-		setContentPane(mainPane);
+		this.add(mainPane);
     }
 }

@@ -3,7 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -27,14 +26,17 @@ import javax.swing.border.LineBorder;
 import controller.ButtonController;
 import model.Utility;
 
-@SuppressWarnings("serial")
-public class LoginScreen extends JFrame
+public class LoginScreen extends JPanel
 {
+	/**
+	 * Auto-generated Serialization ID
+	 */
+	private static final long serialVersionUID = 8429357136772095411L;
+	
 	private JButton loginButton;
 	private JLabel imageFrame;
 	private JPanel loginCredentials, mainPane, imgContainer;
 	
-	private String title = "ACME Courier Service";
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -78,72 +80,85 @@ public class LoginScreen extends JFrame
      * Setting up the Login Screen View
      */
     public void SetUpView()
-    {
-        setTitle(title);
-        setSize(900, 800);
-        setLocationRelativeTo(null);
-        JFrame.setDefaultLookAndFeelDecorated(true); 
-        
-        // Logo
+    {       
+        // Logo header
         imgContainer = new JPanel();	
-		imgContainer.setSize(new Dimension(75, 50));
-		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 50, 10));
+		imgContainer.setBorder(new EmptyBorder(35, 10, 35, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
                 
         // Outer box for the following
 		loginCredentials.setLayout(new BoxLayout(loginCredentials, BoxLayout.Y_AXIS));
 		loginCredentials.setOpaque(false);
-		loginCredentials.setBounds(375, 440, 275, 250);
         
-        // -- Username label
+		// Used to left align the label
+		JPanel usernameLabelContainer = new JPanel();
+		usernameLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		usernameLabelContainer.setBorder(new EmptyBorder(0, 17, 0, 0));
+		
+        // -- User name label
 		JLabel usernameLabel = new JLabel();
-		usernameLabel.setBorder(new EmptyBorder(75, 5, 5, 5));
+		usernameLabel.setBorder(new EmptyBorder(50, 0, 5, 0));
 		usernameLabel.setText("Username:");
 		usernameLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
-		usernameLabel.setAlignmentX(LEFT_ALIGNMENT);
-		loginCredentials.add(usernameLabel);
+		usernameLabelContainer.add(usernameLabel);
+		loginCredentials.add(usernameLabelContainer);
         
-        // -- Username Textbox
-		Border borderT = new LineBorder(Color.BLUE, 1);
-    	Border marginT = new EmptyBorder(0, 25, 0, 25);
+		// Used to "pretty" up the Text Field
+		JPanel usernameTextboxContainer = new JPanel();
+		usernameTextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+		usernameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+		
+        // -- User name Text box
 		JTextField usernameTextbox = new JTextField("", 28);
 		usernameTextbox.setHorizontalAlignment(JTextField.CENTER);
-		usernameTextbox.setOpaque(false);
 		usernameTextbox.setFont(new Font("Calibri", Font.PLAIN, 28));
-		usernameTextbox.setBorder(new CompoundBorder(marginT, borderT));
-		loginCredentials.add(usernameTextbox);
+		usernameTextbox.setBorder(new LineBorder(Color.BLUE, 1));
+		usernameTextboxContainer.add(usernameTextbox);
+		loginCredentials.add(usernameTextboxContainer);
+		
+		// Used to left align the label
+		JPanel passwordLabelContainer = new JPanel();
+		passwordLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		passwordLabelContainer.setBorder(new EmptyBorder(0, 20, 0, 0));
 		
         // -- Password label
 		JLabel passwordLabel = new JLabel();
-		passwordLabel.setBorder(new EmptyBorder(50, 5, 5, 5));
+		passwordLabel.setBorder(new EmptyBorder(25, 5, 5, 5));
 		passwordLabel.setText("Password:");
 		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
-		loginCredentials.add(passwordLabel);
+		passwordLabelContainer.add(passwordLabel);
+		loginCredentials.add(passwordLabelContainer);
+		
+		// Used to "pretty" up the Text Field
+		JPanel passwordTextboxContainer = new JPanel();
+		passwordTextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+		passwordTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 		
         // -- Password Textbox
-		Border borderP = new LineBorder(Color.BLUE, 1);
-    	Border marginP = new EmptyBorder(0, 25, 50, 25);
-		JPasswordField passwordTextbox = new JPasswordField();
+		JPasswordField passwordTextbox = new JPasswordField("", 28);
 		passwordTextbox.setEchoChar('*');
 		passwordTextbox.setHorizontalAlignment(JTextField.CENTER);
-		passwordTextbox.setOpaque(false);
 		passwordTextbox.setFont(new Font("Calibri", Font.PLAIN, 28));
-		passwordTextbox.setBorder(new CompoundBorder(marginP, borderP));
-		loginCredentials.add(passwordTextbox);
+		passwordTextbox.setBorder(new LineBorder(Color.BLUE, 1));
+		passwordTextboxContainer.add(passwordTextbox);
+		loginCredentials.add(passwordTextboxContainer);
+		
+		JPanel loginButtonContainer = new JPanel();
+		loginButtonContainer.setLayout(new BoxLayout(loginButtonContainer, BoxLayout.X_AXIS));
 		
         // -- Login Button
 		loginButton.setName("loginButton");
 		loginButton.setOpaque(false);
 		loginButton.setContentAreaFilled(false);
-		loginButton.setBorder(new EmptyBorder(75, 50, 25, 50));
+		loginButton.setBorder(new EmptyBorder(90, 25, 25, 0));
 		loginButton.addActionListener(loginController);
-		loginCredentials.add(loginButton, BorderLayout.SOUTH);
+		loginButtonContainer.add(loginButton);
 		
-		mainPane.add(loginCredentials, BorderLayout.CENTER);
 		
-		setContentPane(mainPane);       
+		loginCredentials.add(loginButtonContainer);
+		mainPane.add(loginCredentials); 
+		this.add(mainPane);
     }
 }
