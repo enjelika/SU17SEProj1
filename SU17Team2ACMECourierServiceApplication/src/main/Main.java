@@ -3,6 +3,7 @@ package main;
 import javax.swing.JFrame;
 
 import controller.ButtonController;
+import courierDAO.emDAO;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame
@@ -12,6 +13,7 @@ public class Main extends JFrame
 	
 	public static void main(String[] args)
 	{
+		emDAO.initEM();
 		buttonController = new ButtonController();
 		
 		window = new view.MainWindow(buttonController);
