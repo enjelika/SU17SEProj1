@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -24,14 +23,17 @@ import javax.swing.border.LineBorder;
 import controller.ButtonController;
 import model.Utility;
 
-@SuppressWarnings("serial")
-public class MainMenuScreen extends JFrame
+public class MainMenuScreen extends JPanel
 {
+	/**
+	 * Auto-generated Serialization ID
+	 */
+	private static final long serialVersionUID = -7354190704598226135L;
+	
 	private JButton adminMenuButton, customerMaintenanceButton, deliveryTicketButton, reportsButton, settingsButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel mainMenuContainer, mainPane, imgContainer;
-	
-	private String title = "ACME Courier Service";
+
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -56,7 +58,7 @@ public class MainMenuScreen extends JFrame
 		// Set the Logo image for the North part of the window
 		try 
 		{ 
-			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "acmeCourierServiceLogo.png"));
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "smACMECourierServiceLogo.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -96,34 +98,31 @@ public class MainMenuScreen extends JFrame
     
     public void SetUpView()
     {
-        setTitle(title);
-        setSize(1000, 900);
-        setLocationRelativeTo(null);
-        JFrame.setDefaultLookAndFeelDecorated(true); 
-        
         /*
-         *  Logo
+         *  Logo header
          */
         imgContainer = new JPanel();	
 		imgContainer.setSize(new Dimension(75, 50));
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 15, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 30, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
 		 *  Outer box for the Main Menu buttons
 		 */
 		mainMenuContainer.setLayout(new BoxLayout(mainMenuContainer, BoxLayout.Y_AXIS));
+		mainMenuContainer.setAlignmentX(CENTER_ALIGNMENT);
+		mainMenuContainer.setAlignmentY(CENTER_ALIGNMENT);
 		mainMenuContainer.setOpaque(false);
-		mainMenuContainer.setBounds(375, 400, 400, 175);
 		
         // -- Admin Menu Button
 		adminMenuButton.setName("adminMenuButton");
 		adminMenuButton.setOpaque(false);
 		adminMenuButton.setContentAreaFilled(false);
 		adminMenuButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		adminMenuButton.setVisible(false); //TODO:  This will need to be wired up to the Model for enable/disable by user role
 		adminMenuButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(adminMenuButton);
 		
@@ -166,10 +165,10 @@ public class MainMenuScreen extends JFrame
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(30, 215, 0, 0));
 		logoutButton.addActionListener(mainMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		
-		setContentPane(mainPane);
+		this.add(mainPane);
     }
 }

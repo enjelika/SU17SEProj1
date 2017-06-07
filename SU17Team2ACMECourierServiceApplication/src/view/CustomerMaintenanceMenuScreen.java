@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -26,13 +25,12 @@ import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
-public class CustomerMaintenanceMenuScreen extends JFrame
+public class CustomerMaintenanceMenuScreen extends JPanel
 {
 	private JButton addCustomerButton, editCustomerButton, deleteCustomerButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel customerMenuContainer, mainPane, imgContainer;
-	
-	private String title = "ACME Courier Service";
+
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -57,7 +55,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		// Set the Logo image for the North part of the window
 		try 
 		{ 
-			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "acmeCourierServiceLogo.png"));
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "smACMECourierServiceLogo.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -93,11 +91,6 @@ public class CustomerMaintenanceMenuScreen extends JFrame
     
     public void SetUpView()
     {
-        setTitle(title);
-        setSize(1000, 900);
-        setLocationRelativeTo(null);
-        JFrame.setDefaultLookAndFeelDecorated(true); 
-        
         /*
          *  Logo
          */
@@ -106,7 +99,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 15, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 30, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
@@ -119,7 +112,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		// -- Courier Maintenance Menu Label
 		JLabel courierMaintenanceMenuLabel = new JLabel();
 		courierMaintenanceMenuLabel.setText("Customer Maintenance");
-		courierMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		courierMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
 		courierMaintenanceMenuLabel.setBorder(new EmptyBorder(5, 5, 0, 0));
 		courierMaintenanceMenuLabel.setAlignmentX(LEFT_ALIGNMENT);
 		customerMenuContainer.add(courierMaintenanceMenuLabel);
@@ -136,7 +129,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		editCustomerButton.setName("editCustomerButton");
 		editCustomerButton.setOpaque(false);
 		editCustomerButton.setContentAreaFilled(false);
-		editCustomerButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		editCustomerButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editCustomerButton.addActionListener(customerMenuController);
 		customerMenuContainer.add(editCustomerButton);
 		
@@ -144,7 +137,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		deleteCustomerButton.setName("deleteCustomerButton");
 		deleteCustomerButton.setOpaque(false);
 		deleteCustomerButton.setContentAreaFilled(false);
-		deleteCustomerButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		deleteCustomerButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		deleteCustomerButton.addActionListener(customerMenuController);
 		customerMenuContainer.add(deleteCustomerButton);
 		
@@ -152,7 +145,7 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		backButton.setName("backButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(25, 75, 25, 75));
+		backButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		backButton.addActionListener(customerMenuController);
 		customerMenuContainer.add(backButton);
 		
@@ -163,10 +156,9 @@ public class CustomerMaintenanceMenuScreen extends JFrame
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 215, 0, 0));
 		logoutButton.addActionListener(customerMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
-		
-		setContentPane(mainPane);
+		this.add(mainPane);
     }
 }

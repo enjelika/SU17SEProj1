@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -26,13 +25,12 @@ import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
-public class DeliveryTicketMenuScreen extends JFrame
+public class DeliveryTicketMenuScreen extends JPanel
 {
 	private JButton createNewTicketButton, editTicketButton, cancelTicketButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketMenuContainer, mainPane, imgContainer;
 	
-	private String title = "ACME Courier Service";
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -57,7 +55,7 @@ public class DeliveryTicketMenuScreen extends JFrame
 		// Set the Logo image for the North part of the window
 		try 
 		{ 
-			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "acmeCourierServiceLogo.png"));
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "smACMECourierServiceLogo.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -93,11 +91,6 @@ public class DeliveryTicketMenuScreen extends JFrame
     
     public void SetUpView()
     {
-        setTitle(title);
-        setSize(1000, 900);
-        setLocationRelativeTo(null);
-        JFrame.setDefaultLookAndFeelDecorated(true); 
-        
         /*
          *  Logo
          */
@@ -106,7 +99,7 @@ public class DeliveryTicketMenuScreen extends JFrame
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 15, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 20, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
@@ -114,12 +107,11 @@ public class DeliveryTicketMenuScreen extends JFrame
 		 */
 		ticketMenuContainer.setLayout(new BoxLayout(ticketMenuContainer, BoxLayout.Y_AXIS));
 		ticketMenuContainer.setOpaque(false);
-		ticketMenuContainer.setBounds(375, 400, 400, 175);
 		
 		// -- Delivery Ticket Label
 		JLabel deliveryTicketLabel = new JLabel();
 		deliveryTicketLabel.setText("Delivery Ticket");
-		deliveryTicketLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		deliveryTicketLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
 		deliveryTicketLabel.setBorder(new EmptyBorder(5, 5, 0, 0));
 		deliveryTicketLabel.setAlignmentX(LEFT_ALIGNMENT);
 		ticketMenuContainer.add(deliveryTicketLabel);
@@ -128,7 +120,7 @@ public class DeliveryTicketMenuScreen extends JFrame
 		createNewTicketButton.setName("createNewTicketButton");
 		createNewTicketButton.setOpaque(false);
 		createNewTicketButton.setContentAreaFilled(false);
-		createNewTicketButton.setBorder(new EmptyBorder(5, 75, 0, 75));
+		createNewTicketButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		createNewTicketButton.addActionListener(ticketController);
 		ticketMenuContainer.add(createNewTicketButton);
 		
@@ -136,7 +128,7 @@ public class DeliveryTicketMenuScreen extends JFrame
 		editTicketButton.setName("editTicketButton");
 		editTicketButton.setOpaque(false);
 		editTicketButton.setContentAreaFilled(false);
-		editTicketButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		editTicketButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editTicketButton.addActionListener(ticketController);
 		ticketMenuContainer.add(editTicketButton);
 		
@@ -144,7 +136,7 @@ public class DeliveryTicketMenuScreen extends JFrame
 		cancelTicketButton.setName("cancelTicketButton");
 		cancelTicketButton.setOpaque(false);
 		cancelTicketButton.setContentAreaFilled(false);
-		cancelTicketButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		cancelTicketButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		cancelTicketButton.addActionListener(ticketController);
 		ticketMenuContainer.add(cancelTicketButton);
 		
@@ -152,7 +144,7 @@ public class DeliveryTicketMenuScreen extends JFrame
 		backButton.setName("backButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(25, 75, 25, 75));
+		backButton.setBorder(new EmptyBorder(0, 75, 10, 75));
 		backButton.addActionListener(ticketController);
 		ticketMenuContainer.add(backButton);
 		
@@ -163,10 +155,9 @@ public class DeliveryTicketMenuScreen extends JFrame
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 215, 0, 0));
 		logoutButton.addActionListener(ticketController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
-		
-		setContentPane(mainPane);
+		this.add(mainPane);
     }
 }
