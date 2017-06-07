@@ -38,7 +38,4 @@ public class Main extends JFrame
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
-}.setLocationRelativeTo(null);
-		window.setVisible(true);
-	}
 }
