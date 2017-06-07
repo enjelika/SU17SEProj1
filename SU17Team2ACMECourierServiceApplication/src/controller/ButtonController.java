@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.StreetMap;
+
 public class ButtonController implements ActionListener
 {
 	JFrame mainFrame;
@@ -250,6 +252,7 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
+				StreetMap.testMap();	// For testing purpose
     			break;
     			
     		/*
