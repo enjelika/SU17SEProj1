@@ -13,4 +13,10 @@ public class User
 	{
 		Password = password;
 	}
+	
+	// Verify user account
+	public void Verify() 
+	{
+		// TODO: Add logic here
+	}
 }
