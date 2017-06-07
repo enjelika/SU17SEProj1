@@ -55,7 +55,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		// Set the Logo image for the North part of the window
 		try 
 		{ 
-			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "acmeCourierServiceLogo.png"));
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "smACMECourierServiceLogo.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -99,7 +99,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 15, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 0, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
@@ -112,7 +112,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		// -- Courier Maintenance Menu Label
 		JLabel courierMaintenanceMenuLabel = new JLabel();
 		courierMaintenanceMenuLabel.setText("Courier Maintenance");
-		courierMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		courierMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
 		courierMaintenanceMenuLabel.setBorder(new EmptyBorder(5, 5, 0, 0));
 		courierMaintenanceMenuLabel.setAlignmentX(LEFT_ALIGNMENT);
 		courierMenuContainer.add(courierMaintenanceMenuLabel);
@@ -129,7 +129,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		editCourierButton.setName("editCourierButton");
 		editCourierButton.setOpaque(false);
 		editCourierButton.setContentAreaFilled(false);
-		editCourierButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		editCourierButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editCourierButton.addActionListener(courierMenuController);
 		courierMenuContainer.add(editCourierButton);
 		
@@ -137,15 +137,15 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		deleteCourierButton.setName("deleteCourierButton");
 		deleteCourierButton.setOpaque(false);
 		deleteCourierButton.setContentAreaFilled(false);
-		deleteCourierButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		deleteCourierButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		deleteCourierButton.addActionListener(courierMenuController);
 		courierMenuContainer.add(deleteCourierButton);
 		
         // -- Back Button
-		backButton.setName("backButton");
+		backButton.setName("adminBackButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(25, 75, 25, 75));
+		backButton.setBorder(new EmptyBorder(0, 75, 5, 75));
 		backButton.addActionListener(courierMenuController);
 		courierMenuContainer.add(backButton);
 		
@@ -156,7 +156,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 215, 0, 0));
 		logoutButton.addActionListener(courierMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		this.add(mainPane);

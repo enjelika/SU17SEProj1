@@ -55,7 +55,7 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		// Set the Logo image for the North part of the window
 		try 
 		{ 
-			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "acmeCourierServiceLogo.png"));
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "smACMECourierServiceLogo.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -99,7 +99,7 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(35, 10, 15, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 0, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
@@ -107,12 +107,11 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		 */
 		customerMenuContainer.setLayout(new BoxLayout(customerMenuContainer, BoxLayout.Y_AXIS));
 		customerMenuContainer.setOpaque(false);
-		customerMenuContainer.setBounds(375, 400, 400, 175);
 		
 		// -- Courier Maintenance Menu Label
 		JLabel staffMaintenanceMenuLabel = new JLabel();
 		staffMaintenanceMenuLabel.setText("Staff Maintenance");
-		staffMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		staffMaintenanceMenuLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
 		staffMaintenanceMenuLabel.setBorder(new EmptyBorder(5, 5, 0, 0));
 		staffMaintenanceMenuLabel.setAlignmentX(LEFT_ALIGNMENT);
 		customerMenuContainer.add(staffMaintenanceMenuLabel);
@@ -129,7 +128,7 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		editUserButton.setName("editUserButton");
 		editUserButton.setOpaque(false);
 		editUserButton.setContentAreaFilled(false);
-		editUserButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		editUserButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editUserButton.addActionListener(staffMaintenanceMenuController);
 		customerMenuContainer.add(editUserButton);
 		
@@ -137,15 +136,15 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		deleteUserButton.setName("deleteUserButton");
 		deleteUserButton.setOpaque(false);
 		deleteUserButton.setContentAreaFilled(false);
-		deleteUserButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		deleteUserButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		deleteUserButton.addActionListener(staffMaintenanceMenuController);
 		customerMenuContainer.add(deleteUserButton);
 		
         // -- Back Button
-		backButton.setName("backButton");
+		backButton.setName("adminBackButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(25, 75, 25, 75));
+		backButton.setBorder(new EmptyBorder(0, 75, 5, 75));
 		backButton.addActionListener(staffMaintenanceMenuController);
 		customerMenuContainer.add(backButton);
 		
@@ -156,7 +155,7 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 325, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 215, 0, 0));
 		logoutButton.addActionListener(staffMaintenanceMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		this.add(mainPane);

@@ -132,7 +132,7 @@ public class SettingsMenuScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(15, 215, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(12, 215, 0, 0));
 		logoutButton.addActionListener(settingsMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		this.add(mainPane);

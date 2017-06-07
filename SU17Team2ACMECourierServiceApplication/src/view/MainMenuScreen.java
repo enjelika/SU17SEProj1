@@ -106,7 +106,7 @@ public class MainMenuScreen extends JPanel
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(0, 10, 30, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 0, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
@@ -121,8 +121,8 @@ public class MainMenuScreen extends JPanel
 		adminMenuButton.setName("adminMenuButton");
 		adminMenuButton.setOpaque(false);
 		adminMenuButton.setContentAreaFilled(false);
-		adminMenuButton.setBorder(new EmptyBorder(25, 75, 0, 75));
-		adminMenuButton.setVisible(false); //TODO:  This will need to be wired up to the Model for enable/disable by user role
+		adminMenuButton.setBorder(new EmptyBorder(15, 75, 0, 75));
+		adminMenuButton.setVisible(true); //TODO:  This will need to be wired up to the Model for enable/disable by user role
 		adminMenuButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(adminMenuButton);
 		
@@ -130,7 +130,7 @@ public class MainMenuScreen extends JPanel
 		customerMaintenanceButton.setName("customerMaintenanceButton");
 		customerMaintenanceButton.setOpaque(false);
 		customerMaintenanceButton.setContentAreaFilled(false);
-		customerMaintenanceButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		customerMaintenanceButton.setBorder(new EmptyBorder(5, 75, 0, 75));
 		customerMaintenanceButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(customerMaintenanceButton);
 		
@@ -138,7 +138,7 @@ public class MainMenuScreen extends JPanel
 		deliveryTicketButton.setName("deliveryTicketButton");
 		deliveryTicketButton.setOpaque(false);
 		deliveryTicketButton.setContentAreaFilled(false);
-		deliveryTicketButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		deliveryTicketButton.setBorder(new EmptyBorder(5, 75, 0, 75));
 		deliveryTicketButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(deliveryTicketButton);
 		
@@ -146,7 +146,7 @@ public class MainMenuScreen extends JPanel
 		reportsButton.setName("reportsButton");
 		reportsButton.setOpaque(false);
 		reportsButton.setContentAreaFilled(false);
-		reportsButton.setBorder(new EmptyBorder(25, 75, 0, 75));
+		reportsButton.setBorder(new EmptyBorder(5, 75, 0, 75));
 		reportsButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(reportsButton);
 		
@@ -154,7 +154,7 @@ public class MainMenuScreen extends JPanel
 		settingsButton.setName("settingsButton");
 		settingsButton.setOpaque(false);
 		settingsButton.setContentAreaFilled(false);
-		settingsButton.setBorder(new EmptyBorder(25, 75, 25, 75));
+		settingsButton.setBorder(new EmptyBorder(5, 75, 15, 75));
 		settingsButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(settingsButton);
 		
@@ -165,7 +165,7 @@ public class MainMenuScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(30, 215, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(49, 215, 0, 0));
 		logoutButton.addActionListener(mainMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		

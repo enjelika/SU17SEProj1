@@ -5,16 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class ButtonController implements ActionListener
 {
 	JFrame mainFrame;
-	JPanel previousScreen;
 	
 	public ButtonController() 
 	{
-//		this.mainFrame = mainFrame;
 	}
 	
 	public void setMainFrame(JFrame mainFrame)
@@ -27,7 +24,6 @@ public class ButtonController implements ActionListener
 	{
 		JButton sender = (JButton) ae.getSource();
     	String buttonID = sender.getName();
-		//previousScreen = (JPanel)mainFrame.getContentPane();
 		
     	switch(buttonID)
     	{
@@ -40,7 +36,6 @@ public class ButtonController implements ActionListener
 				break;
 				
 			case "courierMaintenanceButton":
-				// TODO: Courier Maintenance Admin Menu action here
 				System.out.println("Going to the Courier Maintenance Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.CourierMaintenanceMenuScreen(this)); 
@@ -50,7 +45,6 @@ public class ButtonController implements ActionListener
 				break;
 				
 			case "staffMaintenanceButton":
-				// TODO: Staff Maintenance Admin Menu action here
 				System.out.println("Going to the Staff Maintenance Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.StaffMaintenanceMenuScreen(this)); 
@@ -63,8 +57,12 @@ public class ButtonController implements ActionListener
 			 * Courier Maintenance Menu Buttons	
 			 */
 			case "addCourierButton":
-				// TODO: Add a Courier Courier Maintenance Menu action here
-				System.out.println(buttonID + " was pressed");
+				System.out.println("Going to the Add a Courier Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.AddCourierScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
 				break; 
 				
 			case "editCourierButton":
@@ -80,26 +78,30 @@ public class ButtonController implements ActionListener
 			/*
 			 * Customer Maintenance Menu Buttons	
 			 */
-				case "addCustomerButton":
-					// TODO: Add a Customer Customer Maintenance Menu action here
-					System.out.println(buttonID + " was pressed");
-					break; 
+			case "addCustomerButton":
+				System.out.println("Going to the Add a New Customer Screen...");
+	    		mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.AddCustomerScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+				break; 
 					
-				case "editCustomerButton":
-					// TODO: Edit a Customer Customer Maintenance Menu action here
-					System.out.println(buttonID + " was pressed");
-					break;  
+			case "editCustomerButton":
+				// TODO: Edit a Customer Customer Maintenance Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;  
 					
-				case "deleteCustomerButton":
-					// TODO: Delete a Customer Customer Maintenance Menu action here
-					System.out.println(buttonID + " was pressed");
-					break;  
+			case "deleteCustomerButton":
+				// TODO: Delete a Customer Customer Maintenance Menu action here
+				System.out.println(buttonID + " was pressed");
+				break;  
 				
     		/*
     		 * Main Menu Buttons
     		 */
     		case "adminMenuButton":
-    			// TODO: Admin Menu action here
+    			// TODO: Admin Menu action here (Be sure to implement boolean for menu option)
     			System.out.println("Going to the Admin Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.AdminMenuScreen(this)); 
@@ -109,7 +111,6 @@ public class ButtonController implements ActionListener
     			break;
     			
     		case "customerMaintenanceButton":
-    			// TODO: Customer Maintenance Menu action here
     			System.out.println("Going to the Customer Maintenance Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.CustomerMaintenanceMenuScreen(this)); 
@@ -119,7 +120,6 @@ public class ButtonController implements ActionListener
     			break;
     			
     		case "deliveryTicketButton":
-    			// TODO: Delivery Ticket Menu action here
     			System.out.println("Going to the Delivery Ticket Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.DeliveryTicketMenuScreen(this)); 
@@ -129,7 +129,6 @@ public class ButtonController implements ActionListener
     			break;
     			
     		case "reportsButton":
-    			// TODO: Reports Menu action here
     			System.out.println("Going to the Reports Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.ReportsMenuScreen(this)); 
@@ -139,7 +138,6 @@ public class ButtonController implements ActionListener
     			break;
     			
     		case "settingsButton":
-    			// TODO: Settings Menu action here
     			System.out.println("Going to the Settings Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.SettingsMenuScreen(this)); 
@@ -212,8 +210,12 @@ public class ButtonController implements ActionListener
    	   		 * Staff Maintenance Menu Buttons	
    	   		 */
    	   		case "addUserButton":
-   	   			// TODO: Add a User Staff Maintenance Menu action here
-   	   			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to the Add a User screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.AddUserScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
    	   			break; 
    	    					
    	   		case "editUserButton":
@@ -227,13 +229,48 @@ public class ButtonController implements ActionListener
    	   			break; 
    				
     		/*
-    		 * Back Button
+    		 * Back Buttons
     		 */
-    		case "backButton":
-    			// TODO: Back action here - not quite working
-    			System.out.println("Going back to the previous screen..."); // + previousScreen.toString());
+    		case "adminBackButton":
+    			System.out.println("Going back to the Admin Menu screen..."); 
     			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this)); //previousScreen); 
+				mainFrame.setContentPane(new view.AdminMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;	
+    			
+    		case "courierMaintBackButton":
+    			System.out.println("Going back to the Courier Maintenance Menu screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CourierMaintenanceMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;	
+    			
+    		case "customerMaintBackButton":
+    			System.out.println("Going back to the Customer Maintenance Menu screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CustomerMaintenanceMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;	
+    			
+    		case "backButton":
+    			System.out.println("Going back to the Main Menu screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.MainMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;	
+    			
+    		case "staffMaintBackButton":
+    			System.out.println("Going back to the Staff Maintenance Menu screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.StaffMaintenanceMenuScreen(this)); 
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
@@ -243,7 +280,7 @@ public class ButtonController implements ActionListener
     		 * Login Screen Button
     		 */
     		case "loginButton":
-    			// TODO: Login action here
+    			// TODO: Login action here (wire up to the Model for the logic)
     			System.out.println("To the Main Menu...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.MainMenuScreen(this));
@@ -256,7 +293,7 @@ public class ButtonController implements ActionListener
     		 * Logout Button
     		 */
     		case "logoutButton":
-    			// TODO: Logout action here
+    			// TODO: Logout action here (wire up to the Model for the logic)
     			System.out.println("Going back to the Login Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.LoginScreen(this)); 
@@ -266,7 +303,7 @@ public class ButtonController implements ActionListener
     			break;
     			
     		/*
-    		 * Default
+    		 * Default - do nothing
     		 */
     		default:
     			break;

@@ -27,7 +27,7 @@ import model.Utility;
 @SuppressWarnings("serial")
 public class CustomerMaintenanceMenuScreen extends JPanel
 {
-	private JButton addCustomerButton, editCustomerButton, deleteCustomerButton, backButton, logoutButton;
+	private JButton addCustomerButton, editCustomerButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel customerMenuContainer, mainPane, imgContainer;
 
@@ -65,17 +65,13 @@ public class CustomerMaintenanceMenuScreen extends JPanel
     	/*
     	 *  Setup the images for each button
     	 */
-    	// Create a New Ticket Button
+    	// Add a Customer Button
     	Image addCustomerButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "addCustomerButton.png");
     	addCustomerButton = new JButton(new ImageIcon(addCustomerButtonIcon));     	
     	
-    	// Edit a Ticket Button
+    	// Edit a Customer Button
     	Image editCustomerButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "editCustomerButton.png");
     	editCustomerButton = new JButton(new ImageIcon(editCustomerButtonIcon));      	
-    	
-    	// Cancel a Ticket Button
-    	Image deleteCustomerButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "deleteCustomerButton.png");
-    	deleteCustomerButton = new JButton(new ImageIcon(deleteCustomerButtonIcon));    	
     	
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton.png");
@@ -133,14 +129,6 @@ public class CustomerMaintenanceMenuScreen extends JPanel
 		editCustomerButton.addActionListener(customerMenuController);
 		customerMenuContainer.add(editCustomerButton);
 		
-        // -- Delete a Customer Button
-		deleteCustomerButton.setName("deleteCustomerButton");
-		deleteCustomerButton.setOpaque(false);
-		deleteCustomerButton.setContentAreaFilled(false);
-		deleteCustomerButton.setBorder(new EmptyBorder(0, 75, 0, 75));
-		deleteCustomerButton.addActionListener(customerMenuController);
-		customerMenuContainer.add(deleteCustomerButton);
-		
         // -- Back Button
 		backButton.setName("backButton");
 		backButton.setOpaque(false);
@@ -156,7 +144,7 @@ public class CustomerMaintenanceMenuScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 215, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(105, 215, 0, 0));
 		logoutButton.addActionListener(customerMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		this.add(mainPane);
