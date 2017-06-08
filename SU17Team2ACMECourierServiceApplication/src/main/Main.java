@@ -12,8 +12,7 @@ public class Main extends JFrame
 	private static JFrame window;
 	private static ButtonController buttonController;
 	private static Model model;
-	
-	@SuppressWarnings("serial")
+
 	public static void main(String[] args)
 	{
 		/**
