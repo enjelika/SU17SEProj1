@@ -20,6 +20,7 @@ public class Intersection implements Comparable<Intersection>
 	{
 		if(this == this.previous) 
 		{
+			System.out.println("Direction: ");
 			System.out.printf("%s", this.streetName);
 		}
 		else if (this.previous == null) 
@@ -29,7 +30,8 @@ public class Intersection implements Comparable<Intersection>
 		else 
 		{
 			this.previous.PrintDirection();
-			System.out.printf(" --> %s(%d blocks)", this.streetName, this.distance);
+			System.out.printf(" --> %s(travelled %d blocks)", this.streetName, this.distance);
+			System.out.println("");
 			//System.out.printf(" --> %s", this.streetName);
 		}
 	}

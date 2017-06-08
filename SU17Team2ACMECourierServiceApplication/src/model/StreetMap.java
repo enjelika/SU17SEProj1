@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class StreetMap
@@ -7,10 +11,14 @@ public class StreetMap
 	// Mapping of intersection names to Intersection objects, built from a set of Street Segment
 	private final Map<String, Intersection> map;
 	
+	// Street Segment list that is used to build a map
+	public static List<StreetSegment> StreetSegmentList = new ArrayList<StreetSegment>();
+	
 	// Build a streets map from a set of street segments
-	public StreetMap(StreetSegment[] streetSegment) 
+	public StreetMap(List<StreetSegment> streetSegment)
 	{
-		map = new HashMap<>(streetSegment.length);
+		//map = new HashMap<>(streetSegment.length);
+		map = new HashMap<>(streetSegment.size());
 		
 		// One pass to find all intersections
 		for (StreetSegment ss : streetSegment) 
@@ -46,11 +54,11 @@ public class StreetMap
 			intersectionSet.add(i);
 		}
 		
-		Dijkstra(intersectionSet);
+		dijkstra(intersectionSet);
 	}
 	
 	// Implementation of dijkstra's algorithm using a binary heap
-	private void Dijkstra(final NavigableSet<Intersection> IntersectionSet) 
+	private void dijkstra(final NavigableSet<Intersection> IntersectionSet) 
 	{
 		Intersection intersection1, intersection2;
 		while(!IntersectionSet.isEmpty()) 
@@ -106,42 +114,76 @@ public class StreetMap
 	// For testing purpose
 	public static void testMap() 
 	{
-		//int Blocked = Integer.MAX_VALUE;
-		int Blocked = 9999;
-		
-		final StreetSegment[] streetSegmentList = 
+		final String startIntersection = "7th Ave and G Street";
+		final String endIntersection = "1st Ave and A Street";
+		try 
 		{
-			new StreetSegment("A1", "B1", Blocked),
-			new StreetSegment("B1", "A1", 1),		     
-			new StreetSegment("A1", "A2", 1),		      
-			new StreetSegment("A2", "A1", Blocked),		     
-			new StreetSegment("B1", "C1", Blocked),		      
-			new StreetSegment("C1", "B1", 1),		      
-			new StreetSegment("B1", "B2", Blocked),		      		      
-			new StreetSegment("B2", "B1", 1),		      
-			new StreetSegment("C1", "C2", 1),		      		      
-			new StreetSegment("C2", "C1", Blocked),		
-			new StreetSegment("A2", "B2", 1),		      		      
-			new StreetSegment("B2", "A2", 1),		
-			new StreetSegment("B2", "C2", 1),		      		      
-			new StreetSegment("C2", "B2", 1),
-			new StreetSegment("A2", "A3", 1),		      		      
-			new StreetSegment("A3", "A2", Blocked),
-			new StreetSegment("B2", "B3", Blocked),		      		      
-			new StreetSegment("B3", "B2", 1),
-			new StreetSegment("C2", "C3", 1),		      		      
-			new StreetSegment("C3", "C2", Blocked),
-			new StreetSegment("A3", "B3", Blocked),		      		      
-			new StreetSegment("B3", "A3", 1),
-			new StreetSegment("B3", "C3", Blocked),		      		      
-			new StreetSegment("C3", "B3", 1),
-		};
+			LoadMap("StreetSegments.csv");
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error reading file");  
+		}
 		
-		final String startIntersection = "C3";
-		final String endIntersection = "A1";
-		
-		StreetMap m = new StreetMap(streetSegmentList);
+		StreetMap m = new StreetMap(StreetSegmentList);
 		m.Dijkstra(startIntersection);
 		m.PrintDirection(endIntersection);
+	}
+	
+	// Load the map from cvs file
+	public static void LoadMap(String pathName) throws IOException
+	{	
+		String line = null;
+		String[] token;
+		
+		String intersection1;
+		String intersection2;
+		String distance;		
+		
+		BufferedReader bufferedReader = null;
+	    try 
+	    {
+	        // FileReader reads text files in the default encoding.
+	        FileReader fileReader = new FileReader(pathName);
+
+	        // Always wrap FileReader in BufferedReader.
+	        bufferedReader = new BufferedReader(fileReader);
+	       
+	        // Read and discard headings in csv
+	        line = bufferedReader.readLine();
+	        
+	        while((line = bufferedReader.readLine()) != null) 
+		    {
+        		//split data by comma
+	        	token = line.split(",");
+	        	if ( token.length < 3)
+	        		throw new IOException("Bad file format: " + pathName);
+	        	else
+	        	{
+		        	intersection1 = token[0];
+		        	intersection2 = token[1];	
+		        	distance = token[2];	
+	        	}
+	        	StreetSegmentList.add(new StreetSegment(intersection1, intersection2, Integer.parseInt(distance)));    	
+	        }
+	    }
+	    catch(FileNotFoundException ex) 
+	    {
+	        System.out.println(
+	            "Unable to open file '" + 
+	            pathName + "'" + " at cur dir: " + System.getProperty("user.dir"));    
+	        throw ex;
+	    }
+	    catch(IOException ex) 
+	    {
+	        System.out.println("Error reading file '" + pathName + "'");  
+	        throw ex;
+		}
+	    finally
+	    {
+	    	 // Always close files.
+	    	if ( bufferedReader != null )
+	    		bufferedReader.close();     
+	    }
 	}
 }
