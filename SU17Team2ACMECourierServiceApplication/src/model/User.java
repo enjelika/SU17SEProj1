@@ -3,8 +3,10 @@ package model;
 public class User
 {
 	// Declare variables
-	public String Name;
+	public String UserName;
 	public String Password;
+	public String AccessLevel;
+	public String IsActive;
 	public String Type;	// Consider to use enum here instead of String	
 	public int ID;
 	

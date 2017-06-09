@@ -16,27 +16,21 @@ public class User implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Id //signifies the primary key
-    @Column(name = "player_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private long playerId;
+	private long userId;
 	
-	/**
-	 * The name of the Player
-	 */
-	@Column(name = "name", nullable = false,length = 50)
-	private String name;
+	@Column(name = "username", nullable = false,length = 50)
+	private String userName;
 	
-	/**
-	 * The position the Player plays on the Team.
-	 */
-	@Column(name = "position", nullable = false,length = 15)
-	private String position;
+	@Column(name = "password", nullable = false,length = 50)
+	private String password;
 	
-	/**
-	 * The number on the Player's jersey.
-	 */
-	@Column(name = "number", nullable = false,length = 3)
-	private String number;
+	@Column(name = "accesslevel", nullable = false,length = 10)
+	private String accessLevel;
+	
+	@Column(name = "isactive", nullable = false,length = 1)
+	private String isActive;
 
 	public User()
 	{
@@ -46,45 +40,56 @@ public class User implements Serializable
 	public User(User team, String name, String position, String number)
 	{
 		this();
-		this.name = name;
-		this.position = position;
-		this.number = number;
+		//this.name = name;
+		//this.position = position;
+		//this.number = number;
 		//team.addPlayer(this);
 	}
 	
 
-	public String getName()
+	public String getUserName()
 	{
-		return this.name;
+		return this.userName;
 	}
 
-	public void setName(String name)
+	public void setUserName(String userName)
 	{
-		this.name = name;
+		this.userName = userName;
 	}
 
-	public String getPosition()
+	public String getPassword()
 	{
-		return this.position;
+		return this.password;
 	}
 
-	public void setPosition(String position)
+	public void setPassword(String password)
 	{
-		this.position = position;
+		this.password = password;
 	}
 
-	public String getNumber()
+	public String getAccessLevel()
 	{
-		return this.number;
+		return this.accessLevel;
 	}
 
-	public void setNumber(String number)
+	public void setAccessLevel(String accessLevel)
 	{
-		this.number = number;
+		this.accessLevel = accessLevel;
+	}
+	
+	public String getIsActive()
+	{
+		return this.isActive;
+	}
+	
+	public void setIsActive(String isActive)
+	{
+		this.isActive = isActive;
 	}
 
-	public String toString()
+	/*public String toString()
 	{
 		return getNumber()+":"+getName()+":"+getPosition();
-	}
+	}*/
+	
 }
