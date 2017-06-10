@@ -25,7 +25,7 @@ public class Main extends JFrame
 		 *  
 		 *  Note: Some or all of the controllers may need to have the model passed to it
 		 */
-		buttonController = new ButtonController();
+		buttonController = new ButtonController(model);
 				
 		/**
 		 *  The View

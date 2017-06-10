@@ -6,14 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import model.Model;
 import model.StreetMap;
 
 public class ButtonController implements ActionListener
 {
 	JFrame mainFrame;
+	Model model;
 	
-	public ButtonController() 
+	public ButtonController(Model model) 
 	{
+		this.model = model;
 	}
 	
 	public void setMainFrame(JFrame mainFrame)
