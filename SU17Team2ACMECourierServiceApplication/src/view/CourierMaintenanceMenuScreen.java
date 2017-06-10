@@ -27,7 +27,7 @@ import model.Utility;
 @SuppressWarnings("serial")
 public class CourierMaintenanceMenuScreen extends JPanel
 {
-	private JButton addCourierButton, editCourierButton, deleteCourierButton, backButton, logoutButton;
+	private JButton addCourierButton, editCourierButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel courierMenuContainer, mainPane, imgContainer;
 
@@ -47,7 +47,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
     	// Container for the menu buttons
     	courierMenuContainer = new JPanel();
     	Border border = new LineBorder(Color.BLUE, 1);
-    	Border margin = new EmptyBorder(0, 300, 0, 300);
+    	Border margin = new EmptyBorder(0, 300, 90, 300);
     	courierMenuContainer.setBorder(new CompoundBorder(margin, border));
     	courierMenuContainer.setAlignmentX(CENTER_ALIGNMENT);
     	courierMenuContainer.setAlignmentY(CENTER_ALIGNMENT);
@@ -65,17 +65,13 @@ public class CourierMaintenanceMenuScreen extends JPanel
     	/*
     	 *  Setup the images for each button
     	 */
-    	// Create a New Ticket Button
+    	// Add a Courier Button
     	Image addCourierButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "addCourierButton.png");
     	addCourierButton = new JButton(new ImageIcon(addCourierButtonIcon));     	
     	
-    	// Edit a Ticket Button
+    	// Edit a Courier Button
     	Image editCourierButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "editCourierButton.png");
     	editCourierButton = new JButton(new ImageIcon(editCourierButtonIcon));      	
-    	
-    	// Cancel a Ticket Button
-    	Image deleteCourierButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "deleteCourierButton.png");
-    	deleteCourierButton = new JButton(new ImageIcon(deleteCourierButtonIcon));    	
     	
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton.png");
@@ -99,7 +95,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		imageFrame = new JLabel();
 		imageFrame = new JLabel(new ImageIcon(acmeCourierServiceLogo));
 		imgContainer.add((Component)imageFrame);
-		imgContainer.setBorder(new EmptyBorder(0, 10, 0, 10));
+		imgContainer.setBorder(new EmptyBorder(0, 10, 30, 10));
 		mainPane.add(imgContainer, BorderLayout.NORTH);
 		
 		/*
@@ -117,7 +113,7 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		courierMaintenanceMenuLabel.setAlignmentX(LEFT_ALIGNMENT);
 		courierMenuContainer.add(courierMaintenanceMenuLabel);
 		
-        // -- Create a New Ticket Button
+        // -- Add a Courier Button
 		addCourierButton.setName("addCourierButton");
 		addCourierButton.setOpaque(false);
 		addCourierButton.setContentAreaFilled(false);
@@ -125,21 +121,13 @@ public class CourierMaintenanceMenuScreen extends JPanel
 		addCourierButton.addActionListener(courierMenuController);
 		courierMenuContainer.add(addCourierButton);
 		
-        // -- Edit a Ticket Button
+        // -- Edit a Courier Button
 		editCourierButton.setName("editCourierButton");
 		editCourierButton.setOpaque(false);
 		editCourierButton.setContentAreaFilled(false);
 		editCourierButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editCourierButton.addActionListener(courierMenuController);
 		courierMenuContainer.add(editCourierButton);
-		
-        // -- Cancel a Ticket Button
-		deleteCourierButton.setName("deleteCourierButton");
-		deleteCourierButton.setOpaque(false);
-		deleteCourierButton.setContentAreaFilled(false);
-		deleteCourierButton.setBorder(new EmptyBorder(0, 75, 0, 75));
-		deleteCourierButton.addActionListener(courierMenuController);
-		courierMenuContainer.add(deleteCourierButton);
 		
         // -- Back Button
 		backButton.setName("adminBackButton");

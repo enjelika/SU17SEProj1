@@ -27,7 +27,7 @@ import model.Utility;
 @SuppressWarnings("serial")
 public class StaffMaintenanceMenuScreen extends JPanel
 {
-	private JButton addUserButton, editUserButton, deleteUserButton, backButton, logoutButton;
+	private JButton addUserButton, editUserButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel customerMenuContainer, mainPane, imgContainer;
 	
@@ -47,7 +47,7 @@ public class StaffMaintenanceMenuScreen extends JPanel
     	// Container for the menu buttons
     	customerMenuContainer = new JPanel();
     	Border border = new LineBorder(Color.BLUE, 1);
-    	Border margin = new EmptyBorder(0, 300, 0, 300);
+    	Border margin = new EmptyBorder(0, 300, 120, 300);
     	customerMenuContainer.setBorder(new CompoundBorder(margin, border));
     	customerMenuContainer.setAlignmentX(CENTER_ALIGNMENT);
     	customerMenuContainer.setAlignmentY(CENTER_ALIGNMENT);
@@ -65,18 +65,14 @@ public class StaffMaintenanceMenuScreen extends JPanel
     	/*
     	 *  Setup the images for each button
     	 */
-    	// Create a New Ticket Button
+    	// Add a New User Button
     	Image addUserButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "addUserButton.png");
     	addUserButton = new JButton(new ImageIcon(addUserButtonIcon));     	
     	
-    	// Edit a Ticket Button
+    	// Edit a User Button
     	Image editUserButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "editUserButton.png");
     	editUserButton = new JButton(new ImageIcon(editUserButtonIcon));      	
-    	
-    	// Cancel a Ticket Button
-    	Image deleteUserButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "deleteUserButton.png");
-    	deleteUserButton = new JButton(new ImageIcon(deleteUserButtonIcon));    	
-    	
+
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton.png");
     	backButton = new JButton(new ImageIcon(backButtonIcon));
@@ -116,7 +112,7 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		staffMaintenanceMenuLabel.setAlignmentX(LEFT_ALIGNMENT);
 		customerMenuContainer.add(staffMaintenanceMenuLabel);
 		
-        // -- Add a Customer Button
+        // -- Add a User Button
 		addUserButton.setName("addUserButton");
 		addUserButton.setOpaque(false);
 		addUserButton.setContentAreaFilled(false);
@@ -124,21 +120,13 @@ public class StaffMaintenanceMenuScreen extends JPanel
 		addUserButton.addActionListener(staffMaintenanceMenuController);
 		customerMenuContainer.add(addUserButton);
 		
-        // -- Edit a Customer Button
+        // -- Edit a User Button
 		editUserButton.setName("editUserButton");
 		editUserButton.setOpaque(false);
 		editUserButton.setContentAreaFilled(false);
 		editUserButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editUserButton.addActionListener(staffMaintenanceMenuController);
 		customerMenuContainer.add(editUserButton);
-		
-        // -- Delete a Customer Button
-		deleteUserButton.setName("deleteUserButton");
-		deleteUserButton.setOpaque(false);
-		deleteUserButton.setContentAreaFilled(false);
-		deleteUserButton.setBorder(new EmptyBorder(0, 75, 0, 75));
-		deleteUserButton.addActionListener(staffMaintenanceMenuController);
-		customerMenuContainer.add(deleteUserButton);
 		
         // -- Back Button
 		backButton.setName("adminBackButton");

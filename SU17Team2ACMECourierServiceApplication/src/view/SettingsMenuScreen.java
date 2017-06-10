@@ -99,7 +99,6 @@ public class SettingsMenuScreen extends JPanel
 		 */
 		settingsMenuContainer.setLayout(new BoxLayout(settingsMenuContainer, BoxLayout.Y_AXIS));
 		settingsMenuContainer.setOpaque(false);
-		settingsMenuContainer.setBounds(375, 400, 400, 175);
 
 		// -- Settings Menu Label
 		JLabel settingsMenuLabel = new JLabel();

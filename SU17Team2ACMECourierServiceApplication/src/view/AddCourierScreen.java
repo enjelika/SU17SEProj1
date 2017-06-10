@@ -55,7 +55,7 @@ public class AddCourierScreen extends JPanel
     	addCourierContainer.setAlignmentY(CENTER_ALIGNMENT);
     	
     	southButtonContainer = new JPanel();
-    	southButtonContainer.setBorder(new EmptyBorder(50, 5, 5, 5));
+    	southButtonContainer.setBorder(new EmptyBorder(75, 5, 5, 5));
     	southButtonContainer.setLayout(new BoxLayout(southButtonContainer, BoxLayout.X_AXIS));
     	
 		// Set the Logo image for the North part of the window
@@ -204,7 +204,7 @@ public class AddCourierScreen extends JPanel
 		backButton.setName("courierMaintBackButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(10, 0, 0, 200));
+		backButton.setBorder(new EmptyBorder(10, 0, 0, 215));
 		backButton.addActionListener(addCourierController);
 		southButtonContainer.add(backButton);
 		
@@ -212,7 +212,7 @@ public class AddCourierScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(10, 200, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(10, 215, 0, 0));
 		logoutButton.addActionListener(addCourierController);
 		southButtonContainer.add(logoutButton);
 		

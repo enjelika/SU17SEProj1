@@ -29,33 +29,37 @@ import javax.swing.border.LineBorder;
 import controller.ButtonController;
 import model.Utility;
 
-@SuppressWarnings("serial")
-public class AddUserScreen extends JPanel
+public class EditUserScreen extends JPanel
 {
-	private JButton resetButton, saveButton, backButton, logoutButton;
+
+	/**
+	 * Auto-generated Serialization ID
+	 */
+	private static final long serialVersionUID = 6951443040591813836L;
+
+	private JButton findButton, resetButton, saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
-	private JPanel addNewUserContainer, southButtonContainer, mainPane, imgContainer;
+	private JPanel editUserContainer, southButtonContainer, mainPane, imgContainer;
 
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
-    private ButtonController addCourierController;
+    private ButtonController editCourierController;
     
-    public AddUserScreen(ButtonController buttonController)
+    public EditUserScreen(ButtonController buttonController)
     {
-    	addCourierController = buttonController;
+    	editCourierController = buttonController;
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
     	
     	// Container for the menu buttons
-    	addNewUserContainer = new JPanel();
+    	editUserContainer = new JPanel();
     	Border border = new LineBorder(Color.BLUE, 1);
     	Border margin = new EmptyBorder(0, 50, 0, 50);
-    	addNewUserContainer.setBorder(new CompoundBorder(margin, border));
-    	addNewUserContainer.setAlignmentX(CENTER_ALIGNMENT);
-    	addNewUserContainer.setAlignmentY(CENTER_ALIGNMENT);
+    	editUserContainer.setBorder(new CompoundBorder(margin, border));
+    	editUserContainer.setAlignmentY(CENTER_ALIGNMENT);
     	
     	southButtonContainer = new JPanel();
     	southButtonContainer.setBorder(new EmptyBorder(15, 5, 5, 5));
@@ -74,6 +78,10 @@ public class AddUserScreen extends JPanel
     	/*
     	 *  Setup the images for each button
     	 */
+		// Find Button
+    	Image findButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "findButton.png");
+    	findButton = new JButton(new ImageIcon(findButtonIcon)); 
+    	
     	// Reset Button
     	Image resetButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "resetButton.png");
     	resetButton = new JButton(new ImageIcon(resetButtonIcon)); 
@@ -110,30 +118,37 @@ public class AddUserScreen extends JPanel
 		/*
 		 *  Outer box for the Main Menu buttons
 		 */
-		addNewUserContainer.setLayout(new BoxLayout(addNewUserContainer, BoxLayout.Y_AXIS));
-		addNewUserContainer.setOpaque(false);
+		editUserContainer.setLayout(new BoxLayout(editUserContainer, BoxLayout.Y_AXIS));
+		editUserContainer.setOpaque(false);
 		
-		JPanel addCourierScreenTitle = new JPanel();
-		addCourierScreenTitle.setLayout(new BoxLayout(addCourierScreenTitle, BoxLayout.X_AXIS));
-		addCourierScreenTitle.setBorder(new EmptyBorder(15, 15, 0, 450));
+		JPanel editUserScreenTitle = new JPanel();
+		editUserScreenTitle.setLayout(new BoxLayout(editUserScreenTitle, BoxLayout.X_AXIS));
+		editUserScreenTitle.setBorder(new EmptyBorder(15, 15, 0, 450));
 		
 		
 		// -- Add a New User Screen Label
-		JLabel addNewUserScreenLabel = new JLabel();
-		addNewUserScreenLabel.setText("Add a New User:");
-		addNewUserScreenLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
-		addNewUserScreenLabel.setBorder(new EmptyBorder(5, 5, 0, 200));
-		addNewUserScreenLabel.setAlignmentX(LEFT_ALIGNMENT);
-		addCourierScreenTitle.add(addNewUserScreenLabel);
+		JLabel editNewUserScreenLabel = new JLabel();
+		editNewUserScreenLabel.setText("Staff Information:");
+		editNewUserScreenLabel.setFont(new Font("Calibri", Font.PLAIN, 28));
+		editNewUserScreenLabel.setBorder(new EmptyBorder(5, 5, 0, 200));
+		editNewUserScreenLabel.setAlignmentX(LEFT_ALIGNMENT);
+		editUserScreenTitle.add(editNewUserScreenLabel);
 		
-		addNewUserContainer.add(addCourierScreenTitle);
+		editUserContainer.add(editUserScreenTitle);
+		
+		/*
+		 *  Container for User ID field and User Name field
+		 */
+		JPanel userFields = new JPanel();
+		userFields.setLayout(new BoxLayout(userFields, BoxLayout.Y_AXIS));
+		userFields.setBorder(new EmptyBorder(25, 0, 0, 0));
 		
 		/*
 		 *  Inner first container for User ID field
 		 */
 		JPanel userIdContainer = new JPanel();
 		userIdContainer.setLayout(new BoxLayout(userIdContainer, BoxLayout.X_AXIS));
-		userIdContainer.setBorder(new EmptyBorder(25, 25, 10, 10));
+		userIdContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
 		
 			// -- User ID Label
 			JLabel userIdLabel = new JLabel();
@@ -142,26 +157,28 @@ public class AddUserScreen extends JPanel
 			userIdLabel.setAlignmentX(LEFT_ALIGNMENT);
 			userIdContainer.add(userIdLabel);
 			
+			// Used to "pretty" up the Text Field
+			JPanel userIdTextboxContainer = new JPanel();
+			userIdTextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+			userIdTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 5));
+			
 			// -- User ID TextField
-			Border borderO1 = new LineBorder(Color.BLUE, 1);
-	    	Border marginO2 = new EmptyBorder(0, 60, 0, 25);
-	    	JTextField userIdField = new JTextField("<auto-generated>");
+	    	JTextField userIdField = new JTextField("", 20);
 			userIdField.setHorizontalAlignment(JTextField.LEFT);
-			userIdField.setOpaque(false);
 			userIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
-			userIdField.setBorder(new CompoundBorder(marginO2, borderO1));
-			userIdField.setEditable(false);
-			userIdContainer.add(userIdField);
+			userIdField.setBorder(new LineBorder(Color.BLUE, 1));
+			userIdTextboxContainer.add(userIdField);
+			userIdContainer.add(userIdTextboxContainer);
 		
 		// -- end of User ID Field
-		addNewUserContainer.add(userIdContainer);
+		editUserContainer.add(userIdContainer);
 			
 		/*
 		 *  Inner second container for User Name field
 		 */
 		JPanel userNameContainer = new JPanel();
 		userNameContainer.setLayout(new BoxLayout(userNameContainer, BoxLayout.X_AXIS));
-		userNameContainer.setBorder(new EmptyBorder(15, 25, 10, 10));
+		userNameContainer.setBorder(new EmptyBorder(10, 0, 10, 0));
 		
 			// -- User Name Label
 			JLabel userNameLabel = new JLabel();
@@ -173,19 +190,36 @@ public class AddUserScreen extends JPanel
 			// Used to "pretty" up the Text Field
 			JPanel usernameTextboxContainer = new JPanel();
 			usernameTextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
-			usernameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+			usernameTextboxContainer.setBorder(new EmptyBorder(0, 20, 0, 5));
 			
 			// -- User Name TextField
-	    	JTextField userNameField = new JTextField("", 28);
+	    	JTextField userNameField = new JTextField("", 20);
 	    	userNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	userNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	userNameField.setBorder(new LineBorder(Color.BLUE, 1));
 	    	usernameTextboxContainer.add(userNameField);
 			userNameContainer.add(usernameTextboxContainer);
 		
-		// -- end of 1st "New Password" Field
-		addNewUserContainer.add(userNameContainer);
+		// -- end of User Id and Name Fields
+		userFields.add(userIdContainer);
+		userFields.add(userNameContainer);
 			
+		JPanel userSearchContainer = new JPanel();
+		userSearchContainer.setLayout(new BoxLayout(userSearchContainer, BoxLayout.X_AXIS));
+		userSearchContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+		
+		// Find Button
+		findButton.setName("findCourierButton");
+		findButton.setOpaque(false);
+		findButton.setContentAreaFilled(false);
+		findButton.setBorder(new EmptyBorder(15, 0, 0, 0));
+		findButton.addActionListener(editCourierController);
+				
+		userSearchContainer.add(userFields);
+		userSearchContainer.add(findButton);
+				
+		editUserContainer.add(userSearchContainer);
+				
 		/*
 		 *  Inner second container for 1st "Password" field
 		 */
@@ -202,11 +236,11 @@ public class AddUserScreen extends JPanel
 					
 			// Used to "pretty" up the Text Field
 			JPanel password1TextboxContainer = new JPanel();
-			password1TextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+			password1TextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 			password1TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 1st New Password TextField
-	    	JPasswordField newPasswordField1 = new JPasswordField("", 28);
+	    	JPasswordField newPasswordField1 = new JPasswordField("", 20);
 	    	newPasswordField1.setEchoChar('*');
 	    	newPasswordField1.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField1.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -215,7 +249,7 @@ public class AddUserScreen extends JPanel
 			password1Container.add(password1TextboxContainer);
 		
 		// -- end of 1st "Password" Field
-		addNewUserContainer.add(password1Container);
+		editUserContainer.add(password1Container);
 		
 		/*
 		 *  Inner third container for Retyping of "Password" field
@@ -233,11 +267,11 @@ public class AddUserScreen extends JPanel
 			
 			// Used to "pretty" up the Text Field
 			JPanel password2TextboxContainer = new JPanel();
-			password2TextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+			password2TextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 			password2TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 2nd Password TextField
-	    	JPasswordField newPasswordField2 = new JPasswordField("", 28);
+	    	JPasswordField newPasswordField2 = new JPasswordField("", 20);
 	    	newPasswordField2.setEchoChar('*');
 	    	newPasswordField2.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField2.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -246,19 +280,19 @@ public class AddUserScreen extends JPanel
 	    	passwordContainer2.add(password2TextboxContainer);
 		
 		// -- end of 2nd "Password" Field
-	    addNewUserContainer.add(passwordContainer2);	
+	    editUserContainer.add(passwordContainer2);	
 		
 	    /*
 	     *  Inner fourth container for User Role Radio Buttons
 	     */
 	    JPanel roleRadioButtonsContainer = new JPanel();
-	    roleRadioButtonsContainer.setLayout(new BoxLayout(roleRadioButtonsContainer, BoxLayout.X_AXIS));
+	    roleRadioButtonsContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 	    roleRadioButtonsContainer.setBorder(new EmptyBorder(10, 25, 0, 50));
 	    
 	    	// -- User Role Label
 	    	JLabel userRoleRB = new JLabel();
 	    	userRoleRB.setText("User Role: ");
-	    	userRoleRB.setFont(new Font("Calibri", Font.PLAIN, 24));
+	    	userRoleRB.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	userRoleRB.setAlignmentX(LEFT_ALIGNMENT);
 	    	roleRadioButtonsContainer.add(userRoleRB);
 	    	
@@ -266,11 +300,11 @@ public class AddUserScreen extends JPanel
 	    	
 	    	// User Role Radio Buttons   		    	
 	    	JRadioButton standardUserSelection = new JRadioButton("User");
-	    	standardUserSelection.setFont(new Font("Calibri", Font.PLAIN, 24));
+	    	standardUserSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	standardUserSelection.setSelected(true);
 	    	
 	    	JRadioButton adminUserSelection = new JRadioButton("Admin");
-	    	adminUserSelection.setFont(new Font("Calibri", Font.PLAIN, 24));
+	    	adminUserSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	
 	    	radioButtons.add(adminUserSelection);
 	    	radioButtons.add(standardUserSelection);
@@ -279,35 +313,65 @@ public class AddUserScreen extends JPanel
 	    	roleRadioButtonsContainer.add(adminUserSelection);
 	    
 	    // -- end of 4th Field
-	    addNewUserContainer.add(roleRadioButtonsContainer);
-	    
-		JPanel resetSaveButtonsContainer = new JPanel();
-		resetSaveButtonsContainer.setLayout(new BoxLayout(resetSaveButtonsContainer, BoxLayout.X_AXIS));
-		resetSaveButtonsContainer.setBorder(new EmptyBorder(25, 0, 20, 0));
-		
-        // -- Reset Button
-		resetButton.setName("resetButton");
-		resetButton.setOpaque(false);
-		resetButton.setContentAreaFilled(false);
-		resetButton.setBorder(new EmptyBorder(0, 0, 0, 75));
-		resetButton.addActionListener(addCourierController);
-		resetSaveButtonsContainer.add(resetButton);
-		
-		addNewUserContainer.add(resetSaveButtonsContainer);
-		
-        // -- Save Button
-		saveButton.setName("saveButton");
-		saveButton.setOpaque(false);
-		saveButton.setContentAreaFilled(false);
-		saveButton.setBorder(new EmptyBorder(5, 0, 0, 0));
-		saveButton.addActionListener(addCourierController);
-		resetSaveButtonsContainer.add(saveButton);
-		
-		addNewUserContainer.add(resetSaveButtonsContainer);
+	    editUserContainer.add(roleRadioButtonsContainer);
+	 
+	    // Container Status RBs, Reset and Save buttons
+	 	JPanel statusAndButtonsContainer = new JPanel();
+	 	statusAndButtonsContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+	 	statusAndButtonsContainer.setBorder(new EmptyBorder(10, 25, 10, 25));
+	 		
+	 	// Status RadioButtons
+	 	JPanel statusRadioButtonsContainer = new JPanel();
+	 	statusRadioButtonsContainer.setLayout(new BoxLayout(statusRadioButtonsContainer, BoxLayout.X_AXIS));
+	 	statusRadioButtonsContainer.setBorder(new EmptyBorder(0, 0, 0, 50));
+	 		    
+	 	// -- Status Label
+	 	JLabel activeStatusRBLabel = new JLabel();
+	 	activeStatusRBLabel.setText("Status: ");
+	 	activeStatusRBLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+	 	activeStatusRBLabel.setAlignmentX(LEFT_ALIGNMENT);
+	 	statusRadioButtonsContainer.add(activeStatusRBLabel);
+	 		    	
+	 	ButtonGroup statusRadioButtons = new ButtonGroup();
+	 		    	
+	 	// User Status Radio Buttons   		    	
+	 	JRadioButton activeStatusSelection = new JRadioButton("Active");
+	 	activeStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
+	 	activeStatusSelection.setSelected(true);
+	 		    	
+	 	JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
+	 	inactiveStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
+	 		    	
+	 	statusRadioButtons.add(inactiveStatusSelection);
+	 	statusRadioButtons.add(activeStatusSelection);
+	 		    	
+	 	statusRadioButtonsContainer.add(activeStatusSelection);
+	 		    	
+	 	statusRadioButtonsContainer.add(inactiveStatusSelection);
+	 	    	
+	 	statusAndButtonsContainer.add(statusRadioButtonsContainer);
+	 		   
+	 	// -- Reset Button
+	 	resetButton.setName("resetButton");
+	 	resetButton.setOpaque(false);
+	 	resetButton.setContentAreaFilled(false);
+	 	resetButton.setBorder(new EmptyBorder(0, 0, 0, 0));
+	 	resetButton.addActionListener(editCourierController);
+	 	statusAndButtonsContainer.add(resetButton);
+	 	    
+	    // -- Save Button
+	 	saveButton.setName("saveButton");
+	 	saveButton.setOpaque(false);
+	 	saveButton.setContentAreaFilled(false);
+	 	saveButton.setBorder(new EmptyBorder(5, 0, 0, 0));
+	 	saveButton.addActionListener(editCourierController);
+	 	statusAndButtonsContainer.add(saveButton);
+	 	
+	 	editUserContainer.add(statusAndButtonsContainer);
 
 		// --- end of Box for Menu buttons
 		
-		mainPane.add(addNewUserContainer, BorderLayout.CENTER);
+		mainPane.add(editUserContainer, BorderLayout.CENTER);
 		
 		/*
 		 * southButtonContainer for Back and Logout buttons
@@ -317,7 +381,7 @@ public class AddUserScreen extends JPanel
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setBorder(new EmptyBorder(0, 0, 0, 210));
-		backButton.addActionListener(addCourierController);
+		backButton.addActionListener(editCourierController);
 		southButtonContainer.add(backButton);
 		
 		// -- Logout Button
@@ -325,12 +389,12 @@ public class AddUserScreen extends JPanel
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setBorder(new EmptyBorder(0, 210, 0, 0));
-		logoutButton.addActionListener(addCourierController);
+		logoutButton.addActionListener(editCourierController);
 		southButtonContainer.add(logoutButton);
 		
 		// -- end of southButtonContainer
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
-    }
+    }	
 }

@@ -68,13 +68,12 @@ public class ButtonController implements ActionListener
 				break; 
 				
 			case "editCourierButton":
-				// TODO: Edit a Courier Courier Maintenance Menu action here
-				System.out.println(buttonID + " was pressed");
-				break;  
-				
-			case "deleteCourierButton":
-				// TODO: Delete a Courier Courier Maintenance Menu action here
-				System.out.println(buttonID + " was pressed");
+				System.out.println("Going to the Edit/Delete a Courier Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.EditCourierScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
 				break;  
 			
 			/*
@@ -91,11 +90,6 @@ public class ButtonController implements ActionListener
 					
 			case "editCustomerButton":
 				// TODO: Edit a Customer Customer Maintenance Menu action here
-				System.out.println(buttonID + " was pressed");
-				break;  
-					
-			case "deleteCustomerButton":
-				// TODO: Delete a Customer Customer Maintenance Menu action here
 				System.out.println(buttonID + " was pressed");
 				break;  
 				
@@ -221,14 +215,13 @@ public class ButtonController implements ActionListener
    	   			break; 
    	    					
    	   		case "editUserButton":
-   	   			// TODO: Edit a User Staff Maintenance Menu action here
-   	   			System.out.println(buttonID + " was pressed");
+	   	   		System.out.println("Going to the Edit a User screen..."); 
+				mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.EditUserScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
    	   			break;  
-   	    					
-   	   		case "deleteUserButton":
-   	   			// TODO: Delete a User Staff Maintenance Menu action here
-   	   			System.out.println(buttonID + " was pressed");
-   	   			break; 
    				
     		/*
     		 * Back Buttons
