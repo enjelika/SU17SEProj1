@@ -56,7 +56,7 @@ public class EditCompanyInfoScreen extends JPanel
     	editCompanyContainer.setAlignmentY(CENTER_ALIGNMENT);
     	
     	southButtonContainer = new JPanel();
-    	southButtonContainer.setBorder(new EmptyBorder(85, 0, 5, 0));
+    	southButtonContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     	southButtonContainer.setLayout(new BoxLayout(southButtonContainer, BoxLayout.X_AXIS));
     	
 		// Set the Logo image for the North part of the window
@@ -113,7 +113,7 @@ public class EditCompanyInfoScreen extends JPanel
 
 		JPanel editCompanyInfoScreenTitle = new JPanel();
 		editCompanyInfoScreenTitle.setLayout(new FlowLayout(FlowLayout.LEFT));
-		editCompanyInfoScreenTitle.setBorder(new EmptyBorder(10, 15, 0, 0));
+		editCompanyInfoScreenTitle.setBorder(new EmptyBorder(5, 5, 0, 0));
 				
 		// -- Edit/Delete Courier Screen Label
 		JLabel editCompanyInfoScreenLabel = new JLabel();
@@ -130,7 +130,7 @@ public class EditCompanyInfoScreen extends JPanel
 		 */
 		JPanel companyNameContainer = new JPanel();
 		companyNameContainer.setLayout(new BoxLayout(companyNameContainer, BoxLayout.X_AXIS));
-		companyNameContainer.setBorder(new EmptyBorder(35, 25, 10, 0));
+		companyNameContainer.setBorder(new EmptyBorder(10, 25, 5, 0));
 		
 			// -- Company Name Label
 			JLabel companyNameLabel = new JLabel();
@@ -183,18 +183,222 @@ public class EditCompanyInfoScreen extends JPanel
 		// -- end of Company Address Field
 		editCompanyContainer.add(companyAddressContainer);
 		
-		// TODO: Bill Rate Field + Cost Per Block Field
+		// Bill Rate Field + Cost Per Block Field
+		JPanel billRateAndCostPerBlockContainer = new JPanel();
+		billRateAndCostPerBlockContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+		billRateAndCostPerBlockContainer.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
-		// TODO: Courier Speed Field -- space -- Blocks to a Mile Field
-		
-		// TODO: Bonus on Time Field -- space -- Pick Up Time Allowance Field
+			JPanel billRateContainer = new JPanel();
+			billRateContainer.setLayout(new BoxLayout(billRateContainer, BoxLayout.X_AXIS));
+			billRateContainer.setBorder(new EmptyBorder(5, 25, 5, 0));
 			
-		// TODO: Bonus Time Variance (+/-) Field -- space -- Delivery Time Allowance Field
+				// -- Bill Rate Label
+				JLabel billRateLabel = new JLabel();
+				billRateLabel.setText("Bill Rate:");
+				billRateLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+				billRateLabel.setAlignmentX(LEFT_ALIGNMENT);
+				billRateContainer.add(billRateLabel);
+				
+				// Used to "pretty" up the Text Field
+				JPanel billRateTextboxContainer = new JPanel();
+				billRateTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+				billRateTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 10));
+				
+				// -- Bill Rate TextField
+		    	JTextField billRateField = new JTextField("$10", 5);
+		    	billRateField.setHorizontalAlignment(JTextField.CENTER);
+		    	billRateField.setFont(new Font("Calibri", Font.PLAIN, 26));
+		    	billRateField.setBorder(new LineBorder(Color.BLUE, 1));
+		    	billRateTextboxContainer.add(billRateField);
+		    	billRateContainer.add(billRateTextboxContainer);
+		    	
+		    	// -- Cost per Block Label
+				JLabel costPerBlockLabel = new JLabel();
+				costPerBlockLabel.setText("     +     Cost per Block:");
+				costPerBlockLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+				costPerBlockLabel.setAlignmentX(LEFT_ALIGNMENT);
+				billRateContainer.add(costPerBlockLabel);
+				
+				// Used to "pretty" up the Text Field
+				JPanel costPerBlockTextboxContainer = new JPanel();
+				costPerBlockTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+				costPerBlockTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+				
+				// -- Cost per Block TextField
+		    	JTextField costPerBlockField = new JTextField("$2", 5);
+		    	costPerBlockField.setHorizontalAlignment(JTextField.CENTER);
+		    	costPerBlockField.setFont(new Font("Calibri", Font.PLAIN, 26));
+		    	costPerBlockField.setBorder(new LineBorder(Color.BLUE, 1));
+		    	costPerBlockTextboxContainer.add(costPerBlockField);
+		    	billRateContainer.add(costPerBlockTextboxContainer);
+		
+		    	billRateAndCostPerBlockContainer.add(billRateContainer);
+		    	
+		editCompanyContainer.add(billRateAndCostPerBlockContainer);
+		    	
+		// Courier Speed Field -- space -- Blocks to a Mile Field
+		JPanel courierSpeedAndBlocksToMileContainer = new JPanel();
+		courierSpeedAndBlocksToMileContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		courierSpeedAndBlocksToMileContainer.setBorder(new EmptyBorder(0, 0, 0, 0));
+				
+				JPanel courierSpeedContainer = new JPanel();
+				courierSpeedContainer.setLayout(new BoxLayout(courierSpeedContainer, BoxLayout.X_AXIS));
+				courierSpeedContainer.setBorder(new EmptyBorder(5, 25, 5, 0));
+					
+					// -- Courier Speed Label
+					JLabel courierSpeedLabel = new JLabel();
+					courierSpeedLabel.setText("Courier Speed:");
+					courierSpeedLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+					courierSpeedLabel.setAlignmentX(LEFT_ALIGNMENT);
+					courierSpeedContainer.add(courierSpeedLabel);
+						
+					// Used to "pretty" up the Text Field
+					JPanel courierSpeedTextboxContainer = new JPanel();
+					courierSpeedTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+					courierSpeedTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 205));
+						
+					// -- Courier Speed TextField
+			    	JTextField courierSpeedField = new JTextField("10 mph", 5);
+			    	courierSpeedField.setHorizontalAlignment(JTextField.CENTER);
+			    	courierSpeedField.setFont(new Font("Calibri", Font.PLAIN, 26));
+			    	courierSpeedField.setBorder(new LineBorder(Color.BLUE, 1));
+			    	courierSpeedTextboxContainer.add(courierSpeedField);
+			    	courierSpeedContainer.add(courierSpeedTextboxContainer);
+				    	
+			    	// -- Blocks to a Mile Label
+					JLabel blockToMileLabel = new JLabel();
+					blockToMileLabel.setText("Blocks to a Mile:");
+					blockToMileLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+					blockToMileLabel.setAlignmentX(LEFT_ALIGNMENT);
+					courierSpeedContainer.add(blockToMileLabel);
+						
+					// Used to "pretty" up the Text Field
+					JPanel blocksToMileTextboxContainer = new JPanel();
+					blocksToMileTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+					blocksToMileTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+						
+					// -- Blocks to a Mile TextField
+			    	JTextField blocksToMileField = new JTextField("10", 5);
+			    	blocksToMileField.setHorizontalAlignment(JTextField.CENTER);
+			    	blocksToMileField.setFont(new Font("Calibri", Font.PLAIN, 26));
+			    	blocksToMileField.setBorder(new LineBorder(Color.BLUE, 1));
+			    	blocksToMileTextboxContainer.add(blocksToMileField);
+			    	courierSpeedContainer.add(blocksToMileTextboxContainer);
+				
+			    	courierSpeedAndBlocksToMileContainer.add(courierSpeedContainer);
+				    	
+		editCompanyContainer.add(courierSpeedAndBlocksToMileContainer);
+				
+		// Bonus on Time Field -- space -- Pick Up Time Allowance Field
+		JPanel bonusOnTimeAndPickUpTimeContainer = new JPanel();
+		bonusOnTimeAndPickUpTimeContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		bonusOnTimeAndPickUpTimeContainer.setBorder(new EmptyBorder(0, 0, 0, 0));
+				
+				JPanel bonusOnTimeContainer = new JPanel();
+				bonusOnTimeContainer.setLayout(new BoxLayout(bonusOnTimeContainer, BoxLayout.X_AXIS));
+				bonusOnTimeContainer.setBorder(new EmptyBorder(5, 25, 5, 0));
+					
+					// -- Bonus on Time Label
+					JLabel bonusOnTimeLabel = new JLabel();
+					bonusOnTimeLabel.setText("Bonus on Time:");
+					bonusOnTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+					bonusOnTimeLabel.setAlignmentX(LEFT_ALIGNMENT);
+					bonusOnTimeContainer.add(bonusOnTimeLabel);
+						
+					// Used to "pretty" up the Text Field
+					JPanel bonusOnTimeTextboxContainer = new JPanel();
+					bonusOnTimeTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+					bonusOnTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 115));
+						
+					// -- Bonus on Time TextField
+			    	JTextField bonusOnTimeField = new JTextField("$2", 5);
+			    	bonusOnTimeField.setHorizontalAlignment(JTextField.CENTER);
+			    	bonusOnTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
+			    	bonusOnTimeField.setBorder(new LineBorder(Color.BLUE, 1));
+			    	bonusOnTimeTextboxContainer.add(bonusOnTimeField);
+			    	bonusOnTimeContainer.add(bonusOnTimeTextboxContainer);
+				    	
+			    	// -- Pick Up Time Allowance Label
+					JLabel pickUpTimeLabel = new JLabel();
+					pickUpTimeLabel.setText("Pick Up Time Allowance:");
+					pickUpTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+					pickUpTimeLabel.setAlignmentX(LEFT_ALIGNMENT);
+					bonusOnTimeContainer.add(pickUpTimeLabel);
+						
+					// Used to "pretty" up the Text Field
+					JPanel pickUpTimeTextboxContainer = new JPanel();
+					pickUpTimeTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+					pickUpTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+						
+					// -- Pick Up Time Allowance TextField
+			    	JTextField pickUpTimeField = new JTextField("10", 5);
+			    	pickUpTimeField.setHorizontalAlignment(JTextField.CENTER);
+			    	pickUpTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
+			    	pickUpTimeField.setBorder(new LineBorder(Color.BLUE, 1));
+			    	pickUpTimeTextboxContainer.add(pickUpTimeField);
+			    	bonusOnTimeContainer.add(pickUpTimeTextboxContainer);
+				
+			    	bonusOnTimeAndPickUpTimeContainer.add(bonusOnTimeContainer);
+				    	
+		editCompanyContainer.add(bonusOnTimeAndPickUpTimeContainer);
+			
+		// Bonus Time Variance (+/-) Field -- space -- Delivery Time Allowance Field
+		JPanel bonusTimeVarianceAndDeliveryTimeContainer = new JPanel();
+		bonusTimeVarianceAndDeliveryTimeContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		bonusTimeVarianceAndDeliveryTimeContainer.setBorder(new EmptyBorder(0, 0, 0, 0));
+				
+				JPanel bonusTimeVarianceContainer = new JPanel();
+				bonusTimeVarianceContainer.setLayout(new BoxLayout(bonusTimeVarianceContainer, BoxLayout.X_AXIS));
+				bonusTimeVarianceContainer.setBorder(new EmptyBorder(5, 25, 5, 0));
+					
+				// -- Bonus Time Variance (+/-) Label
+				JLabel bonusTimeVarianceLabel = new JLabel();
+				bonusTimeVarianceLabel.setText("Bonus Time Variance (+/-):");
+				bonusTimeVarianceLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+				bonusTimeVarianceLabel.setAlignmentX(LEFT_ALIGNMENT);
+				bonusTimeVarianceContainer.add(bonusTimeVarianceLabel);
+						
+				// Used to "pretty" up the Text Field
+				JPanel bonusTimeVarianceTextboxContainer = new JPanel();
+				bonusTimeVarianceTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+				bonusTimeVarianceTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+						
+				// -- Bonus Time Variance (+/-) TextField
+			   	JTextField bonusTimeVarianceField = new JTextField("5 min", 5);
+			   	bonusTimeVarianceField.setHorizontalAlignment(JTextField.CENTER);
+			   	bonusTimeVarianceField.setFont(new Font("Calibri", Font.PLAIN, 26));
+			   	bonusTimeVarianceField.setBorder(new LineBorder(Color.BLUE, 1));
+			   	bonusTimeVarianceTextboxContainer.add(bonusTimeVarianceField);
+			   	bonusTimeVarianceContainer.add(bonusTimeVarianceTextboxContainer);
+				    	
+			   	// -- Delivery Time Allowance Label
+				JLabel deliveryTimeLabel = new JLabel();
+				deliveryTimeLabel.setText("Delivery Time Allowance:");
+				deliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+				deliveryTimeLabel.setAlignmentX(LEFT_ALIGNMENT);
+				bonusTimeVarianceContainer.add(deliveryTimeLabel);
+						
+				// Used to "pretty" up the Text Field
+				JPanel deliveryTimeTextboxContainer = new JPanel();
+				deliveryTimeTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+				deliveryTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+						
+				// -- Delivery Time Allowance TextField
+			   	JTextField deliveryTimeField = new JTextField("10", 5);
+			   	deliveryTimeField.setHorizontalAlignment(JTextField.CENTER);
+			   	deliveryTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
+			   	deliveryTimeField.setBorder(new LineBorder(Color.BLUE, 1));
+			   	deliveryTimeTextboxContainer.add(deliveryTimeField);
+			   	bonusTimeVarianceContainer.add(deliveryTimeTextboxContainer);
+				
+			bonusTimeVarianceAndDeliveryTimeContainer.add(bonusTimeVarianceContainer);
+			    	
+		editCompanyContainer.add(bonusTimeVarianceAndDeliveryTimeContainer);
 		
 	    // Container Reset and Save buttons
 		JPanel resetAndSaveButtonsContainer = new JPanel();
 		resetAndSaveButtonsContainer.setLayout(new BoxLayout(resetAndSaveButtonsContainer, BoxLayout.X_AXIS));
-		resetAndSaveButtonsContainer.setBorder(new EmptyBorder(10, 25, 10, 25));
+		resetAndSaveButtonsContainer.setBorder(new EmptyBorder(5, 25, 5, 25));
 		   
 			// -- Reset Button
 			resetButton.setName("resetButton");
@@ -222,7 +426,7 @@ public class EditCompanyInfoScreen extends JPanel
 		 * southButtonContainer for Back and Logout buttons
 		 */
         // -- Back Button
-		backButton.setName("courierMaintBackButton");
+		backButton.setName("adminBackButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setBorder(new EmptyBorder(10, 0, 0, 215));

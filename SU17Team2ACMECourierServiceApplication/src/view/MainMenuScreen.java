@@ -40,9 +40,13 @@ public class MainMenuScreen extends JPanel
     
     private ButtonController mainMenuController;
     
+    private boolean userIsAdmin;
+    
     public MainMenuScreen(ButtonController buttonController)
     {
     	mainMenuController = buttonController;
+    	
+//    	userIsAdmin = mainMenuController.
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
