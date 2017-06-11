@@ -107,8 +107,12 @@ public class ButtonController implements ActionListener
 				break; 
 					
 			case "editCustomerButton":
-				// TODO: Edit a Customer Customer Maintenance Menu action here
-				System.out.println(buttonID + " was pressed");
+				System.out.println("Going to the Edit a Customer Screen...");
+	    		mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.EditCustomerScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
 				break;  
 				
     		/*

@@ -28,39 +28,35 @@ import javax.swing.border.LineBorder;
 import controller.ButtonController;
 import model.Utility;
 
-public class EditCourierScreen extends JPanel
+@SuppressWarnings("serial")
+public class EditCustomerScreen extends JPanel
 {
-	/**
-	 * Auto-generated Serialization ID
-	 */
-	private static final long serialVersionUID = -5175333879969531286L;
-	
 	private JButton findButton, resetButton, saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
-	private JPanel editCourierContainer, southButtonContainer, mainPane, imgContainer;
+	private JPanel editCustomerContainer, southButtonContainer, mainPane, imgContainer;
 
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
-    private ButtonController editCourierController;
+    private ButtonController editCustomerController;
     
-    public EditCourierScreen(ButtonController buttonController)
+    public EditCustomerScreen(ButtonController buttonController)
     {
-    	editCourierController = buttonController;
+    	editCustomerController = buttonController;
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
     	
     	// Container for the menu buttons
-    	editCourierContainer = new JPanel();
+    	editCustomerContainer = new JPanel();
     	Border border = new LineBorder(Color.BLUE, 1);
     	Border margin = new EmptyBorder(0, 25, 0, 25);
-    	editCourierContainer.setBorder(new CompoundBorder(margin, border));
-    	editCourierContainer.setAlignmentY(CENTER_ALIGNMENT);
+    	editCustomerContainer.setBorder(new CompoundBorder(margin, border));
+    	editCustomerContainer.setAlignmentY(CENTER_ALIGNMENT);
     	
     	southButtonContainer = new JPanel();
-    	southButtonContainer.setBorder(new EmptyBorder(127, 0, 5, 0));
+    	southButtonContainer.setBorder(new EmptyBorder(97, 0, 5, 0));
     	southButtonContainer.setLayout(new BoxLayout(southButtonContainer, BoxLayout.X_AXIS));
     	
 		// Set the Logo image for the North part of the window
@@ -116,140 +112,133 @@ public class EditCourierScreen extends JPanel
 		/*
 		 *  Outer box for the Main Menu buttons
 		 */
-		editCourierContainer.setLayout(new BoxLayout(editCourierContainer, BoxLayout.Y_AXIS));
-		editCourierContainer.setOpaque(false);
+		editCustomerContainer.setLayout(new BoxLayout(editCustomerContainer, BoxLayout.Y_AXIS));
+		editCustomerContainer.setOpaque(false);
 
-		JPanel editCourierScreenTitle = new JPanel();
-		editCourierScreenTitle.setLayout(new BoxLayout(editCourierScreenTitle, BoxLayout.X_AXIS));
-		editCourierScreenTitle.setBorder(new EmptyBorder(10, 15, 0, 210));
+		JPanel editCustomerScreenTitle = new JPanel();
+		editCustomerScreenTitle.setLayout(new FlowLayout(FlowLayout.LEFT));
+		editCustomerScreenTitle.setBorder(new EmptyBorder(10, 15, 0, 0));
 				
 		// -- Edit/Delete Courier Screen Label
 		JLabel editCourierScreenLabel = new JLabel();
-		editCourierScreenLabel.setText("Courier Information:");
+		editCourierScreenLabel.setText("Customer Information:");
 		editCourierScreenLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
-		editCourierScreenLabel.setBorder(new EmptyBorder(5, 5, 0, 425));
-		editCourierScreenLabel.setAlignmentX(LEFT_ALIGNMENT);
-		editCourierScreenTitle.add(editCourierScreenLabel);
+		editCourierScreenLabel.setBorder(new EmptyBorder(5, 5, 0, 0));
+		editCustomerScreenTitle.add(editCourierScreenLabel);
 		
-		editCourierContainer.add(editCourierScreenTitle);
-		
-		/*
-		 *  Container for Courier ID field and Courier Name field
-		 */
-		JPanel courierFields = new JPanel();
-		courierFields.setLayout(new BoxLayout(courierFields, BoxLayout.Y_AXIS));
-		courierFields.setBorder(new EmptyBorder(0, 0, 0, 0));
+		editCustomerContainer.add(editCustomerScreenTitle);
 		
 		/*
-		 *  Inner first container for Courier ID field
+		 *  Container for Customer ID field and Customer Name field
 		 */
-		JPanel courierIdContainer = new JPanel();
-		courierIdContainer.setLayout(new BoxLayout(courierIdContainer, BoxLayout.X_AXIS));
-		courierIdContainer.setBorder(new EmptyBorder(35, 0, 5, 0));
+		JPanel customerFields = new JPanel();
+		customerFields.setLayout(new BoxLayout(customerFields, BoxLayout.Y_AXIS));
+		customerFields.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
-			// -- Courier ID Label
-			JLabel courierIdLabel = new JLabel();
-			courierIdLabel.setText("Courier ID:");
-			courierIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-			courierIdLabel.setAlignmentX(LEFT_ALIGNMENT);
-			courierIdContainer.add(courierIdLabel);
+		/*
+		 *  Inner first container for Customer ID field
+		 */
+		JPanel customerIdContainer = new JPanel();
+		customerIdContainer.setLayout(new BoxLayout(customerIdContainer, BoxLayout.X_AXIS));
+		customerIdContainer.setBorder(new EmptyBorder(35, 25, 5, 0));
+		
+			// -- Customer ID Label
+			JLabel customerIdLabel = new JLabel();
+			customerIdLabel.setText("Customer ID:");
+			customerIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+			customerIdLabel.setAlignmentX(LEFT_ALIGNMENT);
+			customerIdContainer.add(customerIdLabel);
 			
 			// Used to "pretty" up the Text Field
 			JPanel idTextboxContainer = new JPanel();
 			idTextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
 			idTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
-			// -- Courier ID TextField
-	    	JTextField courierIdField = new JTextField("", 20);
-			courierIdField.setHorizontalAlignment(JTextField.LEFT);
-			courierIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
-			courierIdField.setBorder(new LineBorder(Color.BLUE, 1));
-			idTextboxContainer.add(courierIdField);
-			courierIdContainer.add(idTextboxContainer);
+			// -- Customer ID TextField
+	    	JTextField customerIdField = new JTextField("", 20);
+			customerIdField.setHorizontalAlignment(JTextField.LEFT);
+			customerIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
+			customerIdField.setBorder(new LineBorder(Color.BLUE, 1));
+			idTextboxContainer.add(customerIdField);
+			customerIdContainer.add(idTextboxContainer);
 		
-		// -- end of Courier ID Field
+		// -- end of Customer ID Field
 			
 		/*
-		 *  Inner second container for Courier Name field
+		 *  Inner second container for Customer Name field
 		 */
-		JPanel courierNameContainer = new JPanel();
-		courierNameContainer.setLayout(new BoxLayout(courierNameContainer, BoxLayout.X_AXIS));
-		courierNameContainer.setBorder(new EmptyBorder(15, 0, 5, 0));
+		JPanel customerNameContainer = new JPanel();
+		customerNameContainer.setLayout(new BoxLayout(customerNameContainer, BoxLayout.X_AXIS));
+		customerNameContainer.setBorder(new EmptyBorder(15, 25, 5, 0));
 		
-			// -- Courier Name Label
-			JLabel courierNameLabel = new JLabel();
-			courierNameLabel.setText("Courier Name:");
-			courierNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-			courierNameLabel.setAlignmentX(LEFT_ALIGNMENT);
-			courierNameContainer.add(courierNameLabel);
+			// -- Customer Name Label
+			JLabel customerNameLabel = new JLabel();
+			customerNameLabel.setText("Customer Name:");
+			customerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+			customerNameLabel.setAlignmentX(LEFT_ALIGNMENT);
+			customerNameContainer.add(customerNameLabel);
 			
 			// Used to "pretty" up the Text Field
 			JPanel nameTextboxContainer = new JPanel();
 			nameTextboxContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
-			// -- Courier Name TextField
-	    	JTextField courierNameField = new JTextField("", 20);
-	    	courierNameField.setHorizontalAlignment(JTextField.LEFT);
-	    	courierNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
-	    	courierNameField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	nameTextboxContainer.add(courierNameField);
-			courierNameContainer.add(nameTextboxContainer);
+			// -- Customer Name TextField
+	    	JTextField customerNameField = new JTextField("", 20);
+	    	customerNameField.setHorizontalAlignment(JTextField.LEFT);
+	    	customerNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
+	    	customerNameField.setBorder(new LineBorder(Color.BLUE, 1));
+	    	nameTextboxContainer.add(customerNameField);
+			customerNameContainer.add(nameTextboxContainer);
 		
-		// -- end of Courier Name Field
-		courierFields.add(courierIdContainer);
-		courierFields.add(courierNameContainer);
+		// -- end of Customer Name Field
+		customerFields.add(customerIdContainer);
+		customerFields.add(customerNameContainer);
 		
-		JPanel courierSearchContainer = new JPanel();
-		courierSearchContainer.setLayout(new BoxLayout(courierSearchContainer, BoxLayout.X_AXIS));
-		courierSearchContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+		JPanel customerSearchContainer = new JPanel();
+		customerSearchContainer.setLayout(new BoxLayout(customerSearchContainer, BoxLayout.X_AXIS));
+		customerSearchContainer.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		// Find Button
-		findButton.setName("findCourierButton");
+		findButton.setName("findCustomerButton");
 		findButton.setOpaque(false);
 		findButton.setContentAreaFilled(false);
 		findButton.setBorder(new EmptyBorder(15, 0, 0, 0));
-		findButton.addActionListener(editCourierController);
+		findButton.addActionListener(editCustomerController);
 		
-		courierSearchContainer.add(courierFields);
-		courierSearchContainer.add(findButton);
+		customerSearchContainer.add(customerFields);
+		customerSearchContainer.add(findButton);
 		
-		editCourierContainer.add(courierSearchContainer);
+		editCustomerContainer.add(customerSearchContainer);
 		
 		/*
-		 *  Average Delivery Time Field
+		 *  Address Field
 		 */
-		JPanel avgDeliveryTimeContainer = new JPanel();
-		avgDeliveryTimeContainer.setLayout(new BoxLayout(avgDeliveryTimeContainer, BoxLayout.X_AXIS));
-		avgDeliveryTimeContainer.setBorder(new EmptyBorder(15, 25, 5, 225));
+		JPanel addressContainer = new JPanel();
+		addressContainer.setLayout(new BoxLayout(addressContainer, BoxLayout.X_AXIS));
+		addressContainer.setBorder(new EmptyBorder(15, 25, 5, 225));
 		
-			// -- Average Delivery Time Label
-			JLabel avgDeliveryTimeLabel = new JLabel();
-			avgDeliveryTimeLabel.setText("Avg Delivery Time:");
-			avgDeliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-			avgDeliveryTimeContainer.add(avgDeliveryTimeLabel);
+			// -- Address Label
+			JLabel addressLabel = new JLabel();
+			addressLabel.setText("Address:");
+			addressLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+			addressContainer.add(addressLabel);
 			
 			// Used to "pretty" up the Text Field
-			JPanel avgDeliveryTimeTextBoxContainer = new JPanel();
-			avgDeliveryTimeTextBoxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-			avgDeliveryTimeTextBoxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
+			JPanel addressTextBoxContainer = new JPanel();
+			addressTextBoxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+			addressTextBoxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 						
-			// -- Average Delivery Time TextField
-	    	JTextField avgDeliveryTimeField = new JTextField("", 15);
-	    	avgDeliveryTimeField.setHorizontalAlignment(JTextField.LEFT);
-	    	avgDeliveryTimeField.setFont(new Font("Calibri", Font.PLAIN, 28));
-	    	avgDeliveryTimeField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	avgDeliveryTimeTextBoxContainer.add(avgDeliveryTimeField);
-	    	avgDeliveryTimeContainer.add(avgDeliveryTimeTextBoxContainer);
-	    	
-	    	// -- Average Delivery Time Measurement Label
-	    	JLabel avgDeliveryTimeMeasureMentLabel = new JLabel();
-	    	avgDeliveryTimeMeasureMentLabel.setText("minutes");
-	    	avgDeliveryTimeMeasureMentLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-	    	avgDeliveryTimeContainer.add(avgDeliveryTimeMeasureMentLabel);
+			// -- Address TextField
+	    	JTextField addressField = new JTextField("", 20);
+	    	addressField.setHorizontalAlignment(JTextField.LEFT);
+	    	addressField.setFont(new Font("Calibri", Font.PLAIN, 28));
+	    	addressField.setBorder(new LineBorder(Color.BLUE, 1));
+	    	addressTextBoxContainer.add(addressField);
+	    	addressContainer.add(addressTextBoxContainer);
 		
-		// -- end of Average Delivery Time Field
-	    editCourierContainer.add(avgDeliveryTimeContainer);
+		// -- end of Address Field
+	    editCustomerContainer.add(addressContainer);
 		
 	    // Container Status RBs, Reset and Save buttons
 		JPanel statusAndButtonsContainer = new JPanel();
@@ -259,7 +248,7 @@ public class EditCourierScreen extends JPanel
 			// Status RadioButtons
 		    JPanel statusRadioButtonsContainer = new JPanel();
 		    statusRadioButtonsContainer.setLayout(new BoxLayout(statusRadioButtonsContainer, BoxLayout.X_AXIS));
-		    statusRadioButtonsContainer.setBorder(new EmptyBorder(0, 0, 0, 0)); //10, 25, 50, 50
+		    statusRadioButtonsContainer.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 		    
 		    	// -- Status Label
 		    	JLabel activeStatusRBLabel = new JLabel();
@@ -292,7 +281,7 @@ public class EditCourierScreen extends JPanel
 		resetButton.setOpaque(false);
 		resetButton.setContentAreaFilled(false);
 		resetButton.setBorder(new EmptyBorder(0, 150, 0, 0));
-		resetButton.addActionListener(editCourierController);
+		resetButton.addActionListener(editCustomerController);
 		statusAndButtonsContainer.add(resetButton);
 	    
         // -- Save Button
@@ -300,24 +289,24 @@ public class EditCourierScreen extends JPanel
 		saveButton.setOpaque(false);
 		saveButton.setContentAreaFilled(false);
 		saveButton.setBorder(new EmptyBorder(5, 0, 0, 0));
-		saveButton.addActionListener(editCourierController);
+		saveButton.addActionListener(editCustomerController);
 		statusAndButtonsContainer.add(saveButton);
 		
-		editCourierContainer.add(statusAndButtonsContainer);
+		editCustomerContainer.add(statusAndButtonsContainer);
 
 		// --- end of Box for Menu buttons
 		
-		mainPane.add(editCourierContainer, BorderLayout.CENTER);
+		mainPane.add(editCustomerContainer, BorderLayout.CENTER);
 		
 		/*
 		 * southButtonContainer for Back and Logout buttons
 		 */
         // -- Back Button
-		backButton.setName("courierMaintBackButton");
+		backButton.setName("customerMaintBackButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setBorder(new EmptyBorder(10, 0, 0, 215));
-		backButton.addActionListener(editCourierController);
+		backButton.addActionListener(editCustomerController);
 		southButtonContainer.add(backButton);
 		
 		// -- Logout Button
@@ -325,7 +314,7 @@ public class EditCourierScreen extends JPanel
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setBorder(new EmptyBorder(10, 215, 0, 0));
-		logoutButton.addActionListener(editCourierController);
+		logoutButton.addActionListener(editCustomerController);
 		southButtonContainer.add(logoutButton);
 		
 		// -- end of southButtonContainer
