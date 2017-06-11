@@ -30,7 +30,7 @@ public class UserDAO {
 		}
 		
 		public static User findUser(String username, String password) {
-			Query query = emDAO.getEM().createQuery("SELECT u FROM user u WHERE u.userName = 'admin'");
+			Query query = emDAO.getEM().createQuery("SELECT u FROM user u WHERE u.userName = '" + username + "' and u.password = '" + password + "'");
 			User user = (User) query.getSingleResult();
 			return user;
 		}

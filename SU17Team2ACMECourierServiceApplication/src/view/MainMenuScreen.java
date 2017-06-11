@@ -42,7 +42,7 @@ public class MainMenuScreen extends JPanel
     
     private boolean userIsAdmin;
     
-    public MainMenuScreen(ButtonController buttonController)
+    public MainMenuScreen(ButtonController buttonController, String accessLevel)
     {
     	mainMenuController = buttonController;
     	
@@ -73,8 +73,11 @@ public class MainMenuScreen extends JPanel
     	 *  Setup the images for each button
     	 */
     	// Admin Menu Button
-    	Image adminMenuButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "adminMenuButton.png");
-    	adminMenuButton = new JButton(new ImageIcon(adminMenuButtonIcon));   	
+		if(accessLevel.equals("admin"))
+		{
+			Image adminMenuButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "adminMenuButton.png");
+			adminMenuButton = new JButton(new ImageIcon(adminMenuButtonIcon));   
+		}
     	
     	// Customer Maintenance Button
     	Image customerMaintenanceButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "customerMaintenanceButton.png");
@@ -97,10 +100,10 @@ public class MainMenuScreen extends JPanel
 		logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
     	
     	// Setup the View
-    	SetUpView();
+    	SetUpView(accessLevel);
     }
     
-    public void SetUpView()
+    public void SetUpView(String accessLevel)
     {
         /*
          *  Logo header
@@ -122,13 +125,16 @@ public class MainMenuScreen extends JPanel
 		mainMenuContainer.setOpaque(false);
 		
         // -- Admin Menu Button
-		adminMenuButton.setName("adminMenuButton");
-		adminMenuButton.setOpaque(false);
-		adminMenuButton.setContentAreaFilled(false);
-		adminMenuButton.setBorder(new EmptyBorder(15, 75, 0, 75));
-		adminMenuButton.setVisible(true); //TODO:  This will need to be wired up to the Model for enable/disable by user role
-		adminMenuButton.addActionListener(mainMenuController);
-		mainMenuContainer.add(adminMenuButton);
+		if(accessLevel.equals("admin"))
+		{
+			adminMenuButton.setName("adminMenuButton");
+			adminMenuButton.setOpaque(false);
+			adminMenuButton.setContentAreaFilled(false);
+			adminMenuButton.setBorder(new EmptyBorder(15, 75, 0, 75));
+			adminMenuButton.setVisible(true); //TODO:  This will need to be wired up to the Model for enable/disable by user role
+			adminMenuButton.addActionListener(mainMenuController);
+			mainMenuContainer.add(adminMenuButton);
+		}
 		
         // -- Customer Maintenance Button
 		customerMaintenanceButton.setName("customerMaintenanceButton");

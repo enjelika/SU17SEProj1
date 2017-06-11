@@ -18,6 +18,7 @@ public class ButtonController implements ActionListener
 	JFrame mainFrame;
 	Model model;
 	ViewListener viewListener;
+	User loggedInUser;
 	
 	public ButtonController(Model model) 
 	{
@@ -278,7 +279,7 @@ public class ButtonController implements ActionListener
     		case "backButton":
     			System.out.println("Going back to the Main Menu screen..."); 
     			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this)); 
+				mainFrame.setContentPane(new view.MainMenuScreen(this, loggedInUser.getAccessLevel())); 
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
@@ -301,10 +302,10 @@ public class ButtonController implements ActionListener
     			LoginScreen view = (LoginScreen)viewListener.GetView();
     			String username = view.GetUserName();
     			String password = view.GetPassword();
-    			Object test = UserDAO.findUser(username, password);
-    			System.out.println("To the Main Menu...");
+    			loggedInUser = UserDAO.findUser(username, password);
+    			System.out.println("To the Admin Main Menu...");
     			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this));
+				mainFrame.setContentPane(new view.MainMenuScreen(this, loggedInUser.getAccessLevel()));
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
