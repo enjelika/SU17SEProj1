@@ -6,13 +6,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import courierDAO.UserDAO;
+import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.LoginScreen;
+import view.ViewListener;
 
 public class ButtonController implements ActionListener
 {
 	JFrame mainFrame;
 	Model model;
+	ViewListener viewListener;
 	
 	public ButtonController(Model model) 
 	{
@@ -22,6 +27,12 @@ public class ButtonController implements ActionListener
 	public void setMainFrame(JFrame mainFrame)
 	{
 		this.mainFrame = mainFrame;
+	}
+
+	public void setViewListener(ViewListener listener)
+	{
+
+		this.viewListener = listener;
 	}
 	
 	@Override
@@ -283,6 +294,10 @@ public class ButtonController implements ActionListener
     		 */
     		case "loginButton":
     			// TODO: Login action here (wire up to the Model for the logic)
+    			LoginScreen view = (LoginScreen)viewListener.GetView();
+    			String username = view.GetUserName();
+    			String password = view.GetPassword();
+    			Object test = UserDAO.findUser(username, password);
     			System.out.println("To the Main Menu...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.MainMenuScreen(this));

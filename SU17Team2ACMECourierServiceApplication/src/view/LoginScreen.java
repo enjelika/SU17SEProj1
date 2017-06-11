@@ -36,6 +36,8 @@ public class LoginScreen extends JPanel
 	private JButton loginButton;
 	private JLabel imageFrame;
 	private JPanel loginCredentials, mainPane, imgContainer;
+	private JTextField usernameTextbox = new JTextField("", 28);
+	private JPasswordField passwordTextbox = new JPasswordField("", 28);
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
@@ -49,6 +51,14 @@ public class LoginScreen extends JPanel
     public LoginScreen(ButtonController buttonController)
     {
     	loginController = buttonController;
+    	
+
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return LoginScreen.this;
+			}			
+
+		});
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -111,7 +121,6 @@ public class LoginScreen extends JPanel
 		usernameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 		
         // -- User name Text box
-		JTextField usernameTextbox = new JTextField("", 28);
 		usernameTextbox.setHorizontalAlignment(JTextField.CENTER);
 		usernameTextbox.setFont(new Font("Calibri", Font.PLAIN, 28));
 		usernameTextbox.setBorder(new LineBorder(Color.BLUE, 1));
@@ -137,7 +146,6 @@ public class LoginScreen extends JPanel
 		passwordTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 		
         // -- Password Textbox
-		JPasswordField passwordTextbox = new JPasswordField("", 28);
 		passwordTextbox.setEchoChar('*');
 		passwordTextbox.setHorizontalAlignment(JTextField.CENTER);
 		passwordTextbox.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -160,5 +168,16 @@ public class LoginScreen extends JPanel
 		loginCredentials.add(loginButtonContainer);
 		mainPane.add(loginCredentials); 
 		this.add(mainPane);
+    }
+    
+    public String GetUserName()
+    {
+    	return usernameTextbox.getText();
+    }
+    
+    @SuppressWarnings("deprecation")
+	public String GetPassword()
+    {
+    	return passwordTextbox.getText();
     }
 }
