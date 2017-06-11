@@ -7,6 +7,8 @@
  */
 package model;
 
+import courierDAO.UserDAO;
+
 public class Model 
 {
 	// Declare any static objects in here
