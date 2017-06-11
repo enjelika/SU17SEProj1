@@ -36,8 +36,12 @@ public class ButtonController implements ActionListener
     		 * Admin Menu Buttons
     		 */
 			case "coInfoMaintenanceButton":
-				// TODO: Co Info Maintenance Admin Menu action here
-				System.out.println(buttonID + " was pressed");
+				System.out.println("Going to the Company Information Maintenance Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.EditCompanyInfoScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
 				break;
 				
 			case "courierMaintenanceButton":
