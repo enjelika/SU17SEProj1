@@ -18,7 +18,7 @@ public class ButtonController implements ActionListener
 	JFrame mainFrame;
 	Model model;
 	ViewListener viewListener;
-	User loggedInUser;
+	public User loggedInUser;
 	
 	public ButtonController(Model model) 
 	{
@@ -221,8 +221,12 @@ public class ButtonController implements ActionListener
    			 * Settings Menu Button
    			 */
    			case "updatePasswordButton":
-   				// TODO: Update Password Settings Menu action here
-   				System.out.println(buttonID + " was pressed");
+   				System.out.println("Going to the Update Password screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.UpdatePasswordScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
    				break; 
 
     		/*
@@ -279,11 +283,19 @@ public class ButtonController implements ActionListener
     		case "backButton":
     			System.out.println("Going back to the Main Menu screen..."); 
     			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this, loggedInUser.getAccessLevel())); 
+				mainFrame.setContentPane(new view.MainMenuScreen(this)); 
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
     			break;	
+    			
+    		case "settingsBackButton":
+    			System.out.println("Going back to the Settings Menu screen...");
+				mainFrame.setContentPane(new view.SettingsMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;
     			
     		case "staffMaintBackButton":
     			System.out.println("Going back to the Staff Maintenance Menu screen..."); 
@@ -305,7 +317,7 @@ public class ButtonController implements ActionListener
     			loggedInUser = UserDAO.findUser(username, password);
     			System.out.println("To the Admin Main Menu...");
     			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this, loggedInUser.getAccessLevel()));
+				mainFrame.setContentPane(new view.MainMenuScreen(this));
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();

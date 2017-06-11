@@ -40,13 +40,12 @@ public class MainMenuScreen extends JPanel
     
     private ButtonController mainMenuController;
     
-    private boolean userIsAdmin;
+    private String accessLevel;
     
-    public MainMenuScreen(ButtonController buttonController, String accessLevel)
+    public MainMenuScreen(ButtonController buttonController)
     {
     	mainMenuController = buttonController;
-    	
-//    	userIsAdmin = mainMenuController.
+    	accessLevel = buttonController.loggedInUser.getAccessLevel();
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -131,7 +130,7 @@ public class MainMenuScreen extends JPanel
 			adminMenuButton.setOpaque(false);
 			adminMenuButton.setContentAreaFilled(false);
 			adminMenuButton.setBorder(new EmptyBorder(15, 75, 0, 75));
-			adminMenuButton.setVisible(true); //TODO:  This will need to be wired up to the Model for enable/disable by user role
+			adminMenuButton.setVisible(true); 
 			adminMenuButton.addActionListener(mainMenuController);
 			mainMenuContainer.add(adminMenuButton);
 		}
