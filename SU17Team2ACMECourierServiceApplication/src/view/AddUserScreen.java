@@ -40,6 +40,14 @@ public class AddUserScreen extends JPanel
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
+	private JTextField userNameField = new JTextField("", 28);
+	private JPasswordField newPasswordField1 = new JPasswordField("", 28);
+	private JPasswordField newPasswordField2 = new JPasswordField("", 28);
+	private ButtonGroup radioButtons = new ButtonGroup();
+	private JRadioButton standardUserSelection = new JRadioButton("User");
+	private JRadioButton adminUserSelection = new JRadioButton("Admin");
+	private JLabel saveMessageLabel = new JLabel();
+    
     private ButtonController addCourierController;
     
     public AddUserScreen(ButtonController buttonController)
@@ -48,6 +56,13 @@ public class AddUserScreen extends JPanel
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+    	
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return AddUserScreen.this;
+			}			
+
+		});
     	
     	// Container for the menu buttons
     	addNewUserContainer = new JPanel();
@@ -176,7 +191,6 @@ public class AddUserScreen extends JPanel
 			usernameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- User Name TextField
-	    	JTextField userNameField = new JTextField("", 28);
 	    	userNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	userNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	userNameField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -206,7 +220,6 @@ public class AddUserScreen extends JPanel
 			password1TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 1st New Password TextField
-	    	JPasswordField newPasswordField1 = new JPasswordField("", 28);
 	    	newPasswordField1.setEchoChar('*');
 	    	newPasswordField1.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField1.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -237,7 +250,6 @@ public class AddUserScreen extends JPanel
 			password2TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 2nd Password TextField
-	    	JPasswordField newPasswordField2 = new JPasswordField("", 28);
 	    	newPasswordField2.setEchoChar('*');
 	    	newPasswordField2.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField2.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -262,14 +274,10 @@ public class AddUserScreen extends JPanel
 	    	userRoleRB.setAlignmentX(LEFT_ALIGNMENT);
 	    	roleRadioButtonsContainer.add(userRoleRB);
 	    	
-	    	ButtonGroup radioButtons = new ButtonGroup();
-	    	
 	    	// User Role Radio Buttons   		    	
-	    	JRadioButton standardUserSelection = new JRadioButton("User");
 	    	standardUserSelection.setFont(new Font("Calibri", Font.PLAIN, 24));
 	    	standardUserSelection.setSelected(true);
 	    	
-	    	JRadioButton adminUserSelection = new JRadioButton("Admin");
 	    	adminUserSelection.setFont(new Font("Calibri", Font.PLAIN, 24));
 	    	
 	    	radioButtons.add(adminUserSelection);
@@ -284,6 +292,13 @@ public class AddUserScreen extends JPanel
 		JPanel resetSaveButtonsContainer = new JPanel();
 		resetSaveButtonsContainer.setLayout(new BoxLayout(resetSaveButtonsContainer, BoxLayout.X_AXIS));
 		resetSaveButtonsContainer.setBorder(new EmptyBorder(25, 0, 20, 0));
+		
+		//Message Label
+		saveMessageLabel.setBorder(new EmptyBorder(25, 10, 5, 5));
+		saveMessageLabel.setText("");
+		saveMessageLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		saveMessageLabel.setForeground(Color.RED);
+		resetSaveButtonsContainer.add(saveMessageLabel);
 		
         // -- Reset Button
 		resetButton.setName("resetButton");
@@ -332,5 +347,38 @@ public class AddUserScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+    }
+    
+    public String GetUserName()
+    {
+    	return userNameField.getText();
+    }
+    
+    @SuppressWarnings("deprecation")
+	public String GetPassword1()
+    {
+    	return newPasswordField1.getText();
+    }
+    
+	public String GetPassword2()
+    {
+    	return newPasswordField2.getText();
+    }
+    
+    public String GetUserType()
+    {
+    	String userType = "";
+    	if(standardUserSelection.isSelected())
+    		userType = "user";
+    	if(adminUserSelection.isSelected())
+    		userType = "admin";
+    	
+    	return userType;
+    		
+    }
+    
+    public void SetSaveMessage(String message)
+    {
+    	saveMessageLabel.setText(message);
     }
 }

@@ -3,13 +3,16 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import courierDAO.UserDAO;
+import courierDAO.emDAO;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.AddUserScreen;
 import view.LoginScreen;
 import view.ViewListener;
 
@@ -214,7 +217,27 @@ public class ButtonController implements ActionListener
    			 */
    			case "saveButton":
    				// TODO: Save Button action here
-   				System.out.println(buttonID + " was pressed");
+   	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
+   	   			{
+	   	   			AddUserScreen addUserView = (AddUserScreen)viewListener.GetView();
+	   	   			String addUsername = addUserView.GetUserName();
+	   	   			String addPassword1 = addUserView.GetPassword1();
+	   	   			String addPassword2 = addUserView.GetPassword2();
+	   	   			String addUserType = addUserView.GetUserType();
+	   	   			if(addPassword1.equals(addPassword2))
+	   	   			{
+		   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
+						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+						userTransaction.begin();
+		   	   			UserDAO.addUser(user);
+						userTransaction.commit();
+		   	   			addUserView.SetSaveMessage("User was successfully added.");
+	   	   			}
+	   	   			else
+	   	   			{
+	   	   				addUserView.SetSaveMessage("Passwords do not match");
+	   	   			}
+   	   			}
    				break;
    				
    			/*
@@ -315,12 +338,19 @@ public class ButtonController implements ActionListener
     			String username = view.GetUserName();
     			String password = view.GetPassword();
     			loggedInUser = UserDAO.findUser(username, password);
-    			System.out.println("To the Admin Main Menu...");
-    			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this));
-				mainFrame.getContentPane().invalidate();
-				mainFrame.getContentPane().revalidate();
-				mainFrame.getContentPane().repaint();
+    			if(loggedInUser == null)
+    			{
+    				view.SetLoginMessage("Unable to validate Login. Please try again.");
+    			}
+    			else
+    			{
+	    			System.out.println("To the Main Menu...");
+	    			mainFrame.getContentPane().removeAll();
+					mainFrame.setContentPane(new view.MainMenuScreen(this));
+					mainFrame.getContentPane().invalidate();
+					mainFrame.getContentPane().revalidate();
+					mainFrame.getContentPane().repaint();
+    			}
 				
 				//Testing purpose
 				StreetMap streetMap = new StreetMap();
@@ -336,19 +366,6 @@ public class ButtonController implements ActionListener
 				System.out.println("Total Distance: " + streetMap.TotalDistance + " blocks");
 				System.out.println(streetMap.Direction);
 
-    			if(loggedInUser == null)
-    			{
-    				view.SetLoginMessage("Unable to validate Login. Please try again.");
-    			}
-    			else
-    			{
-	    			System.out.println("To the Main Menu...");
-	    			mainFrame.getContentPane().removeAll();
-					mainFrame.setContentPane(new view.MainMenuScreen(this));
-					mainFrame.getContentPane().invalidate();
-					mainFrame.getContentPane().revalidate();
-					mainFrame.getContentPane().repaint();
-    			}
     			break;
     			
     		/*
