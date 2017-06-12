@@ -315,13 +315,20 @@ public class ButtonController implements ActionListener
     			String username = view.GetUserName();
     			String password = view.GetPassword();
     			loggedInUser = UserDAO.findUser(username, password);
-    			System.out.println("To the Admin Main Menu...");
-    			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.MainMenuScreen(this));
-				mainFrame.getContentPane().invalidate();
-				mainFrame.getContentPane().revalidate();
-				mainFrame.getContentPane().repaint();
-				StreetMap.testMap();	// For testing purpose
+    			if(loggedInUser == null)
+    			{
+    				view.SetLoginMessage("Unable to validate Login. Please try again.");
+    			}
+    			else
+    			{
+	    			System.out.println("To the Main Menu...");
+	    			mainFrame.getContentPane().removeAll();
+					mainFrame.setContentPane(new view.MainMenuScreen(this));
+					mainFrame.getContentPane().invalidate();
+					mainFrame.getContentPane().revalidate();
+					mainFrame.getContentPane().repaint();
+					StreetMap.testMap();	// For testing purpose
+    			}
     			break;
     			
     		/*
