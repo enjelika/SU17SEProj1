@@ -7,7 +7,8 @@ public class Intersection implements Comparable<Intersection>
 {
 
 	public final String streetName;
-	public int distance = Integer.MAX_VALUE;
+	public String Direction = "";
+	public int distance;
 	public Intersection previous = null;
 	public final Map<Intersection, Integer> neighbours = new HashMap<>();
 	
@@ -16,23 +17,20 @@ public class Intersection implements Comparable<Intersection>
 		this.streetName = name;
 	}
 	
-	public void PrintDirection() 
+	public void GetDirection(String description) 
 	{
 		if(this == this.previous) 
 		{
-			System.out.println("Direction: ");
-			System.out.printf("%s", this.streetName);
+			Direction = this.previous.Direction.concat("-------- " + description + "\n START: " + this.streetName + "\n");
 		}
 		else if (this.previous == null) 
 		{
-			System.out.printf("%s(unreached)", this.streetName);
+			Direction = this.previous.Direction.concat(this.streetName + "(unreached)");
 		}
 		else 
 		{
-			this.previous.PrintDirection();
-			System.out.printf(" --> %s(travelled %d blocks)", this.streetName, this.distance);
-			System.out.println("");
-			//System.out.printf(" --> %s", this.streetName);
+			this.previous.GetDirection(description);
+			Direction = this.previous.Direction.concat(" GO TO: " + this.streetName + " (traveled " + this.distance + " blocks)\n");
 		}
 	}
 	

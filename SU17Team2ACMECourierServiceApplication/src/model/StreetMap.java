@@ -9,13 +9,37 @@ import java.util.*;
 public class StreetMap
 {	
 	// Mapping of intersection names to Intersection objects, built from a set of Street Segment
-	private final Map<String, Intersection> map;
+	private static Map<String, Intersection> map;
+	
+	// Map file Name
+	private String mapFileName = "StreetSegments.csv";
+			
+	// Direction for the courier
+	public String Direction = "";
+	
+	// Total Traveled Distance
+	public int TotalDistance = 0;
 	
 	// Street Segment list that is used to build a map
 	public static List<StreetSegment> StreetSegmentList = new ArrayList<StreetSegment>();
 	
+	// Constructor
+	public StreetMap() 
+	{
+		try 
+		{
+			LoadMap(mapFileName);
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error reading file");  
+		}
+		
+		BuildStreetMap(StreetSegmentList);
+	}
+	
 	// Build a streets map from a set of street segments
-	public StreetMap(List<StreetSegment> streetSegment)
+	public static void BuildStreetMap(List<StreetSegment> streetSegment)
 	{
 		//map = new HashMap<>(streetSegment.length);
 		map = new HashMap<>(streetSegment.size());
@@ -89,45 +113,18 @@ public class StreetMap
 	}
 	
 	// Prints a direction from the source to the specified intersection
-	public void PrintDirection(String endIntersection) 
+	public void GetDirection(String endIntersection, String description) 
 	{
 		if(!map.containsKey(endIntersection)) 
 		{
-			System.err.printf("Map does not contain destionation \"%s\"\n", endIntersection);
+			System.err.printf("Map does not contain destination \"%s\"\n", endIntersection);
 			return;
 		}
 		
-		map.get(endIntersection).PrintDirection();
+		TotalDistance += map.get(endIntersection).distance;	// Get the total traveled distance
+		map.get(endIntersection).GetDirection(description);
+		Direction = map.get(endIntersection).Direction;	// Get the direction for the courier
 		System.out.println();
-	}
-	
-	// Prints all possible directions
-	public void PrintAllDirections() 
-	{
-		for (Intersection i : map.values()) 
-		{
-			i.PrintDirection();
-			System.out.println();
-		}
-	}
-	
-	// For testing purpose
-	public static void testMap() 
-	{
-		final String startIntersection = "7th Ave and G Street";
-		final String endIntersection = "1st Ave and A Street";
-		try 
-		{
-			LoadMap("StreetSegments.csv");
-		}
-		catch(Exception ex)
-		{
-			System.out.println("Error reading file");  
-		}
-		
-		StreetMap m = new StreetMap(StreetSegmentList);
-		m.Dijkstra(startIntersection);
-		m.PrintDirection(endIntersection);
 	}
 	
 	// Load the map from cvs file
