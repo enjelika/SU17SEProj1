@@ -1,2 +1,2 @@
-INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('0', 'admin', 'Y', 'admin', 'admin');
-INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('1', 'user', 'Y', 'user', 'user');
+INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('1', 'admin', 'Y', 'admin', 'admin');
+INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('2', 'user', 'Y', 'user', 'user');

@@ -35,13 +35,13 @@ public class User implements Serializable
 		
 	}
 	
-	public User(User team, String name, String position, String number)
+	public User(String username, String password, String accesslevel, String isactive)
 	{
 		this();
-		//this.name = name;
-		//this.position = position;
-		//this.number = number;
-		//team.addPlayer(this);
+		this.userName = username;
+		this.password = password;
+		this.accessLevel = accesslevel;
+		this.isActive = isactive;
 	}
 	
 

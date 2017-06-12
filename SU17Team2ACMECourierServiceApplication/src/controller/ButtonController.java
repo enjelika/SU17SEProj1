@@ -3,13 +3,16 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import courierDAO.UserDAO;
+import courierDAO.emDAO;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.AddUserScreen;
 import view.LoginScreen;
 import view.ViewListener;
 
@@ -214,7 +217,19 @@ public class ButtonController implements ActionListener
    			 */
    			case "saveButton":
    				// TODO: Save Button action here
-   				System.out.println(buttonID + " was pressed");
+   	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
+   	   			{
+	   	   			AddUserScreen addUserView = (AddUserScreen)viewListener.GetView();
+	   	   			String addUsername = addUserView.GetUserName();
+	   	   			String addPassword = addUserView.GetPassword();
+	   	   			String addUserType = addUserView.GetUserType();
+	   	   			User user = new User(addUsername, addPassword, addUserType, "Y");
+					EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+					userTransaction.begin();
+	   	   			UserDAO.addUser(user);
+					userTransaction.commit();
+	   	   			System.out.println("User was added");
+   	   			}
    				break;
    				
    			/*
