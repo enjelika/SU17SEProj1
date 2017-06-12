@@ -42,9 +42,11 @@ public class AddUserScreen extends JPanel
     
 	private JTextField userNameField = new JTextField("", 28);
 	private JPasswordField newPasswordField1 = new JPasswordField("", 28);
+	private JPasswordField newPasswordField2 = new JPasswordField("", 28);
 	private ButtonGroup radioButtons = new ButtonGroup();
 	private JRadioButton standardUserSelection = new JRadioButton("User");
 	private JRadioButton adminUserSelection = new JRadioButton("Admin");
+	private JLabel saveMessageLabel = new JLabel();
     
     private ButtonController addCourierController;
     
@@ -248,7 +250,6 @@ public class AddUserScreen extends JPanel
 			password2TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 2nd Password TextField
-	    	JPasswordField newPasswordField2 = new JPasswordField("", 28);
 	    	newPasswordField2.setEchoChar('*');
 	    	newPasswordField2.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField2.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -291,6 +292,13 @@ public class AddUserScreen extends JPanel
 		JPanel resetSaveButtonsContainer = new JPanel();
 		resetSaveButtonsContainer.setLayout(new BoxLayout(resetSaveButtonsContainer, BoxLayout.X_AXIS));
 		resetSaveButtonsContainer.setBorder(new EmptyBorder(25, 0, 20, 0));
+		
+		//Message Label
+		saveMessageLabel.setBorder(new EmptyBorder(25, 10, 5, 5));
+		saveMessageLabel.setText("");
+		saveMessageLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		saveMessageLabel.setForeground(Color.RED);
+		resetSaveButtonsContainer.add(saveMessageLabel);
 		
         // -- Reset Button
 		resetButton.setName("resetButton");
@@ -347,9 +355,14 @@ public class AddUserScreen extends JPanel
     }
     
     @SuppressWarnings("deprecation")
-	public String GetPassword()
+	public String GetPassword1()
     {
     	return newPasswordField1.getText();
+    }
+    
+	public String GetPassword2()
+    {
+    	return newPasswordField2.getText();
     }
     
     public String GetUserType()
@@ -362,5 +375,10 @@ public class AddUserScreen extends JPanel
     	
     	return userType;
     		
+    }
+    
+    public void SetSaveMessage(String message)
+    {
+    	saveMessageLabel.setText(message);
     }
 }
