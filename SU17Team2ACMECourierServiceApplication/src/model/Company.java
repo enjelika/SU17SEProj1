@@ -3,19 +3,20 @@ package model;
 public class Company 
 {
 	// Local variables
-	private static String Name;
-	private static String Address;
-	private static double BillRate;
-	private static int CostPerBlock;
-	private static int CourierSpeed;
-	private static int BlocksToAMile;
-	private static int BonusTimeVariance;
-	private static int PickUpTimeAllowance;
-	private static int DeliveryTimeAllowance;
+	public static String Name;
+	public static String Address;
+	public static double BillRate;
+	public static int CostPerBlock;
+	public static int CourierSpeed;
+	public static int BlocksToAMile;
+	public static int BonusTimeVariance;
+	public static int BonusOnTime;
+	public static int PickUpTimeAllowance;
+	public static int DeliveryTimeAllowance;
 	
 	// Update the company's information
 	public static void UpdateCompanyInfo(String name, String address, double billRate, int costPerBlock,
-			int courierSpeed, int blocksToAMile, int bonusTimeVariance, int pickUpTimeAllowance,
+			int courierSpeed, int blocksToAMile, int bonusTimeVariance, int bonusOnTime, int pickUpTimeAllowance,
 			int deliveryTimeAllowance) 
 	{
 		Name = name;
@@ -25,6 +26,7 @@ public class Company
 		CourierSpeed = courierSpeed;
 		BlocksToAMile = blocksToAMile;
 		BonusTimeVariance = bonusTimeVariance;
+		BonusOnTime = bonusOnTime;
 		PickUpTimeAllowance = pickUpTimeAllowance;
 		DeliveryTimeAllowance = deliveryTimeAllowance;
 	}

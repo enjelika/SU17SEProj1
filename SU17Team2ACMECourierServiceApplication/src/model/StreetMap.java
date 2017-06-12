@@ -124,7 +124,6 @@ public class StreetMap
 		TotalDistance += map.get(endIntersection).distance;	// Get the total traveled distance
 		map.get(endIntersection).GetDirection(description);
 		Direction = map.get(endIntersection).Direction;	// Get the direction for the courier
-		System.out.println();
 	}
 	
 	// Load the map from cvs file
