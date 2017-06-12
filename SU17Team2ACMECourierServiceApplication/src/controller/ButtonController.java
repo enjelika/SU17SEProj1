@@ -335,8 +335,21 @@ public class ButtonController implements ActionListener
 				streetMap.GetDirection(companyAddress, "From delivery location to office");
 				System.out.println("Total Distance: " + streetMap.TotalDistance + " blocks");
 				System.out.println(streetMap.Direction);
-				
-				break;
+
+    			if(loggedInUser == null)
+    			{
+    				view.SetLoginMessage("Unable to validate Login. Please try again.");
+    			}
+    			else
+    			{
+	    			System.out.println("To the Main Menu...");
+	    			mainFrame.getContentPane().removeAll();
+					mainFrame.setContentPane(new view.MainMenuScreen(this));
+					mainFrame.getContentPane().invalidate();
+					mainFrame.getContentPane().revalidate();
+					mainFrame.getContentPane().repaint();
+    			}
+    			break;
     			
     		/*
     		 * Logout Button

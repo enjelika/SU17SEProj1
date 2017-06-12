@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -38,6 +39,7 @@ public class LoginScreen extends JPanel
 	private JPanel loginCredentials, mainPane, imgContainer;
 	private JTextField usernameTextbox = new JTextField("", 28);
 	private JPasswordField passwordTextbox = new JPasswordField("", 28);
+	private JLabel loginMessageLabel = new JLabel();
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
@@ -154,9 +156,15 @@ public class LoginScreen extends JPanel
 		loginCredentials.add(passwordTextboxContainer);
 		
 		JPanel loginButtonContainer = new JPanel();
-		loginButtonContainer.setLayout(new BoxLayout(loginButtonContainer, BoxLayout.X_AXIS));
+		loginButtonContainer.setLayout(new BoxLayout(loginButtonContainer, BoxLayout.Y_AXIS));
 		
         // -- Login Button
+		loginMessageLabel.setBorder(new EmptyBorder(25, 10, 5, 5));
+		loginMessageLabel.setText("");
+		loginMessageLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		loginMessageLabel.setForeground(Color.RED);
+		loginButtonContainer.add(loginMessageLabel);
+		
 		loginButton.setName("loginButton");
 		loginButton.setOpaque(false);
 		loginButton.setContentAreaFilled(false);
@@ -179,5 +187,10 @@ public class LoginScreen extends JPanel
 	public String GetPassword()
     {
     	return passwordTextbox.getText();
+    }
+    
+    public void SetLoginMessage(String message)
+    {
+    	loginMessageLabel.setText(message);
     }
 }
