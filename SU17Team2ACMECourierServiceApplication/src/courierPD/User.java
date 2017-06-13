@@ -18,7 +18,7 @@ public class User implements Serializable
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long userId;
 	
-	@Column(name = "username", nullable = false,length = 50)
+	@Column(name = "username", nullable = false,length = 50, unique=true)
 	private String userName;
 	
 	@Column(name = "password", nullable = false,length = 50)
@@ -35,13 +35,13 @@ public class User implements Serializable
 		
 	}
 	
-	public User(User team, String name, String position, String number)
+	public User(String username, String password, String accesslevel, String isactive)
 	{
 		this();
-		//this.name = name;
-		//this.position = position;
-		//this.number = number;
-		//team.addPlayer(this);
+		this.userName = username;
+		this.password = password;
+		this.accessLevel = accesslevel;
+		this.isActive = isactive;
 	}
 	
 

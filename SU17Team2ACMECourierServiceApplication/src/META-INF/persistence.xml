@@ -4,7 +4,7 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
     <persistence-unit name="Courier" transaction-type="RESOURCE_LOCAL">
-         <class>src.courierPD.User</class>
+         <class>courierPD.CompanyInfo</class>
 		 <class>courierPD.User</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

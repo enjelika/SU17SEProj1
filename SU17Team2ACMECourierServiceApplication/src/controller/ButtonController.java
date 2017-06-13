@@ -3,13 +3,16 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import courierDAO.UserDAO;
+import courierDAO.emDAO;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.AddUserScreen;
 import view.LoginScreen;
 import view.ViewListener;
 
@@ -218,7 +221,33 @@ public class ButtonController implements ActionListener
    			 */
    			case "saveButton":
    				// TODO: Save Button action here
-   				System.out.println(buttonID + " was pressed");
+   	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
+   	   			{
+	   	   			AddUserScreen addUserView = (AddUserScreen)viewListener.GetView();
+	   	   			String addUsername = addUserView.GetUserName();
+	   	   			String addPassword1 = addUserView.GetPassword1();
+	   	   			String addPassword2 = addUserView.GetPassword2();
+	   	   			String addUserType = addUserView.GetUserType();
+	   	   			if(addPassword1.equals(addPassword2))
+	   	   			{
+	   	   				try
+	   	   				{
+		   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
+						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+						userTransaction.begin();
+		   	   			UserDAO.addUser(user);
+						userTransaction.commit();
+		   	   			addUserView.SetSaveMessage("User was successfully added.");
+	   	   				}
+	   	   				catch(Exception e){
+	   	   				addUserView.SetSaveMessage("Unable to add user. User already exists.");
+	   	   				}
+	   	   			}
+	   	   			else
+	   	   			{
+	   	   				addUserView.SetSaveMessage("Passwords do not match");
+	   	   			}
+   	   			}
    				break;
    				
    			/*
@@ -330,8 +359,22 @@ public class ButtonController implements ActionListener
 					mainFrame.getContentPane().invalidate();
 					mainFrame.getContentPane().revalidate();
 					mainFrame.getContentPane().repaint();
-					StreetMap.testMap();	// For testing purpose
     			}
+				
+				//Testing purpose
+				StreetMap streetMap = new StreetMap();
+				final String companyAddress = "4th Ave and D Street";
+				final String startIntersection = "7th Ave and G Street";
+				final String endIntersection = "1st Ave and A Street";
+				streetMap.Dijkstra(companyAddress);
+				streetMap.GetDirection(startIntersection, "From company to pickup location");
+				streetMap.Dijkstra(startIntersection);
+				streetMap.GetDirection(endIntersection, "From pickup location to delivery location");
+				streetMap.Dijkstra(endIntersection);
+				streetMap.GetDirection(companyAddress, "From delivery location to office");
+				System.out.println("Total Distance: " + streetMap.TotalDistance + " blocks");
+				System.out.println(streetMap.Direction);
+
     			break;
     			
     		/*

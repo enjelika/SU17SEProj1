@@ -12,7 +12,7 @@ public class UserDAO {
 		emDAO.getEM().persist(user);
 	}
 	
-		public static void addPlayer(User user) {
+		public static void addUser(User user) {
 			emDAO.getEM().persist(user);
 		}
 
