@@ -7,9 +7,24 @@
  */
 package model;
 
+import java.util.Calendar;
+
 import courierDAO.UserDAO;
 
 public class Model 
 {
-	// Declare any static objects in here
+	String packageID;
+	int counter = 0;
+	
+	public void setPackageId()
+	{
+		counter++;
+		packageID = String.format("%02d", Calendar.MONTH) + String.format("%02d", Calendar.DAY_OF_MONTH) + "17" + String.format("%03d", counter);
+	}
+	
+	public String getPackageId()
+	{
+		setPackageId();
+		return packageID;
+	}
 }

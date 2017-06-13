@@ -16,7 +16,7 @@ import view.ViewListener;
 public class ButtonController implements ActionListener
 {
 	JFrame mainFrame;
-	Model model;
+	public Model model;
 	ViewListener viewListener;
 	public User loggedInUser;
 	
@@ -169,8 +169,12 @@ public class ButtonController implements ActionListener
     		 * Delivery Ticket Menu Buttons
     		 */
     		case "createNewTicketButton":
-    			// TODO: Create a New Ticket action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to Create a New Ticket Screen 1...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CreateDeliveryTicketScreen1(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		case "editTicketButton":
@@ -310,7 +314,6 @@ public class ButtonController implements ActionListener
     		 * Login Screen Button
     		 */
     		case "loginButton":
-    			// TODO: Login action here (wire up to the Model for the logic)
     			LoginScreen view = (LoginScreen)viewListener.GetView();
     			String username = view.GetUserName();
     			String password = view.GetPassword();
