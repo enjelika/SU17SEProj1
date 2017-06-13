@@ -226,12 +226,18 @@ public class ButtonController implements ActionListener
 	   	   			String addUserType = addUserView.GetUserType();
 	   	   			if(addPassword1.equals(addPassword2))
 	   	   			{
+	   	   				try
+	   	   				{
 		   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
 						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
 						userTransaction.begin();
 		   	   			UserDAO.addUser(user);
 						userTransaction.commit();
 		   	   			addUserView.SetSaveMessage("User was successfully added.");
+	   	   				}
+	   	   				catch(Exception e){
+	   	   				addUserView.SetSaveMessage("Unable to add user. User already exists.");
+	   	   				}
 	   	   			}
 	   	   			else
 	   	   			{
