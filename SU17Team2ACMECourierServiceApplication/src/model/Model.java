@@ -27,4 +27,18 @@ public class Model
 		setPackageId();
 		return packageID;
 	}
+	
+	String[] customerNames;
+
+	public String[] getCustomerNames() 
+	{
+		return customerNames;
+	}
+
+	public void setCustomerNames() 
+	{
+		// TODO: Fill the customerNames String array with values from the DB
+	}
+	
+	
 }

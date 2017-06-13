@@ -18,6 +18,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -36,8 +37,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	private JButton resetButton, nextButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketScreen1Container, southButtonContainer, mainPane, imgContainer;
-	public JTextField deliveryCustomerNumText, pickUpCustomerNumText;
-		
+	public JTextField deliveryCustomerNumText, pickUpCustomerNumText, pickUpTimeField;
+	public JRadioButton pickUpSelection, deliverySelection;
+	public JComboBox<String> deliveryCustomerNameCB, pickUpCustomerNameCB;
+	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -46,13 +49,18 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     DateFormat dateFormat, timeFormat;
     String dateText, timeText, packageID;
     
+    // TEMPORARY
+    String[] tempArray;
+    
     private ButtonController deliveryTicket1Controller;
     
     public CreateDeliveryTicketScreen1(ButtonController buttonController)
     {
+		tempArray = new String[] {"-- select a customer --", "test1", "test2"};
+    	
     	deliveryTicket1Controller = buttonController;
     	
-    	dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17"; //TODO: YEAR!
+    	dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
     	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
     	
     	packageID = buttonController.model.getPackageId();
@@ -200,26 +208,37 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			
 		ticketScreen1Container.add(pickUpCustomerNumContainer);
 		
-		// TODO: Pick Up : Customer Name drop down
-//		JPanel pickUpCustomerNameCbContainer = new JPanel();
-//		pickUpCustomerNameCbContainer.setLayout(new BoxLayout(pickUpCustomerNumContainer, BoxLayout.X_AXIS));
-//		pickUpCustomerNameCbContainer.setBorder(new EmptyBorder(0, 25, 0, 0));
-//		
-//			String[] tempArray = {"test1, test2"};
-//			JComboBox<String> pickUpCustomerNameCB = new JComboBox<String>(tempArray); //deliveryTicket1Controller.model.getCustomerNames());
-//			pickUpCustomerNameCB.setSelectedIndex(0);
-//			pickUpCustomerNameCB.addActionListener(null); //TODO: Create an ActionListener for CBs to the controller package
-//			pickUpCustomerNameCbContainer.add(pickUpCustomerNameCB);
-//			
-//		ticketScreen1Container.add(pickUpCustomerNameCbContainer);
+		// Pick Up : Customer Name drop down
+		JPanel pickUpCustomerNameCbContainer = new JPanel();
+		pickUpCustomerNameCbContainer.setLayout(new BoxLayout(pickUpCustomerNameCbContainer, BoxLayout.X_AXIS));
+		pickUpCustomerNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
 		
+			// Customer Name Label
+			JLabel pickUpCustomerNameLabel= new JLabel();
+			pickUpCustomerNameLabel.setText("Customer Name:");
+			pickUpCustomerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+			pickUpCustomerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
+			pickUpCustomerNameCbContainer.add(pickUpCustomerNameLabel);
 		
+			// ComboBox
+			Border bCB = new LineBorder(Color.BLUE, 1);
+			Border mCB = new EmptyBorder(0, 15, 0, 25);
+			pickUpCustomerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
+			pickUpCustomerNameCB.setSelectedIndex(0);
+			pickUpCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
+			pickUpCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
+			pickUpCustomerNameCB.addActionListener(null); 
+			//TODO: Create an ActionListener for CBs to the controller package
+			pickUpCustomerNameCbContainer.add(pickUpCustomerNameCB);
+			
+		ticketScreen1Container.add(pickUpCustomerNameCbContainer);
+				
 		/*
 		 *  Container for Pick Up Time --space-- Bill To radioButtons () Pick Up  () Delivery
 		 */
 		JPanel pickUpTimeAndBillToRBContainer = new JPanel();
 		pickUpTimeAndBillToRBContainer.setLayout(new BoxLayout(pickUpTimeAndBillToRBContainer, BoxLayout.X_AXIS));
-		pickUpTimeAndBillToRBContainer.setBorder(new EmptyBorder(15, 25, 10, 10));
+		pickUpTimeAndBillToRBContainer.setBorder(new EmptyBorder(15, 27, 0, 10));
 		
 			// -- Pick Up Time Label
 			JLabel pickUpTimeLabel= new JLabel();
@@ -234,7 +253,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			pickUpTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Pick Up Time TextField
-	    	JTextField pickUpTimeField = new JTextField("", 5);
+	    	pickUpTimeField = new JTextField("", 5);
 	    	pickUpTimeField.setHorizontalAlignment(JTextField.LEFT);
 	    	pickUpTimeField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	pickUpTimeField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -256,11 +275,11 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	    	ButtonGroup radioButtons = new ButtonGroup();
 	    	
 	    	// Bill To Radio Buttons   		    	
-	    	JRadioButton pickUpSelection = new JRadioButton("Pick Up");
+	    	pickUpSelection = new JRadioButton("Pick Up");
 	    	pickUpSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	pickUpSelection.setSelected(true);
 	    	
-	    	JRadioButton deliverySelection = new JRadioButton("Delivery");
+	    	deliverySelection = new JRadioButton("Delivery");
 	    	deliverySelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	
 	    	radioButtons.add(deliverySelection);
@@ -274,10 +293,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		// -- end of 1st "Password" Field
 		ticketScreen1Container.add(pickUpTimeAndBillToRBContainer);
 		
-		// TODO: Delivery Customer # Label & Field (un-editable)
+		// Delivery Customer # Label & Field (un-editable)
 		JPanel deliveryCustomerNumContainer = new JPanel();
 		deliveryCustomerNumContainer.setLayout(new BoxLayout(deliveryCustomerNumContainer, BoxLayout.X_AXIS));
-		deliveryCustomerNumContainer.setBorder(new EmptyBorder(0, 25, 0, 0));
+		deliveryCustomerNumContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
 		
 			// -- Delivery Customer Label
 			JLabel deliveryCustomerLabel= new JLabel();
@@ -298,12 +317,33 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			
 		ticketScreen1Container.add(deliveryCustomerNumContainer);
 		
-		// TODO: Delivery : Customer Name drop down
+		// Delivery : Customer Name drop down
+		JPanel deliveryCustomerNameCbContainer = new JPanel();
+		deliveryCustomerNameCbContainer.setLayout(new BoxLayout(deliveryCustomerNameCbContainer, BoxLayout.X_AXIS));
+		deliveryCustomerNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
+		
+			// Customer Name Label
+			JLabel deliveryCustomerNameLabel= new JLabel();
+			deliveryCustomerNameLabel.setText("Customer Name:");
+			deliveryCustomerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+			deliveryCustomerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
+			deliveryCustomerNameCbContainer.add(deliveryCustomerNameLabel);
+		
+			// ComboBox
+			deliveryCustomerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
+			deliveryCustomerNameCB.setSelectedIndex(0);
+			deliveryCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
+			deliveryCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
+			deliveryCustomerNameCB.addActionListener(null); 
+			//TODO: Create an ActionListener for CBs to the controller package
+			deliveryCustomerNameCbContainer.add(deliveryCustomerNameCB);
+			
+		ticketScreen1Container.add(deliveryCustomerNameCbContainer);
 			 
 	    // Container Reset and Next buttons
 	 	JPanel resetAndNextButtonsContainer = new JPanel();
 	 	resetAndNextButtonsContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
-	 	resetAndNextButtonsContainer.setBorder(new EmptyBorder(10, 25, 5, 25));
+	 	resetAndNextButtonsContainer.setBorder(new EmptyBorder(25, 25, 5, 25));
 	 		    	 		   
 	 	// -- Reset Button
 	 	resetButton.setName("resetButton");
@@ -324,8 +364,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	 	ticketScreen1Container.add(resetAndNextButtonsContainer);
 
 		// --- end of Box for Menu buttons
-		
-	 	
+			 	
 	 	overallTicketContainer.add(ticketScreen1Container);
 		mainPane.add(overallTicketContainer, BorderLayout.CENTER);
 		
