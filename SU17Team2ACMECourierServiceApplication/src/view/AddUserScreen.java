@@ -377,6 +377,14 @@ public class AddUserScreen extends JPanel
     		
     }
     
+    public void Reset()
+    {
+    	standardUserSelection.setSelected(true);
+    	userNameField.setText("");
+    	newPasswordField1.setText("");
+    	newPasswordField2.setText("");
+    }
+    
     public void SetSaveMessage(String message)
     {
     	saveMessageLabel.setText(message);

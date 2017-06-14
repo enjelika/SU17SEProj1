@@ -213,6 +213,11 @@ public class ButtonController implements ActionListener
    	   		 */
    	   		case "resetButton":
    	   			// TODO: Reset Button action here
+   	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
+	   			{
+	   	   			AddUserScreen addUserViewReset = (AddUserScreen)viewListener.GetView();
+	   	   			addUserViewReset.Reset();
+	   			}
    	   			System.out.println(buttonID + " was pressed");
    	   			break;
    	   				
@@ -228,7 +233,11 @@ public class ButtonController implements ActionListener
 	   	   			String addPassword1 = addUserView.GetPassword1();
 	   	   			String addPassword2 = addUserView.GetPassword2();
 	   	   			String addUserType = addUserView.GetUserType();
-	   	   			if(addPassword1.equals(addPassword2))
+	   	   			if(addUsername.isEmpty() || addPassword1.isEmpty())
+	   	   			{
+	   	   				addUserView.SetSaveMessage("Username and password cannot be empty.");
+	   	   			}
+	   	   			else if(addPassword1.equals(addPassword2))
 	   	   			{
 	   	   				try
 	   	   				{
