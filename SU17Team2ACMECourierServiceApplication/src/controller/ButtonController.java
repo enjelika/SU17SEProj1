@@ -14,6 +14,7 @@ import model.Model;
 import model.StreetMap;
 import view.AddUserScreen;
 import view.LoginScreen;
+import view.UpdatePasswordScreen;
 import view.ViewListener;
 
 public class ButtonController implements ActionListener
@@ -256,6 +257,35 @@ public class ButtonController implements ActionListener
 	   	   			{
 	   	   				addUserView.SetSaveMessage("Passwords do not match");
 	   	   			}
+   	   			}
+   	   			else if(viewListener.getClass().getName().contains("UpdatePasswordScreen"))
+   	   			{
+   	   			UpdatePasswordScreen updatePass = (UpdatePasswordScreen)viewListener.GetView();
+   	   			String newPassword1 = updatePass.GetNewPassword1();
+   	   			String newPassword2 = updatePass.GetNewPassword2();
+   	   			if(newPassword1.isEmpty() && newPassword2.isEmpty())
+   	   			{
+   	   				updatePass.SetSaveMessage("Password cannot be empty.");
+   	   			}
+   	   			else if(newPassword1.equals(newPassword2))
+   	   			{
+   	   				try
+   	   				{
+   	   				loggedInUser.setPassword(newPassword1);
+					EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+					userTransaction.begin();
+	   	   			UserDAO.saveUser(loggedInUser);
+					userTransaction.commit();
+					updatePass.SetSaveMessage("Password was updated.");
+   	   				}
+   	   				catch(Exception e){
+   	   				updatePass.SetSaveMessage("Unable to update password.");
+   	   				}
+   	   			}
+   	   			else
+   	   			{
+   	   				updatePass.SetSaveMessage("Passwords do not match");
+   	   			}
    	   			}
    				break;
    				

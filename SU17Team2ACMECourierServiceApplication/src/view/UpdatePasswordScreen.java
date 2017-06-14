@@ -37,6 +37,10 @@ public class UpdatePasswordScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
+	private JPasswordField oldPasswordField = new JPasswordField("", 20);
+	private JPasswordField newPasswordField1 = new JPasswordField("", 20);
+	private JPasswordField newPasswordField2 = new JPasswordField("", 20);
+	private JLabel saveMessageLabel = new JLabel();
     
     private ButtonController updatePasswordController;
     
@@ -46,6 +50,13 @@ public class UpdatePasswordScreen extends JPanel
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+    	
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return UpdatePasswordScreen.this;
+			}			
+
+		});
     	
     	// Container for the menu buttons
     	updatePasswordContainer = new JPanel();
@@ -124,6 +135,7 @@ public class UpdatePasswordScreen extends JPanel
 		/*
 		 *  Inner first container for "Old Password" field
 		 */
+		/*
 		JPanel oldPasswordContainer = new JPanel();
 		oldPasswordContainer.setLayout(new BoxLayout(oldPasswordContainer, BoxLayout.X_AXIS));
 		oldPasswordContainer.setBorder(new EmptyBorder(35, 25, 5, 10));
@@ -141,7 +153,6 @@ public class UpdatePasswordScreen extends JPanel
 			password1TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Old Password TextField
-	    	JPasswordField oldPasswordField = new JPasswordField("", 20);
 			oldPasswordField.setEchoChar('*');
 			oldPasswordField.setHorizontalAlignment(JTextField.LEFT);
 			oldPasswordField.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -150,7 +161,7 @@ public class UpdatePasswordScreen extends JPanel
 			oldPasswordContainer.add(password1TextboxContainer);
 		
 		// -- end of "Old Password" Field
-		updatePasswordContainer.add(oldPasswordContainer);
+		updatePasswordContainer.add(oldPasswordContainer);*/
 			
 		/*
 		 *  Inner second container for 1st "New Password" field
@@ -172,7 +183,6 @@ public class UpdatePasswordScreen extends JPanel
 			password2TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 1st New Password TextField
-	    	JPasswordField newPasswordField1 = new JPasswordField("", 20);
 	    	newPasswordField1.setEchoChar('*');
 	    	newPasswordField1.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField1.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -203,7 +213,6 @@ public class UpdatePasswordScreen extends JPanel
 			password3TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 2nd New Password TextField
-	    	JPasswordField newPasswordField2 = new JPasswordField("", 20);
 	    	newPasswordField2.setEchoChar('*');
 	    	newPasswordField2.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField2.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -217,6 +226,13 @@ public class UpdatePasswordScreen extends JPanel
 		JPanel saveButtonContainer = new JPanel();
 		saveButtonContainer.setLayout(new BoxLayout(saveButtonContainer, BoxLayout.X_AXIS));
 		saveButtonContainer.setBorder(new EmptyBorder(5, 0, 15, 0));
+		
+		//Message Label
+		saveMessageLabel.setBorder(new EmptyBorder(25, 10, 5, 5));
+		saveMessageLabel.setText("");
+		saveMessageLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		saveMessageLabel.setForeground(Color.RED);
+		saveButtonContainer.add(saveMessageLabel);
 		
         // -- Save Button
 		saveButton.setName("saveButton");
@@ -255,5 +271,26 @@ public class UpdatePasswordScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+    }
+    
+    public String GetOldPassword()
+    {
+    	return oldPasswordField.getText();
+    }
+    
+    
+    public String GetNewPassword1()
+    {
+    	return newPasswordField1.getText();
+    }
+    
+    public String GetNewPassword2()
+    {
+    	return newPasswordField2.getText();
+    }
+    
+    public void SetSaveMessage(String message)
+    {
+    	saveMessageLabel.setText(message);
     }
 }
