@@ -6,13 +6,16 @@ import java.awt.event.ActionListener;
 import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import courierDAO.CompanyInfoDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
 import view.AddUserScreen;
+import view.EditCompanyInfoScreen;
 import view.LoginScreen;
 import view.UpdatePasswordScreen;
 import view.ViewListener;
@@ -210,7 +213,7 @@ public class ButtonController implements ActionListener
    				break;  
    				
    	   		/*
-   	   		 *  Save Button
+   	   		 *  Reset Button
    	   		 */
    	   		case "resetButton":
    	   			// TODO: Reset Button action here
@@ -218,6 +221,12 @@ public class ButtonController implements ActionListener
 	   			{
 	   	   			AddUserScreen addUserViewReset = (AddUserScreen)viewListener.GetView();
 	   	   			addUserViewReset.Reset();
+	   			}
+   	   			else if(viewListener.getClass().getName().contains("EditCompanyInfoScreen"))
+	   			{
+	   	   			EditCompanyInfoScreen editCompanyInfoScreen = (EditCompanyInfoScreen)viewListener.GetView();
+	   	   			editCompanyInfoScreen.companyInfo = CompanyInfoDAO.findCompannInfo("ACME Courier Service");
+	   	   			editCompanyInfoScreen.UpdateText();
 	   			}
    	   			System.out.println(buttonID + " was pressed");
    	   			break;
@@ -242,15 +251,16 @@ public class ButtonController implements ActionListener
 	   	   			{
 	   	   				try
 	   	   				{
-		   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
-						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
-						userTransaction.begin();
-		   	   			UserDAO.addUser(user);
-						userTransaction.commit();
-		   	   			addUserView.SetSaveMessage("User was successfully added.");
+			   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
+							EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+							userTransaction.begin();
+			   	   			UserDAO.addUser(user);
+							userTransaction.commit();
+			   	   			addUserView.SetSaveMessage("User was successfully added.");
 	   	   				}
-	   	   				catch(Exception e){
-	   	   				addUserView.SetSaveMessage("Unable to add user. User already exists.");
+	   	   				catch(Exception e)
+	   	   				{
+	   	   					addUserView.SetSaveMessage("Unable to add user. User already exists.");
 	   	   				}
 	   	   			}
 	   	   			else
@@ -258,34 +268,51 @@ public class ButtonController implements ActionListener
 	   	   				addUserView.SetSaveMessage("Passwords do not match");
 	   	   			}
    	   			}
+	   	   		else if(viewListener.getClass().getName().contains("EditCompanyInfoScreen"))
+	   			{
+	   				EditCompanyInfoScreen editCompanyInfoView = (EditCompanyInfoScreen)viewListener.GetView();
+		   			try
+	   				{
+		   				editCompanyInfoView.SaveCompany();
+						EntityTransaction companyInfoTransaction = emDAO.getEM().getTransaction();
+						companyInfoTransaction.begin();
+						CompanyInfoDAO.updateCompanyInfo(editCompanyInfoView.companyInfo);
+						companyInfoTransaction.commit();
+	   				}
+	   				catch(Exception e)
+		   			{
+	   					JOptionPane.showMessageDialog(null, "Invalid input! The data is reset", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
+	   					editCompanyInfoView.UpdateText();
+		   			}
+	   			}   
    	   			else if(viewListener.getClass().getName().contains("UpdatePasswordScreen"))
    	   			{
-   	   			UpdatePasswordScreen updatePass = (UpdatePasswordScreen)viewListener.GetView();
-   	   			String newPassword1 = updatePass.GetNewPassword1();
-   	   			String newPassword2 = updatePass.GetNewPassword2();
-   	   			if(newPassword1.isEmpty() && newPassword2.isEmpty())
-   	   			{
-   	   				updatePass.SetSaveMessage("Password cannot be empty.");
-   	   			}
-   	   			else if(newPassword1.equals(newPassword2))
-   	   			{
-   	   				try
-   	   				{
-   	   				loggedInUser.setPassword(newPassword1);
-					EntityTransaction userTransaction = emDAO.getEM().getTransaction();
-					userTransaction.begin();
-	   	   			UserDAO.saveUser(loggedInUser);
-					userTransaction.commit();
-					updatePass.SetSaveMessage("Password was updated.");
-   	   				}
-   	   				catch(Exception e){
-   	   				updatePass.SetSaveMessage("Unable to update password.");
-   	   				}
-   	   			}
-   	   			else
-   	   			{
-   	   				updatePass.SetSaveMessage("Passwords do not match");
-   	   			}
+	   	   			UpdatePasswordScreen updatePass = (UpdatePasswordScreen)viewListener.GetView();
+	   	   			String newPassword1 = updatePass.GetNewPassword1();
+	   	   			String newPassword2 = updatePass.GetNewPassword2();
+	   	   			if(newPassword1.isEmpty() && newPassword2.isEmpty())
+	   	   			{
+	   	   				updatePass.SetSaveMessage("Password cannot be empty.");
+	   	   			}
+	   	   			else if(newPassword1.equals(newPassword2))
+	   	   			{
+	   	   				try
+	   	   				{
+	   	   				loggedInUser.setPassword(newPassword1);
+						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+						userTransaction.begin();
+		   	   			UserDAO.saveUser(loggedInUser);
+						userTransaction.commit();
+						updatePass.SetSaveMessage("Password was updated.");
+	   	   				}
+	   	   				catch(Exception e){
+	   	   				updatePass.SetSaveMessage("Unable to update password.");
+	   	   				}
+	   	   			}
+	   	   			else
+	   	   			{
+	   	   				updatePass.SetSaveMessage("Passwords do not match");
+	   	   			}
    	   			}
    				break;
    				
