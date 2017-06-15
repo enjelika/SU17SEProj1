@@ -26,15 +26,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierPD.Customer;
 import model.Utility;
 
 @SuppressWarnings("serial")
 public class EditCustomerScreen extends JPanel
 {
+	public Customer customer = new Customer();
+	
 	private JButton findButton, resetButton, saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel editCustomerContainer, southButtonContainer, mainPane, imgContainer;
 
+	public JTextField customerIdField, customerNameField, addressField;
+	public JRadioButton activeStatusSelection;
+	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -44,6 +50,12 @@ public class EditCustomerScreen extends JPanel
     public EditCustomerScreen(ButtonController buttonController)
     {
     	editCustomerController = buttonController;
+    	
+    	buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return EditCustomerScreen.this;
+			}			
+		});
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -155,7 +167,7 @@ public class EditCustomerScreen extends JPanel
 			idTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
 			// -- Customer ID TextField
-	    	JTextField customerIdField = new JTextField("", 20);
+			customerIdField = new JTextField("", 20);
 			customerIdField.setHorizontalAlignment(JTextField.LEFT);
 			customerIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
 			customerIdField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -184,7 +196,7 @@ public class EditCustomerScreen extends JPanel
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
 			// -- Customer Name TextField
-	    	JTextField customerNameField = new JTextField("", 20);
+			customerNameField = new JTextField("", 20);
 	    	customerNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerNameField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -230,7 +242,7 @@ public class EditCustomerScreen extends JPanel
 			addressTextBoxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 						
 			// -- Address TextField
-	    	JTextField addressField = new JTextField("", 20);
+			addressField = new JTextField("", 20);
 	    	addressField.setHorizontalAlignment(JTextField.LEFT);
 	    	addressField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	addressField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -260,7 +272,7 @@ public class EditCustomerScreen extends JPanel
 		    	ButtonGroup radioButtons = new ButtonGroup();
 		    	
 		    	// User Role Radio Buttons   		    	
-		    	JRadioButton activeStatusSelection = new JRadioButton("Active");
+		    	activeStatusSelection = new JRadioButton("Active");
 		    	activeStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	activeStatusSelection.setSelected(true);
 		    	
@@ -322,4 +334,33 @@ public class EditCustomerScreen extends JPanel
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
 	}
+    
+    public void SaveCustomer() 
+    {
+    	String isActive = "N";
+    	if(activeStatusSelection.isSelected()) 
+    	{
+    		isActive = "Y";
+    	}
+		customer.UpdateCustomer(
+		Long.parseLong(customerIdField.getText()), 
+		customerNameField.getText(), 
+		addressField.getText(),
+		isActive);
+    }
+    
+    public void UpdateText() 
+    {
+    	customerIdField.setText(Long.toString(customer.getCustomerID()));
+    	customerNameField.setText(customer.getName());
+    	addressField.setText(customer.getAddress());
+    	if(customer.getIsActive() == " Y") 
+    	{
+    		activeStatusSelection.setSelected(true);
+    	}
+    	else
+    	{
+    		activeStatusSelection.setSelected(false);
+    	}
+    }
 }

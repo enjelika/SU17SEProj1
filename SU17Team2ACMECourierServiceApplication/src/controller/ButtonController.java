@@ -9,13 +9,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import courierDAO.CompanyInfoDAO;
+import courierDAO.CustomerDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
+import courierPD.Customer;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.AddCustomerScreen;
 import view.AddUserScreen;
 import view.EditCompanyInfoScreen;
+import view.EditCustomerScreen;
 import view.EditUserScreen;
 import view.LoginScreen;
 import view.UpdatePasswordScreen;
@@ -226,7 +230,7 @@ public class ButtonController implements ActionListener
    	   			else if(viewListener.getClass().getName().contains("EditCompanyInfoScreen"))
 	   			{
 	   	   			EditCompanyInfoScreen editCompanyInfoScreen = (EditCompanyInfoScreen)viewListener.GetView();
-	   	   			editCompanyInfoScreen.companyInfo = CompanyInfoDAO.findCompannInfo("ACME Courier Service");
+	   	   			editCompanyInfoScreen.companyInfo = CompanyInfoDAO.findCompanyInfo("ACME Courier Service");
 	   	   			editCompanyInfoScreen.UpdateText();
 	   			}
    	   			System.out.println(buttonID + " was pressed");
@@ -237,6 +241,8 @@ public class ButtonController implements ActionListener
    			 */
    			case "saveButton":
    				// TODO: Save Button action here
+   				
+   				// Save for Add User Screen
    	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
    	   			{
 	   	   			AddUserScreen addUserView = (AddUserScreen)viewListener.GetView();
@@ -269,6 +275,7 @@ public class ButtonController implements ActionListener
 	   	   				addUserView.SetSaveMessage("Passwords do not match");
 	   	   			}
    	   			}
+   	   			// Save for Edit Company Info Screen
 	   	   		else if(viewListener.getClass().getName().contains("EditCompanyInfoScreen"))
 	   			{
 	   				EditCompanyInfoScreen editCompanyInfoView = (EditCompanyInfoScreen)viewListener.GetView();
@@ -286,6 +293,7 @@ public class ButtonController implements ActionListener
 	   					editCompanyInfoView.UpdateText();
 		   			}
 	   			}   
+   	   			// Save for Update Password Screen
    	   			else if(viewListener.getClass().getName().contains("UpdatePasswordScreen"))
    	   			{
 	   	   			UpdatePasswordScreen updatePass = (UpdatePasswordScreen)viewListener.GetView();
@@ -315,6 +323,7 @@ public class ButtonController implements ActionListener
 	   	   				updatePass.SetSaveMessage("Passwords do not match");
 	   	   			}
    	   			}
+   	   			// Save for Edit User Screen
    	   			else if(viewListener.getClass().getName().contains("EditUserScreen"))
    	   			{
    	   				EditUserScreen editUser = (EditUserScreen)viewListener.GetView();
@@ -339,6 +348,52 @@ public class ButtonController implements ActionListener
 			   	   		editUser.SetSaveMessage("Passwords do not match");
 	   	   			}
    	   			}
+	   	   		else if(viewListener.getClass().getName().contains("AddCustomerScreen"))
+	   			{
+	   				AddCustomerScreen addCustomerScreen = (AddCustomerScreen)viewListener.GetView();
+		   			try
+	   				{
+		   				String customerName = addCustomerScreen.customerNameField.getText();
+		   				String customerAddress = addCustomerScreen.customerAddressField.getText();
+		   				if(customerName.isEmpty() || customerAddress.isEmpty())
+		   				{
+		   					JOptionPane.showMessageDialog(null, "Invalid input! Customer's name and address cannot be blank.", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else
+		   				{
+		   					Customer customer = new Customer(customerName, customerAddress, "Y");
+							EntityTransaction addCustomerTransaction = emDAO.getEM().getTransaction();
+							addCustomerTransaction.begin();
+							CustomerDAO.addCustomer(customer);
+							addCustomerTransaction.commit();
+							addCustomerScreen.ClearText();
+							JOptionPane.showMessageDialog(null, "Customer is created!", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+	   				}
+	   				catch(Exception e)
+		   			{
+	   					JOptionPane.showMessageDialog(null, "Invalid input! The data is reset", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
+	   					addCustomerScreen.ClearText();
+		   			}
+	   			}
+   	   			// Save for Edit Customer Screen ====== STILL WORKING ON THIS ONE
+   	   			else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
+	   			{
+   	   				EditCustomerScreen editCustomerScreen = (EditCustomerScreen)viewListener.GetView();
+		   			try
+	   				{
+		   				editCustomerScreen.SaveCustomer();
+						EntityTransaction customerTransaction = emDAO.getEM().getTransaction();
+						customerTransaction.begin();
+						CustomerDAO.updateCustomer(editCustomerScreen.customer);
+						customerTransaction.commit();
+	   				}
+	   				catch(Exception e)
+		   			{
+	   					JOptionPane.showMessageDialog(null, "Invalid input! The data is reset", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
+	   					editCustomerScreen.UpdateText();
+		   			}
+	   			}
    				break;
    				
    			/*

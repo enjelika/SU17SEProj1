@@ -24,14 +24,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierPD.Customer;
 import model.Utility;
 
 @SuppressWarnings("serial")
 public class AddCustomerScreen extends JPanel
 {
+	public Customer customer = new Customer();
+	
 	private JButton saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel addCustomerContainer, southButtonContainer, mainPane, imgContainer;
+	
+	public JTextField customerNameField, customerAddressField;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
@@ -45,6 +50,12 @@ public class AddCustomerScreen extends JPanel
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+    	
+    	buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return AddCustomerScreen.this;
+			}			
+		});
     	
     	// Container for the menu buttons
     	addCustomerContainer = new JPanel();
@@ -169,7 +180,7 @@ public class AddCustomerScreen extends JPanel
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Customer Name TextField
-	    	JTextField customerNameField = new JTextField("", 20);
+			customerNameField = new JTextField("", 20);
 	    	customerNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerNameField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -199,7 +210,7 @@ public class AddCustomerScreen extends JPanel
 			addressTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Customer Address TextField
-	    	JTextField customerAddressField = new JTextField("", 20);
+			customerAddressField = new JTextField("", 20);
 	    	customerAddressField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerAddressField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerAddressField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -250,5 +261,20 @@ public class AddCustomerScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+    }
+    
+    public void SaveCustomer() 
+    {
+		customer.UpdateCustomer(
+		customer.getCustomerID(), 
+		customerNameField.getText(), 
+		customerAddressField.getText(),
+		"Y");
+    }
+    
+    public void ClearText() 
+    {
+    	customerNameField.setText("");
+    	customerAddressField.setText("");
     }
 }

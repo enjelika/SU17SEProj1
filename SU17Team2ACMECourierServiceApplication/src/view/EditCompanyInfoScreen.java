@@ -43,7 +43,7 @@ public class EditCompanyInfoScreen extends JPanel
     
     private ButtonController editCompanyController;
     
-    JTextField courierIdField, companyAddressField, billRateField, costPerBlockField,
+    public JTextField courierIdField, companyAddressField, billRateField, costPerBlockField,
     			courierSpeedField, blocksToMileField, bonusOnTimeField, pickUpTimeField,
     			bonusTimeVarianceField, deliveryTimeField;
     
@@ -107,7 +107,7 @@ public class EditCompanyInfoScreen extends JPanel
     	SetUpView(); 
     	
     	// Obtain company info from the db
-    	companyInfo = CompanyInfoDAO.findCompannInfo("ACME Courier Service");
+    	companyInfo = CompanyInfoDAO.findCompanyInfo("ACME Courier Service");
     	UpdateText();
     }
     
@@ -468,7 +468,7 @@ public class EditCompanyInfoScreen extends JPanel
     
     public void SaveCompany() 
     {
-    	companyInfo.UpdateCompanyInfo(
+    		companyInfo.UpdateCompanyInfo(
 			courierIdField.getText(), 
 			companyAddressField.getText(), 
 			Double.parseDouble(billRateField.getText()), 
