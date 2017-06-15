@@ -192,7 +192,7 @@ public class EditCompanyInfoScreen extends JPanel
 			
 				// -- Bill Rate Label
 				JLabel billRateLabel = new JLabel();
-				billRateLabel.setText("Bill Rate:");
+				billRateLabel.setText("Bill Rate:   $");
 				billRateLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 				billRateLabel.setAlignmentX(LEFT_ALIGNMENT);
 				billRateContainer.add(billRateLabel);
@@ -200,10 +200,10 @@ public class EditCompanyInfoScreen extends JPanel
 				// Used to "pretty" up the Text Field
 				JPanel billRateTextboxContainer = new JPanel();
 				billRateTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-				billRateTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 10));
+				billRateTextboxContainer.setBorder(new EmptyBorder(0, 0, 0, 10));
 				
 				// -- Bill Rate TextField
-		    	JTextField billRateField = new JTextField("$10", 5);
+		    	JTextField billRateField = new JTextField("10", 5);
 		    	billRateField.setHorizontalAlignment(JTextField.CENTER);
 		    	billRateField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	billRateField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -212,7 +212,7 @@ public class EditCompanyInfoScreen extends JPanel
 		    	
 		    	// -- Cost per Block Label
 				JLabel costPerBlockLabel = new JLabel();
-				costPerBlockLabel.setText("     +     Cost per Block:");
+				costPerBlockLabel.setText("     +     Cost per Block:  $");
 				costPerBlockLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 				costPerBlockLabel.setAlignmentX(LEFT_ALIGNMENT);
 				billRateContainer.add(costPerBlockLabel);
@@ -220,10 +220,10 @@ public class EditCompanyInfoScreen extends JPanel
 				// Used to "pretty" up the Text Field
 				JPanel costPerBlockTextboxContainer = new JPanel();
 				costPerBlockTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-				costPerBlockTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+				costPerBlockTextboxContainer.setBorder(new EmptyBorder(0, 0, 0, 25));
 				
 				// -- Cost per Block TextField
-		    	JTextField costPerBlockField = new JTextField("$2", 5);
+		    	JTextField costPerBlockField = new JTextField("2", 5);
 		    	costPerBlockField.setHorizontalAlignment(JTextField.CENTER);
 		    	costPerBlockField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	costPerBlockField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -256,11 +256,17 @@ public class EditCompanyInfoScreen extends JPanel
 					courierSpeedTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 205));
 						
 					// -- Courier Speed TextField
-			    	JTextField courierSpeedField = new JTextField("10 mph", 5);
+			    	JTextField courierSpeedField = new JTextField("10", 5);
 			    	courierSpeedField.setHorizontalAlignment(JTextField.CENTER);
 			    	courierSpeedField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	courierSpeedField.setBorder(new LineBorder(Color.BLUE, 1));
 			    	courierSpeedTextboxContainer.add(courierSpeedField);
+			    	courierSpeedContainer.add(courierSpeedTextboxContainer);
+			    	
+			    	// -- Courier Speed mph label
+			    	JLabel courierSpeedMphLabel = new JLabel("mph");
+			    	courierSpeedMphLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+			    	courierSpeedTextboxContainer.add(courierSpeedMphLabel);
 			    	courierSpeedContainer.add(courierSpeedTextboxContainer);
 				    	
 			    	// -- Blocks to a Mile Label
@@ -298,7 +304,7 @@ public class EditCompanyInfoScreen extends JPanel
 					
 					// -- Bonus on Time Label
 					JLabel bonusOnTimeLabel = new JLabel();
-					bonusOnTimeLabel.setText("Bonus on Time:");
+					bonusOnTimeLabel.setText("Bonus on Time:  $");
 					bonusOnTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 					bonusOnTimeLabel.setAlignmentX(LEFT_ALIGNMENT);
 					bonusOnTimeContainer.add(bonusOnTimeLabel);
@@ -306,10 +312,10 @@ public class EditCompanyInfoScreen extends JPanel
 					// Used to "pretty" up the Text Field
 					JPanel bonusOnTimeTextboxContainer = new JPanel();
 					bonusOnTimeTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-					bonusOnTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 115));
+					bonusOnTimeTextboxContainer.setBorder(new EmptyBorder(0, 0, 0, 115));
 						
 					// -- Bonus on Time TextField
-			    	JTextField bonusOnTimeField = new JTextField("$2", 5);
+			    	JTextField bonusOnTimeField = new JTextField("2", 5);
 			    	bonusOnTimeField.setHorizontalAlignment(JTextField.CENTER);
 			    	bonusOnTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	bonusOnTimeField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -359,15 +365,22 @@ public class EditCompanyInfoScreen extends JPanel
 				// Used to "pretty" up the Text Field
 				JPanel bonusTimeVarianceTextboxContainer = new JPanel();
 				bonusTimeVarianceTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-				bonusTimeVarianceTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
+				bonusTimeVarianceTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 2));
 						
 				// -- Bonus Time Variance (+/-) TextField
-			   	JTextField bonusTimeVarianceField = new JTextField("5 min", 5);
+			   	JTextField bonusTimeVarianceField = new JTextField("5", 5);
 			   	bonusTimeVarianceField.setHorizontalAlignment(JTextField.CENTER);
 			   	bonusTimeVarianceField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			   	bonusTimeVarianceField.setBorder(new LineBorder(Color.BLUE, 1));
 			   	bonusTimeVarianceTextboxContainer.add(bonusTimeVarianceField);
 			   	bonusTimeVarianceContainer.add(bonusTimeVarianceTextboxContainer);
+			   	
+			   	// -- Bonus Time Variance min label
+			   	JLabel bonusTimeVarianceMinLabel = new JLabel("min");
+			   	bonusTimeVarianceMinLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+			   	bonusTimeVarianceMinLabel.setBorder(new EmptyBorder(0, 0, 0, 25));
+			   	bonusTimeVarianceContainer.add(bonusTimeVarianceMinLabel);
+			   	bonusTimeVarianceAndDeliveryTimeContainer.add(bonusTimeVarianceContainer);
 				    	
 			   	// -- Delivery Time Allowance Label
 				JLabel deliveryTimeLabel = new JLabel();
