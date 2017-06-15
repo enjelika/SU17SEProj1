@@ -232,6 +232,7 @@ public class ButtonController implements ActionListener
 	   	   			EditCompanyInfoScreen editCompanyInfoScreen = (EditCompanyInfoScreen)viewListener.GetView();
 	   	   			editCompanyInfoScreen.companyInfo = CompanyInfoDAO.findCompanyInfo("ACME Courier Service");
 	   	   			editCompanyInfoScreen.UpdateText();
+	   	   			JOptionPane.showMessageDialog(null, "Company Info is reset!", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
 	   			}
    	   			System.out.println(buttonID + " was pressed");
    	   			break;
@@ -281,11 +282,27 @@ public class ButtonController implements ActionListener
 	   				EditCompanyInfoScreen editCompanyInfoView = (EditCompanyInfoScreen)viewListener.GetView();
 		   			try
 	   				{
-		   				editCompanyInfoView.SaveCompany();
-						EntityTransaction companyInfoTransaction = emDAO.getEM().getTransaction();
-						companyInfoTransaction.begin();
-						CompanyInfoDAO.updateCompanyInfo(editCompanyInfoView.companyInfo);
-						companyInfoTransaction.commit();
+		   				if(editCompanyInfoView.companyAddressField.getText().isEmpty()
+		   						|| editCompanyInfoView.billRateField.getText().isEmpty()
+		   						|| editCompanyInfoView.costPerBlockField.getText().isEmpty()
+		   		    			|| editCompanyInfoView.courierSpeedField.getText().isEmpty() 
+		   		    			|| editCompanyInfoView.blocksToMileField.getText().isEmpty()
+		   		    			|| editCompanyInfoView.bonusOnTimeField.getText().isEmpty() 
+		   		    			|| editCompanyInfoView.pickUpTimeField.getText().isEmpty() 
+		   		    			|| editCompanyInfoView.bonusTimeVarianceField.getText().isEmpty()
+		   		    			|| editCompanyInfoView.deliveryTimeField.getText().isEmpty() ) 
+		   				{
+		   					JOptionPane.showMessageDialog(null, "Invalid input! Text fields cannot be blank.", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else 
+		   				{
+		   					editCompanyInfoView.SaveCompany();
+							EntityTransaction companyInfoTransaction = emDAO.getEM().getTransaction();
+							companyInfoTransaction.begin();
+							CompanyInfoDAO.updateCompanyInfo(editCompanyInfoView.companyInfo);
+							companyInfoTransaction.commit();
+							JOptionPane.showMessageDialog(null, "Company Info is updated!", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
 	   				}
 	   				catch(Exception e)
 		   			{
