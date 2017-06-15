@@ -6,6 +6,7 @@
     <persistence-unit name="Courier" transaction-type="RESOURCE_LOCAL">
          <class>courierPD.CompanyInfo</class>
 		 <class>courierPD.User</class>
+		 <class>courierPD.Customer</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sample" />

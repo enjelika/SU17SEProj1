@@ -7,15 +7,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -27,6 +32,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.UserDAO;
+import courierPD.User;
 import model.Utility;
 
 public class EditUserScreen extends JPanel
@@ -44,6 +51,17 @@ public class EditUserScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
+    private JTextField userNameField = new JTextField("", 20);
+    private JPasswordField newPasswordField1 = new JPasswordField("", 20);
+    private JPasswordField newPasswordField2 = new JPasswordField("", 20);
+    private JRadioButton standardUserSelection = new JRadioButton("User");
+    private JRadioButton adminUserSelection = new JRadioButton("Admin");
+    private JRadioButton activeStatusSelection = new JRadioButton("Active");
+    private JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
+    private JComboBox userIdComboBox = new JComboBox();
+    private List<User> users;
+    private User currentlySelectedUser;
+    private JLabel saveMessageLabel = new JLabel();
     
     private ButtonController editCourierController;
     
@@ -53,6 +71,12 @@ public class EditUserScreen extends JPanel
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+    	
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return EditUserScreen.this;
+			}			
+		});
     	
     	// Container for the menu buttons
     	editUserContainer = new JPanel();
@@ -163,11 +187,18 @@ public class EditUserScreen extends JPanel
 			userIdTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 5));
 			
 			// -- User ID TextField
-	    	JTextField userIdField = new JTextField("", 20);
-			userIdField.setHorizontalAlignment(JTextField.LEFT);
-			userIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
-			userIdField.setBorder(new LineBorder(Color.BLUE, 1));
-			userIdTextboxContainer.add(userIdField);
+	    	userIdComboBox.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+	    	userIdComboBox.setFont(new Font("Calibri", Font.PLAIN, 28));
+	    	userIdComboBox.setBorder(new LineBorder(Color.BLUE, 1));
+			userIdTextboxContainer.add(userIdComboBox);
+			
+			userIdComboBox.addItemListener(new ItemListener() {
+		        public void itemStateChanged(ItemEvent arg0) {
+		            //Do Something
+		        	UpdateForm(arg0);
+		        }
+		    });;
+			
 			userIdContainer.add(userIdTextboxContainer);
 		
 		// -- end of User ID Field
@@ -193,7 +224,6 @@ public class EditUserScreen extends JPanel
 			usernameTextboxContainer.setBorder(new EmptyBorder(0, 20, 0, 5));
 			
 			// -- User Name TextField
-	    	JTextField userNameField = new JTextField("", 20);
 	    	userNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	userNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	userNameField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -216,7 +246,7 @@ public class EditUserScreen extends JPanel
 		findButton.addActionListener(editCourierController);
 				
 		userSearchContainer.add(userFields);
-		userSearchContainer.add(findButton);
+		//userSearchContainer.add(findButton);
 				
 		editUserContainer.add(userSearchContainer);
 				
@@ -240,7 +270,6 @@ public class EditUserScreen extends JPanel
 			password1TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 1st New Password TextField
-	    	JPasswordField newPasswordField1 = new JPasswordField("", 20);
 	    	newPasswordField1.setEchoChar('*');
 	    	newPasswordField1.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField1.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -271,7 +300,6 @@ public class EditUserScreen extends JPanel
 			password2TextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- 2nd Password TextField
-	    	JPasswordField newPasswordField2 = new JPasswordField("", 20);
 	    	newPasswordField2.setEchoChar('*');
 	    	newPasswordField2.setHorizontalAlignment(JTextField.LEFT);
 	    	newPasswordField2.setFont(new Font("Calibri", Font.PLAIN, 28));
@@ -298,12 +326,10 @@ public class EditUserScreen extends JPanel
 	    	
 	    	ButtonGroup radioButtons = new ButtonGroup();
 	    	
-	    	// User Role Radio Buttons   		    	
-	    	JRadioButton standardUserSelection = new JRadioButton("User");
+	    	// User Role Radio Buttons   	    	
 	    	standardUserSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	standardUserSelection.setSelected(true);
 	    	
-	    	JRadioButton adminUserSelection = new JRadioButton("Admin");
 	    	adminUserSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	
 	    	radioButtons.add(adminUserSelection);
@@ -334,12 +360,10 @@ public class EditUserScreen extends JPanel
 	 		    	
 	 	ButtonGroup statusRadioButtons = new ButtonGroup();
 	 		    	
-	 	// User Status Radio Buttons   		    	
-	 	JRadioButton activeStatusSelection = new JRadioButton("Active");
+	 	// User Status Radio Buttons   		
 	 	activeStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	 	activeStatusSelection.setSelected(true);
 	 		    	
-	 	JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
 	 	inactiveStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 	 		    	
 	 	statusRadioButtons.add(inactiveStatusSelection);
@@ -357,7 +381,13 @@ public class EditUserScreen extends JPanel
 	 	resetButton.setContentAreaFilled(false);
 	 	resetButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 	 	resetButton.addActionListener(editCourierController);
-	 	statusAndButtonsContainer.add(resetButton);
+	 	//statusAndButtonsContainer.add(resetButton);
+	 	
+		saveMessageLabel.setBorder(new EmptyBorder(25, 10, 5, 5));
+		saveMessageLabel.setText("");
+		saveMessageLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		saveMessageLabel.setForeground(Color.RED);
+		statusAndButtonsContainer.add(saveMessageLabel);
 	 	    
 	    // -- Save Button
 	 	saveButton.setName("saveButton");
@@ -396,5 +426,99 @@ public class EditUserScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+		
+		DeactivateFormFields();
+		PopulateFormData();
     }	
+    
+    public void PopulateFormData()
+    {
+    	//Get Data
+    	users = UserDAO.listUser();
+		for (User item : users) {
+			userIdComboBox.addItem(item.getUserName());
+		}
+    }
+    
+    public void UpdateForm(ItemEvent arg0)
+    {
+		for (User item : users) {
+			if(arg0.getItem() == item.getUserName())
+			{
+				currentlySelectedUser = item;
+				ActivateFormFields();
+				
+				userNameField.setText(item.getUserName());
+				if(item.getAccessLevel().equals("user"))
+					standardUserSelection.setSelected(true);
+				else
+					adminUserSelection.setSelected(true);
+				if(item.getIsActive().equals("Y"))
+					activeStatusSelection.setSelected(true);
+				else
+					inactiveStatusSelection.setSelected(true);
+				
+		        newPasswordField1.setText(item.getPassword());
+		        newPasswordField2.setText(item.getPassword());
+				break;
+			}
+		}	
+    }
+    
+    public User GetCurrentlySelectedUser()
+    {
+    	if(standardUserSelection.isSelected())
+    		currentlySelectedUser.setAccessLevel("user");
+    	else
+    		currentlySelectedUser.setAccessLevel("admin");
+    	
+    	if(activeStatusSelection.isSelected())
+    		currentlySelectedUser.setIsActive("Y");
+    	else
+    		currentlySelectedUser.setIsActive("N");
+    	
+    	return currentlySelectedUser;
+    }
+    
+    public String GetNewPassword1()
+    {
+    	return newPasswordField1.getText();
+    }
+    
+    public String GetNewPassword2()
+    {
+    	return newPasswordField2.getText();
+    }
+    
+    public void SetSaveMessage(String message)
+    {
+    	saveMessageLabel.setText(message);
+    }
+    
+    public void ActivateFormFields()
+    {
+        newPasswordField1.setEnabled(true);
+        newPasswordField2.setEnabled(true);
+        standardUserSelection.setEnabled(true);
+        adminUserSelection.setEnabled(true);
+        activeStatusSelection.setEnabled(true);
+        inactiveStatusSelection.setEnabled(true);
+        
+        newPasswordField1.setBackground(Color.WHITE);
+        newPasswordField2.setBackground(Color.WHITE);
+    }
+    
+    public void DeactivateFormFields()
+    {
+        userNameField.setEnabled(false);
+        newPasswordField1.setEnabled(false);
+        newPasswordField2.setEnabled(false);
+        standardUserSelection.setEnabled(false);
+        adminUserSelection.setEnabled(false);
+        activeStatusSelection.setEnabled(false);
+        inactiveStatusSelection.setEnabled(false);
+        
+        newPasswordField1.setBackground(Color.LIGHT_GRAY);
+        newPasswordField2.setBackground(Color.LIGHT_GRAY);
+    }
 }

@@ -24,11 +24,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CompanyInfoDAO;
+import courierPD.CompanyInfo;
 import model.Utility;
 
 @SuppressWarnings("serial")
 public class EditCompanyInfoScreen extends JPanel
 {
+	public CompanyInfo companyInfo = new CompanyInfo();
+	
 	private JButton resetButton, saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel editCompanyContainer, southButtonContainer, mainPane, imgContainer;
@@ -38,6 +42,10 @@ public class EditCompanyInfoScreen extends JPanel
     private BufferedImage acmeCourierServiceLogo;
     
     private ButtonController editCompanyController;
+    
+    public JTextField courierIdField, companyAddressField, billRateField, costPerBlockField,
+    			courierSpeedField, blocksToMileField, bonusOnTimeField, pickUpTimeField,
+    			bonusTimeVarianceField, deliveryTimeField;
     
     public EditCompanyInfoScreen(ButtonController buttonController)
     {
@@ -56,6 +64,15 @@ public class EditCompanyInfoScreen extends JPanel
     	southButtonContainer = new JPanel();
     	southButtonContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     	southButtonContainer.setLayout(new BoxLayout(southButtonContainer, BoxLayout.X_AXIS));
+    	
+    	buttonController.setViewListener(new ViewListener()
+    	{
+			public Object GetView() 
+			{
+				return EditCompanyInfoScreen.this;
+			}			
+
+		});
     	
 		// Set the Logo image for the North part of the window
 		try 
@@ -87,7 +104,11 @@ public class EditCompanyInfoScreen extends JPanel
 		logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
     	
     	// Setup the View
-    	SetUpView();      	
+    	SetUpView(); 
+    	
+    	// Obtain company info from the db
+    	companyInfo = CompanyInfoDAO.findCompanyInfo("ACME Courier Service");
+    	UpdateText();
     }
     
     public void SetUpView()
@@ -140,7 +161,7 @@ public class EditCompanyInfoScreen extends JPanel
 			// -- Company Name TextField
 			Border borderO1 = new LineBorder(Color.BLUE, 1);
 	    	Border marginO2 = new EmptyBorder(0, 60, 0, 25);
-	    	JTextField courierIdField = new JTextField(" ACME Courier Service", 20);
+	    	courierIdField = new JTextField("ACME Courier Service", 20);
 			courierIdField.setHorizontalAlignment(JTextField.LEFT);
 			courierIdField.setOpaque(false);
 			courierIdField.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -171,7 +192,7 @@ public class EditCompanyInfoScreen extends JPanel
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Company Address TextField
-	    	JTextField companyAddressField = new JTextField(" 4th Ave and D Street", 28);
+			companyAddressField = new JTextField("4th Ave and D Street", 28);
 	    	companyAddressField.setHorizontalAlignment(JTextField.LEFT);
 	    	companyAddressField.setFont(new Font("Calibri", Font.PLAIN, 26));
 	    	companyAddressField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -204,6 +225,7 @@ public class EditCompanyInfoScreen extends JPanel
 				
 				// -- Bill Rate TextField
 		    	JTextField billRateField = new JTextField("10", 5);
+				billRateField = new JTextField("10", 5);
 		    	billRateField.setHorizontalAlignment(JTextField.CENTER);
 		    	billRateField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	billRateField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -224,6 +246,7 @@ public class EditCompanyInfoScreen extends JPanel
 				
 				// -- Cost per Block TextField
 		    	JTextField costPerBlockField = new JTextField("2", 5);
+				costPerBlockField = new JTextField("2", 5);
 		    	costPerBlockField.setHorizontalAlignment(JTextField.CENTER);
 		    	costPerBlockField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	costPerBlockField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -257,6 +280,7 @@ public class EditCompanyInfoScreen extends JPanel
 						
 					// -- Courier Speed TextField
 			    	JTextField courierSpeedField = new JTextField("10", 5);
+					courierSpeedField = new JTextField("10", 5);
 			    	courierSpeedField.setHorizontalAlignment(JTextField.CENTER);
 			    	courierSpeedField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	courierSpeedField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -282,7 +306,7 @@ public class EditCompanyInfoScreen extends JPanel
 					blocksToMileTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 						
 					// -- Blocks to a Mile TextField
-			    	JTextField blocksToMileField = new JTextField("10", 5);
+					blocksToMileField = new JTextField("10", 5);
 			    	blocksToMileField.setHorizontalAlignment(JTextField.CENTER);
 			    	blocksToMileField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	blocksToMileField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -316,6 +340,7 @@ public class EditCompanyInfoScreen extends JPanel
 						
 					// -- Bonus on Time TextField
 			    	JTextField bonusOnTimeField = new JTextField("2", 5);
+					bonusOnTimeField = new JTextField("2", 5);
 			    	bonusOnTimeField.setHorizontalAlignment(JTextField.CENTER);
 			    	bonusOnTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	bonusOnTimeField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -335,7 +360,7 @@ public class EditCompanyInfoScreen extends JPanel
 					pickUpTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 						
 					// -- Pick Up Time Allowance TextField
-			    	JTextField pickUpTimeField = new JTextField("10", 5);
+					pickUpTimeField = new JTextField("10", 5);
 			    	pickUpTimeField.setHorizontalAlignment(JTextField.CENTER);
 			    	pickUpTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	pickUpTimeField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -369,6 +394,7 @@ public class EditCompanyInfoScreen extends JPanel
 						
 				// -- Bonus Time Variance (+/-) TextField
 			   	JTextField bonusTimeVarianceField = new JTextField("5", 5);
+				bonusTimeVarianceField = new JTextField("5", 5);
 			   	bonusTimeVarianceField.setHorizontalAlignment(JTextField.CENTER);
 			   	bonusTimeVarianceField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			   	bonusTimeVarianceField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -395,7 +421,7 @@ public class EditCompanyInfoScreen extends JPanel
 				deliveryTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 						
 				// -- Delivery Time Allowance TextField
-			   	JTextField deliveryTimeField = new JTextField("10", 5);
+				deliveryTimeField = new JTextField("10", 5);
 			   	deliveryTimeField.setHorizontalAlignment(JTextField.CENTER);
 			   	deliveryTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
 			   	deliveryTimeField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -457,4 +483,33 @@ public class EditCompanyInfoScreen extends JPanel
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
 	}
+    
+    public void SaveCompany() 
+    {
+    		companyInfo.UpdateCompanyInfo(
+			courierIdField.getText(), 
+			companyAddressField.getText(), 
+			Double.parseDouble(billRateField.getText()), 
+			Integer.parseInt(costPerBlockField.getText()),
+			Integer.parseInt(courierSpeedField.getText()), 
+			Integer.parseInt(blocksToMileField.getText()),
+			Integer.parseInt(bonusTimeVarianceField.getText()), 
+			Double.parseDouble(bonusOnTimeField.getText()),
+			Integer.parseInt(pickUpTimeField.getText()), 
+			Integer.parseInt(deliveryTimeField.getText()));
+    }
+    
+    public void UpdateText() 
+    {
+    	courierIdField.setText(companyInfo.getName());
+    	companyAddressField.setText(companyInfo.getAddress());
+    	billRateField.setText(Double.toString(companyInfo.getBillRate()));
+    	costPerBlockField.setText(Integer.toString(companyInfo.getCostPerBlock()));
+    	courierSpeedField.setText(Integer.toString(companyInfo.getCourierSpeed()));
+    	blocksToMileField.setText(Integer.toString(companyInfo.getBlocksToAMile()));
+    	bonusTimeVarianceField.setText(Integer.toString(companyInfo.getBonusTimeVariance()));
+    	bonusOnTimeField.setText(Double.toString(companyInfo.getBonusOnTime()));
+    	pickUpTimeField.setText(Integer.toString(companyInfo.getPickUpTimeAllowance()));
+    	deliveryTimeField.setText(Integer.toString(companyInfo.getDeliveryTimeAllowance()));
+    }
 }

@@ -51,6 +51,23 @@ public class CompanyInfo implements Serializable
 		
 	}
 	
+	// Update the company's information
+	public void UpdateCompanyInfo(String name, String address, double billRate, int costPerBlock,
+			int courierSpeed, int blocksToAMile, int bonusTimeVariance, double bonusOnTime, int pickUpTimeAllowance,
+			int deliveryTimeAllowance) 
+	{
+		this.name = name;
+		this.address = address;
+		this.billRate = billRate;
+		this.costPerBlock = costPerBlock;
+		this.courierSpeed = courierSpeed;
+		this.blocksToAMile = blocksToAMile;
+		this.bonusTimeVariance = bonusTimeVariance;
+		this.bonusOnTime = bonusOnTime;
+		this.pickUpTimeAllowance = pickUpTimeAllowance;
+		this.deliveryTimeAllowance = deliveryTimeAllowance;
+	}
+	
 	public String getName()
 	{
 		return this.name;

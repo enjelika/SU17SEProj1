@@ -6,14 +6,23 @@ import java.awt.event.ActionListener;
 import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import courierDAO.CompanyInfoDAO;
+import courierDAO.CustomerDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
+import courierPD.Customer;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.AddCustomerScreen;
 import view.AddUserScreen;
+import view.EditCompanyInfoScreen;
+import view.EditCustomerScreen;
+import view.EditUserScreen;
 import view.LoginScreen;
+import view.UpdatePasswordScreen;
 import view.ViewListener;
 
 public class ButtonController implements ActionListener
@@ -119,6 +128,42 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().repaint();
 				break;  
 				
+			case "findCustomerButton":
+				System.out.println("findCustomerButton war pressed");
+				EditCustomerScreen editCustomerScreen = (EditCustomerScreen)viewListener.GetView();
+	   			try
+   				{
+	   				String customerId = editCustomerScreen.customerIdField.getText();
+	   				String customerName = editCustomerScreen.customerNameField.getText();
+	   				Customer customer;
+	   				if(customerId.isEmpty() && customerName.isEmpty()) 
+	   				{
+						JOptionPane.showMessageDialog(null, "Please enter id or name to find a customer.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+	   				}
+	   				else 
+	   				{
+	   					if(customerName.isEmpty()) // Find customer in db by Id
+	   					{
+	   						customer = CustomerDAO.findCustomerById(Long.parseLong(customerId));
+	   					}
+	   					else if (customerId.isEmpty())	// Find customer in db using name
+	   					{
+	   						customer = CustomerDAO.findCustomerByName(customerName);
+	   					}
+	   					else // If the user enter both name and id, only find customer using Id 
+   						{
+	   						customer = CustomerDAO.findCustomerById(Long.parseLong(customerId));
+   						}	  
+	   					editCustomerScreen.customer = customer;
+	   					editCustomerScreen.UpdateText();
+	   				}
+   				}
+   				catch(Exception e)
+	   			{
+   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+   					System.out.println(e);
+	   			}
+				break;
     		/*
     		 * Main Menu Buttons
     		 */
@@ -209,10 +254,27 @@ public class ButtonController implements ActionListener
    				break;  
    				
    	   		/*
-   	   		 *  Save Button
+   	   		 *  Reset Button
    	   		 */
    	   		case "resetButton":
    	   			// TODO: Reset Button action here
+   	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
+	   			{
+	   	   			AddUserScreen addUserViewReset = (AddUserScreen)viewListener.GetView();
+	   	   			addUserViewReset.Reset();
+	   			}
+   	   			else if(viewListener.getClass().getName().contains("EditCompanyInfoScreen"))
+	   			{
+	   	   			EditCompanyInfoScreen editCompanyInfoScreen = (EditCompanyInfoScreen)viewListener.GetView();
+	   	   			editCompanyInfoScreen.companyInfo = CompanyInfoDAO.findCompanyInfo("ACME Courier Service");
+	   	   			editCompanyInfoScreen.UpdateText();
+	   	   			JOptionPane.showMessageDialog(null, "Company Info is reset!", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
+	   			}
+	   	   		else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
+	   			{
+	   	   			editCustomerScreen = (EditCustomerScreen)viewListener.GetView();
+	   	   			editCustomerScreen.ClearText();
+	   			}
    	   			System.out.println(buttonID + " was pressed");
    	   			break;
    	   				
@@ -221,6 +283,8 @@ public class ButtonController implements ActionListener
    			 */
    			case "saveButton":
    				// TODO: Save Button action here
+   				
+   				// Save for Add User Screen
    	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
    	   			{
 	   	   			AddUserScreen addUserView = (AddUserScreen)viewListener.GetView();
@@ -228,26 +292,178 @@ public class ButtonController implements ActionListener
 	   	   			String addPassword1 = addUserView.GetPassword1();
 	   	   			String addPassword2 = addUserView.GetPassword2();
 	   	   			String addUserType = addUserView.GetUserType();
-	   	   			if(addPassword1.equals(addPassword2))
+	   	   			if(addUsername.isEmpty() || addPassword1.isEmpty())
+	   	   			{
+	   	   				JOptionPane.showMessageDialog(null, "Username and password cannot be empty.", "Add User", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+	   	   			else if(addPassword1.equals(addPassword2))
 	   	   			{
 	   	   				try
 	   	   				{
-		   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
-						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
-						userTransaction.begin();
-		   	   			UserDAO.addUser(user);
-						userTransaction.commit();
-		   	   			addUserView.SetSaveMessage("User was successfully added.");
+			   	   			User user = new User(addUsername, addPassword1, addUserType, "Y");
+							EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+							userTransaction.begin();
+			   	   			UserDAO.addUser(user);
+							userTransaction.commit();
+							JOptionPane.showMessageDialog(null, "User was successfully added.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
-	   	   				catch(Exception e){
-	   	   				addUserView.SetSaveMessage("Unable to add user. User already exists.");
+	   	   				catch(Exception e)
+	   	   				{
+	   	   				JOptionPane.showMessageDialog(null, "Unable to add user. User already exists.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
 	   	   			}
 	   	   			else
 	   	   			{
-	   	   				addUserView.SetSaveMessage("Passwords do not match");
+	   	   				JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
    	   			}
+   	   			// Save for Edit Company Info Screen
+	   	   		else if(viewListener.getClass().getName().contains("EditCompanyInfoScreen"))
+	   			{
+	   				EditCompanyInfoScreen editCompanyInfoView = (EditCompanyInfoScreen)viewListener.GetView();
+		   			try
+	   				{
+		   				if(editCompanyInfoView.companyAddressField.getText().isEmpty()
+		   						|| editCompanyInfoView.billRateField.getText().isEmpty()
+		   						|| editCompanyInfoView.costPerBlockField.getText().isEmpty()
+		   		    			|| editCompanyInfoView.courierSpeedField.getText().isEmpty() 
+		   		    			|| editCompanyInfoView.blocksToMileField.getText().isEmpty()
+		   		    			|| editCompanyInfoView.bonusOnTimeField.getText().isEmpty() 
+		   		    			|| editCompanyInfoView.pickUpTimeField.getText().isEmpty() 
+		   		    			|| editCompanyInfoView.bonusTimeVarianceField.getText().isEmpty()
+		   		    			|| editCompanyInfoView.deliveryTimeField.getText().isEmpty() ) 
+		   				{
+		   					JOptionPane.showMessageDialog(null, "Invalid input! Text fields cannot be blank.", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else 
+		   				{
+		   					editCompanyInfoView.SaveCompany();
+							EntityTransaction companyInfoTransaction = emDAO.getEM().getTransaction();
+							companyInfoTransaction.begin();
+							CompanyInfoDAO.updateCompanyInfo(editCompanyInfoView.companyInfo);
+							companyInfoTransaction.commit();
+							JOptionPane.showMessageDialog(null, "Company Info is updated!", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+	   				}
+	   				catch(Exception e)
+		   			{
+	   					JOptionPane.showMessageDialog(null, "Invalid input! The data is reset", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
+	   					editCompanyInfoView.UpdateText();
+		   			}
+	   			}   
+   	   			// Save for Update Password Screen
+   	   			else if(viewListener.getClass().getName().contains("UpdatePasswordScreen"))
+   	   			{
+	   	   			UpdatePasswordScreen updatePass = (UpdatePasswordScreen)viewListener.GetView();
+	   	   			String newPassword1 = updatePass.GetNewPassword1();
+	   	   			String newPassword2 = updatePass.GetNewPassword2();
+	   	   			if(newPassword1.isEmpty() && newPassword2.isEmpty())
+	   	   			{
+	   	   				JOptionPane.showMessageDialog(null, "Password cannot be empty.", "Add User", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+	   	   			else if(newPassword1.equals(newPassword2))
+	   	   			{
+	   	   				try
+	   	   				{
+	   	   				loggedInUser.setPassword(newPassword1);
+						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+						userTransaction.begin();
+		   	   			UserDAO.saveUser(loggedInUser);
+						userTransaction.commit();
+						JOptionPane.showMessageDialog(null, "Password was updated.", "Add User", JOptionPane.INFORMATION_MESSAGE);
+	   	   				}
+	   	   				catch(Exception e){
+	   	   					JOptionPane.showMessageDialog(null, "Unable to update password.", "Add User", JOptionPane.INFORMATION_MESSAGE);
+	   	   				}
+	   	   			}
+	   	   			else
+	   	   			{
+	   	   				JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+   	   			}
+   	   			// Save for Edit User Screen
+   	   			else if(viewListener.getClass().getName().contains("EditUserScreen"))
+   	   			{
+   	   				EditUserScreen editUser = (EditUserScreen)viewListener.GetView();
+   	   				User edittedUser = editUser.GetCurrentlySelectedUser();
+	   	   			String editNewPassword1 = editUser.GetNewPassword1();
+	   	   			String editNewPassword2 = editUser.GetNewPassword2();
+	   	   			if(editNewPassword1.isEmpty() && editNewPassword2.isEmpty())
+	   	   			{
+	   	   				JOptionPane.showMessageDialog(null, "Password cannot be empty.", "Edit User", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+		   	   		else if(editNewPassword1.equals(editNewPassword2))
+	   	   			{
+		   	   			edittedUser.setPassword(editNewPassword1);
+						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+						userTransaction.begin();
+		   	   			UserDAO.saveUser(edittedUser);
+						userTransaction.commit();
+						JOptionPane.showMessageDialog(null, "User was Updated.", "Edit User", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+			   	   	else
+	   	   			{
+			   	   		JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+   	   			}
+	   	   		else if(viewListener.getClass().getName().contains("AddCustomerScreen"))
+	   			{
+	   				AddCustomerScreen addCustomerScreen = (AddCustomerScreen)viewListener.GetView();
+		   			try
+	   				{
+		   				String customerName = addCustomerScreen.customerNameField.getText();
+		   				String customerAddress = addCustomerScreen.customerAddressField.getText();
+		   				if(customerName.isEmpty() || customerAddress.isEmpty())
+		   				{
+		   					JOptionPane.showMessageDialog(null, "Invalid input! Customer's name and address cannot be blank.", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else
+		   				{
+		   					Customer customer = new Customer(customerName, customerAddress, "Y");
+							EntityTransaction addCustomerTransaction = emDAO.getEM().getTransaction();
+							addCustomerTransaction.begin();
+							CustomerDAO.addCustomer(customer);
+							addCustomerTransaction.commit();
+							addCustomerScreen.ClearText();
+							JOptionPane.showMessageDialog(null, "Customer is created!", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+	   				}
+	   				catch(Exception e)
+		   			{
+	   					JOptionPane.showMessageDialog(null, "Invalid input! The data is reset", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
+	   					addCustomerScreen.ClearText();
+		   			}
+	   			}
+   	   			// Save for Edit Customer Screen ====== STILL WORKING ON THIS ONE
+   	   			else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
+	   			{
+   	   				EditCustomerScreen editCustomerView = (EditCustomerScreen)viewListener.GetView();
+		   			try
+	   				{
+		   				String customerId = editCustomerView.customerIdField.getText();
+		   				String customerName = editCustomerView.customerNameField.getText();
+		   				String customerAddress = editCustomerView.addressField.getText();
+		   				if(customerId.isEmpty() || customerName.isEmpty() || customerAddress.isEmpty()) 
+		   				{
+							JOptionPane.showMessageDialog(null, "The text fields can not be blank!", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else 
+		   				{
+		   					editCustomerView.SaveCustomer();
+							EntityTransaction customerTransaction = emDAO.getEM().getTransaction();
+							customerTransaction.begin();
+							CustomerDAO.updateCustomer(editCustomerView.customer);
+							customerTransaction.commit();
+							editCustomerView.ClearText();
+							JOptionPane.showMessageDialog(null, "Customer is updated!", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+	   				}
+	   				catch(Exception e)
+		   			{
+	   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+	   					System.out.println(e);
+		   			}
+	   			}
    				break;
    				
    			/*
@@ -349,7 +565,7 @@ public class ButtonController implements ActionListener
     			loggedInUser = UserDAO.findUser(username, password);
     			if(loggedInUser == null)
     			{
-    				view.SetLoginMessage("Unable to validate Login. Please try again.");
+    				JOptionPane.showMessageDialog(null, "Unable to validate Login. Please try again.", "Login Screen", JOptionPane.INFORMATION_MESSAGE);
     			}
     			else
     			{

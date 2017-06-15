@@ -1,6 +1,7 @@
 package courierDAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Query;
 
@@ -16,9 +17,9 @@ public class UserDAO {
 			emDAO.getEM().persist(user);
 		}
 
-		public static ArrayList<User> listUser() {
-			Query query = emDAO.getEM().createQuery("SELECT user FROM user user");
-			ArrayList<User> list= (ArrayList<User>) query.getResultList();
+		public static List<User> listUser() {
+			Query query = emDAO.getEM().createQuery("SELECT u FROM user u");
+			List<User> list= (List<User>) query.getResultList();
 
 			return list;
 		}
