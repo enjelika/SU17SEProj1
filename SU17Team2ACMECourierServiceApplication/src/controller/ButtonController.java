@@ -294,7 +294,7 @@ public class ButtonController implements ActionListener
 	   	   			String addUserType = addUserView.GetUserType();
 	   	   			if(addUsername.isEmpty() || addPassword1.isEmpty())
 	   	   			{
-	   	   				addUserView.SetSaveMessage("Username and password cannot be empty.");
+	   	   				JOptionPane.showMessageDialog(null, "Username and password cannot be empty.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
 	   	   			else if(addPassword1.equals(addPassword2))
 	   	   			{
@@ -305,16 +305,16 @@ public class ButtonController implements ActionListener
 							userTransaction.begin();
 			   	   			UserDAO.addUser(user);
 							userTransaction.commit();
-			   	   			addUserView.SetSaveMessage("User was successfully added.");
+							JOptionPane.showMessageDialog(null, "User was successfully added.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
 	   	   				catch(Exception e)
 	   	   				{
-	   	   					addUserView.SetSaveMessage("Unable to add user. User already exists.");
+	   	   				JOptionPane.showMessageDialog(null, "Unable to add user. User already exists.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
 	   	   			}
 	   	   			else
 	   	   			{
-	   	   				addUserView.SetSaveMessage("Passwords do not match");
+	   	   				JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
    	   			}
    	   			// Save for Edit Company Info Screen
@@ -359,7 +359,7 @@ public class ButtonController implements ActionListener
 	   	   			String newPassword2 = updatePass.GetNewPassword2();
 	   	   			if(newPassword1.isEmpty() && newPassword2.isEmpty())
 	   	   			{
-	   	   				updatePass.SetSaveMessage("Password cannot be empty.");
+	   	   				JOptionPane.showMessageDialog(null, "Password cannot be empty.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
 	   	   			else if(newPassword1.equals(newPassword2))
 	   	   			{
@@ -370,15 +370,15 @@ public class ButtonController implements ActionListener
 						userTransaction.begin();
 		   	   			UserDAO.saveUser(loggedInUser);
 						userTransaction.commit();
-						updatePass.SetSaveMessage("Password was updated.");
+						JOptionPane.showMessageDialog(null, "Password was updated.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
 	   	   				catch(Exception e){
-	   	   				updatePass.SetSaveMessage("Unable to update password.");
+	   	   					JOptionPane.showMessageDialog(null, "Unable to update password.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
 	   	   			}
 	   	   			else
 	   	   			{
-	   	   				updatePass.SetSaveMessage("Passwords do not match");
+	   	   				JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
    	   			}
    	   			// Save for Edit User Screen
@@ -390,7 +390,7 @@ public class ButtonController implements ActionListener
 	   	   			String editNewPassword2 = editUser.GetNewPassword2();
 	   	   			if(editNewPassword1.isEmpty() && editNewPassword2.isEmpty())
 	   	   			{
-	   	   				editUser.SetSaveMessage("Password cannot be empty.");
+	   	   				JOptionPane.showMessageDialog(null, "Password cannot be empty.", "Edit User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
 		   	   		else if(editNewPassword1.equals(editNewPassword2))
 	   	   			{
@@ -399,11 +399,11 @@ public class ButtonController implements ActionListener
 						userTransaction.begin();
 		   	   			UserDAO.saveUser(edittedUser);
 						userTransaction.commit();
-						editUser.SetSaveMessage("User was Updated.");
+						JOptionPane.showMessageDialog(null, "User was Updated.", "Edit User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
 			   	   	else
 	   	   			{
-			   	   		editUser.SetSaveMessage("Passwords do not match");
+			   	   		JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
    	   			}
 	   	   		else if(viewListener.getClass().getName().contains("AddCustomerScreen"))
@@ -565,7 +565,7 @@ public class ButtonController implements ActionListener
     			loggedInUser = UserDAO.findUser(username, password);
     			if(loggedInUser == null)
     			{
-    				view.SetLoginMessage("Unable to validate Login. Please try again.");
+    				JOptionPane.showMessageDialog(null, "Unable to validate Login. Please try again.", "Login Screen", JOptionPane.INFORMATION_MESSAGE);
     			}
     			else
     			{
