@@ -39,7 +39,7 @@ public class EditCustomerScreen extends JPanel
 	private JPanel editCustomerContainer, southButtonContainer, mainPane, imgContainer;
 
 	public JTextField customerIdField, customerNameField, addressField;
-	public JRadioButton activeStatusSelection;
+	public JRadioButton activeStatusSelection, inactiveStatusSelection;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
@@ -276,7 +276,7 @@ public class EditCustomerScreen extends JPanel
 		    	activeStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	activeStatusSelection.setSelected(true);
 		    	
-		    	JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
+		    	inactiveStatusSelection = new JRadioButton("Inactive");
 		    	inactiveStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	
 		    	radioButtons.add(inactiveStatusSelection);
@@ -354,13 +354,21 @@ public class EditCustomerScreen extends JPanel
     	customerIdField.setText(Long.toString(customer.getCustomerID()));
     	customerNameField.setText(customer.getName());
     	addressField.setText(customer.getAddress());
-    	if(customer.getIsActive() == " Y") 
+    	if(customer.getIsActive() == "Y") 
     	{
     		activeStatusSelection.setSelected(true);
     	}
     	else
     	{
-    		activeStatusSelection.setSelected(false);
+    		inactiveStatusSelection.setSelected(true);
     	}
+    }
+    
+    public void ClearText() 
+    {
+    	customerIdField.setText("");
+    	customerNameField.setText("");
+    	addressField.setText("");
+    	activeStatusSelection.setSelected(true);
     }
 }

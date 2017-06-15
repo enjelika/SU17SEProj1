@@ -128,6 +128,42 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().repaint();
 				break;  
 				
+			case "findCustomerButton":
+				System.out.println("findCustomerButton war pressed");
+				EditCustomerScreen editCustomerScreen = (EditCustomerScreen)viewListener.GetView();
+	   			try
+   				{
+	   				String customerId = editCustomerScreen.customerIdField.getText();
+	   				String customerName = editCustomerScreen.customerNameField.getText();
+	   				Customer customer;
+	   				if(customerId.isEmpty() && customerName.isEmpty()) 
+	   				{
+						JOptionPane.showMessageDialog(null, "Please enter id or name to find a customer.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+	   				}
+	   				else 
+	   				{
+	   					if(customerName.isEmpty()) // Find customer in db by Id
+	   					{
+	   						customer = CustomerDAO.findCustomerById(Long.parseLong(customerId));
+	   					}
+	   					else if (customerId.isEmpty())	// Find customer in db using name
+	   					{
+	   						customer = CustomerDAO.findCustomerByName(customerName);
+	   					}
+	   					else // If the user enter both name and id, only find customer using Id 
+   						{
+	   						customer = CustomerDAO.findCustomerById(Long.parseLong(customerId));
+   						}	  
+	   					editCustomerScreen.customer = customer;
+	   					editCustomerScreen.UpdateText();
+	   				}
+   				}
+   				catch(Exception e)
+	   			{
+   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+   					System.out.println(e);
+	   			}
+				break;
     		/*
     		 * Main Menu Buttons
     		 */
@@ -233,6 +269,11 @@ public class ButtonController implements ActionListener
 	   	   			editCompanyInfoScreen.companyInfo = CompanyInfoDAO.findCompanyInfo("ACME Courier Service");
 	   	   			editCompanyInfoScreen.UpdateText();
 	   	   			JOptionPane.showMessageDialog(null, "Company Info is reset!", "Edit Company Info Screen", JOptionPane.INFORMATION_MESSAGE);
+	   			}
+	   	   		else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
+	   			{
+	   	   			editCustomerScreen = (EditCustomerScreen)viewListener.GetView();
+	   	   			editCustomerScreen.ClearText();
 	   			}
    	   			System.out.println(buttonID + " was pressed");
    	   			break;
@@ -396,19 +437,31 @@ public class ButtonController implements ActionListener
    	   			// Save for Edit Customer Screen ====== STILL WORKING ON THIS ONE
    	   			else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
 	   			{
-   	   				EditCustomerScreen editCustomerScreen = (EditCustomerScreen)viewListener.GetView();
+   	   				EditCustomerScreen editCustomerView = (EditCustomerScreen)viewListener.GetView();
 		   			try
 	   				{
-		   				editCustomerScreen.SaveCustomer();
-						EntityTransaction customerTransaction = emDAO.getEM().getTransaction();
-						customerTransaction.begin();
-						CustomerDAO.updateCustomer(editCustomerScreen.customer);
-						customerTransaction.commit();
+		   				String customerId = editCustomerView.customerIdField.getText();
+		   				String customerName = editCustomerView.customerNameField.getText();
+		   				String customerAddress = editCustomerView.addressField.getText();
+		   				if(customerId.isEmpty() || customerName.isEmpty() || customerAddress.isEmpty()) 
+		   				{
+							JOptionPane.showMessageDialog(null, "The text fields can not be blank!", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else 
+		   				{
+		   					editCustomerView.SaveCustomer();
+							EntityTransaction customerTransaction = emDAO.getEM().getTransaction();
+							customerTransaction.begin();
+							CustomerDAO.updateCustomer(editCustomerView.customer);
+							customerTransaction.commit();
+							editCustomerView.ClearText();
+							JOptionPane.showMessageDialog(null, "Customer is updated!", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
 	   				}
 	   				catch(Exception e)
 		   			{
-	   					JOptionPane.showMessageDialog(null, "Invalid input! The data is reset", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
-	   					editCustomerScreen.UpdateText();
+	   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+	   					System.out.println(e);
 		   			}
 	   			}
    				break;
