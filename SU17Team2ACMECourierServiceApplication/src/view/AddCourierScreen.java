@@ -36,6 +36,7 @@ public class AddCourierScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
+	private JTextField courierNameField = new JTextField("", 28);
     
     private ButtonController addCourierController;
     
@@ -46,6 +47,12 @@ public class AddCourierScreen extends JPanel
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
     	
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return AddCourierScreen.this;
+			}			
+		});
+		
     	// Container for the menu buttons
     	addCourierContainer = new JPanel();
     	Border border = new LineBorder(Color.BLUE, 1);
@@ -169,7 +176,6 @@ public class AddCourierScreen extends JPanel
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Courier Name TextField
-	    	JTextField courierNameField = new JTextField("", 28);
 	    	courierNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	courierNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	courierNameField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -220,5 +226,10 @@ public class AddCourierScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+    }
+    
+    public String GetCourierName()
+    {
+    	return courierNameField.getText();
     }
 }

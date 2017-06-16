@@ -9,13 +9,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import courierDAO.CompanyInfoDAO;
+import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
+import courierPD.Courier;
 import courierPD.Customer;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
+import view.AddCourierScreen;
 import view.AddCustomerScreen;
 import view.AddUserScreen;
 import view.EditCompanyInfoScreen;
@@ -463,7 +466,31 @@ public class ButtonController implements ActionListener
 	   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
 	   					System.out.println(e);
 		   			}
-	   			}
+	   			} else if(viewListener.getClass().getName().contains("AddCourierScreen"))
+   	   			{
+	   				AddCourierScreen addCourierView = (AddCourierScreen)viewListener.GetView();
+	   	   			String addCourierName = addCourierView.GetCourierName();
+	   	   			if(addCourierName.isEmpty())
+	   	   			{
+	   	   				JOptionPane.showMessageDialog(null, "Courier name cannot be empty.", "Add Courier", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+	   	   			else
+	   	   			{
+	   	   				try
+	   	   				{
+			   	   			Courier courier = new Courier(addCourierName, "Y");
+							EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+							userTransaction.begin();
+			   	   			CourierDAO.addCourier(courier);
+							userTransaction.commit();
+							JOptionPane.showMessageDialog(null, "Courier was successfully added.", "Add Courier", JOptionPane.INFORMATION_MESSAGE);
+	   	   				}
+	   	   				catch(Exception e)
+	   	   				{
+	   	   				JOptionPane.showMessageDialog(null, "Unable to add Courier. Courier already exists.", "Add Courier", JOptionPane.INFORMATION_MESSAGE);
+	   	   				}
+	   	   			}
+   	   			}
    				break;
    				
    			/*

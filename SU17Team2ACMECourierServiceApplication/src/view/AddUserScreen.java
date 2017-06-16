@@ -385,8 +385,4 @@ public class AddUserScreen extends JPanel
     	newPasswordField2.setText("");
     }
     
-    public void SetSaveMessage(String message)
-    {
-    	saveMessageLabel.setText(message);
-    }
 }
