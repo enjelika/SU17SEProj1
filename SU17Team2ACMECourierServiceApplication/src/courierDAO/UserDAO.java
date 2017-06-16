@@ -1,13 +1,13 @@
 package courierDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import courierPD.User;
 
-public class UserDAO {
+public class UserDAO 
+{
 
 	public static void saveUser(User user) {
 		emDAO.getEM().persist(user);
@@ -19,6 +19,7 @@ public class UserDAO {
 
 		public static List<User> listUser() {
 			Query query = emDAO.getEM().createQuery("SELECT u FROM user u");
+			@SuppressWarnings("unchecked")
 			List<User> list= (List<User>) query.getResultList();
 
 			return list;

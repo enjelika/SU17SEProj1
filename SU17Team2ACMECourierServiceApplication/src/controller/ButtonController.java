@@ -286,8 +286,6 @@ public class ButtonController implements ActionListener
    			 *  Save Button
    			 */
    			case "saveButton":
-   				// TODO: Save Button action here
-   				
    				// Save for Add User Screen
    	   			if(viewListener.getClass().getName().contains("AddUserScreen"))
    	   			{
@@ -410,6 +408,7 @@ public class ButtonController implements ActionListener
 			   	   		JOptionPane.showMessageDialog(null, "Passwords do not match.", "Add User", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
    	   			}
+   	   			// Save for Add Customer
 	   	   		else if(viewListener.getClass().getName().contains("AddCustomerScreen"))
 	   			{
 	   				AddCustomerScreen addCustomerScreen = (AddCustomerScreen)viewListener.GetView();
@@ -467,7 +466,9 @@ public class ButtonController implements ActionListener
 	   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
 	   					System.out.println(e);
 		   			}
-	   			} else if(viewListener.getClass().getName().contains("AddCourierScreen"))
+	   			} 
+   	   			// Save for Add Courier
+   	   			else if(viewListener.getClass().getName().contains("AddCourierScreen"))
    	   			{
 	   				AddCourierScreen addCourierView = (AddCourierScreen)viewListener.GetView();
 	   	   			String addCourierName = addCourierView.GetCourierName();
@@ -492,6 +493,7 @@ public class ButtonController implements ActionListener
 	   	   				}
 	   	   			}
    	   			}
+   	   			// Save for Edit Courier
 	   			else if(viewListener.getClass().getName().contains("EditCourierScreen"))
    	   			{
 	   				EditCourierScreen editCourierScreen = (EditCourierScreen)viewListener.GetView();
