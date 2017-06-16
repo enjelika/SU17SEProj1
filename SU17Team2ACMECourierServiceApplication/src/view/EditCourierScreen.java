@@ -7,15 +7,19 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -26,6 +30,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CourierDAO;
+import courierDAO.UserDAO;
+import courierPD.Courier;
+import courierPD.User;
 import model.Utility;
 
 public class EditCourierScreen extends JPanel
@@ -42,6 +50,12 @@ public class EditCourierScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
+	private JRadioButton activeStatusSelection = new JRadioButton("Active");
+	private JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
+    private List<Courier> couriers;
+    private Courier currentlySelectedCourier;
+    private JComboBox courierComboBox = new JComboBox();
+	private JTextField courierNameField = new JTextField("", 20);
     
     private ButtonController editCourierController;
     
@@ -51,6 +65,12 @@ public class EditCourierScreen extends JPanel
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+    	
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return EditCourierScreen.this;
+			}			
+		});
     	
     	// Container for the menu buttons
     	editCourierContainer = new JPanel();
@@ -149,7 +169,7 @@ public class EditCourierScreen extends JPanel
 		
 			// -- Courier ID Label
 			JLabel courierIdLabel = new JLabel();
-			courierIdLabel.setText("Courier ID:");
+			courierIdLabel.setText("Courier List:");
 			courierIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			courierIdLabel.setAlignmentX(LEFT_ALIGNMENT);
 			courierIdContainer.add(courierIdLabel);
@@ -160,11 +180,18 @@ public class EditCourierScreen extends JPanel
 			idTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
 			// -- Courier ID TextField
-	    	JTextField courierIdField = new JTextField("", 20);
-			courierIdField.setHorizontalAlignment(JTextField.LEFT);
-			courierIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
-			courierIdField.setBorder(new LineBorder(Color.BLUE, 1));
-			idTextboxContainer.add(courierIdField);
+	    	courierComboBox.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+	    	courierComboBox.setFont(new Font("Calibri", Font.PLAIN, 28));
+	    	courierComboBox.setBorder(new LineBorder(Color.BLUE, 1));
+	    	
+	    	courierComboBox.addItemListener(new ItemListener() {
+		        public void itemStateChanged(ItemEvent arg0) {
+		            //Do Something
+		        	UpdateForm(arg0);
+		        }
+		    });;
+		    
+			idTextboxContainer.add(courierComboBox);
 			courierIdContainer.add(idTextboxContainer);
 		
 		// -- end of Courier ID Field
@@ -189,7 +216,6 @@ public class EditCourierScreen extends JPanel
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
 			// -- Courier Name TextField
-	    	JTextField courierNameField = new JTextField("", 20);
 	    	courierNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	courierNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	courierNameField.setBorder(new LineBorder(Color.BLUE, 1));
@@ -212,7 +238,7 @@ public class EditCourierScreen extends JPanel
 		findButton.addActionListener(editCourierController);
 		
 		courierSearchContainer.add(courierFields);
-		courierSearchContainer.add(findButton);
+		//courierSearchContainer.add(findButton);
 		
 		editCourierContainer.add(courierSearchContainer);
 		
@@ -249,7 +275,7 @@ public class EditCourierScreen extends JPanel
 	    	avgDeliveryTimeContainer.add(avgDeliveryTimeMeasureMentLabel);
 		
 		// -- end of Average Delivery Time Field
-	    editCourierContainer.add(avgDeliveryTimeContainer);
+	    //editCourierContainer.add(avgDeliveryTimeContainer);
 		
 	    // Container Status RBs, Reset and Save buttons
 		JPanel statusAndButtonsContainer = new JPanel();
@@ -271,11 +297,9 @@ public class EditCourierScreen extends JPanel
 		    	ButtonGroup radioButtons = new ButtonGroup();
 		    	
 		    	// User Role Radio Buttons   		    	
-		    	JRadioButton activeStatusSelection = new JRadioButton("Active");
 		    	activeStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	activeStatusSelection.setSelected(true);
 		    	
-		    	JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
 		    	inactiveStatusSelection.setFont(new Font("Calibri", Font.PLAIN, 26));
 		    	
 		    	radioButtons.add(inactiveStatusSelection);
@@ -293,7 +317,7 @@ public class EditCourierScreen extends JPanel
 		resetButton.setContentAreaFilled(false);
 		resetButton.setBorder(new EmptyBorder(0, 150, 0, 0));
 		resetButton.addActionListener(editCourierController);
-		statusAndButtonsContainer.add(resetButton);
+		//statusAndButtonsContainer.add(resetButton);
 	    
         // -- Save Button
 		saveButton.setName("saveButton");
@@ -332,5 +356,45 @@ public class EditCourierScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+		
+		PopulateFormData();
 	}
+    
+    public void UpdateForm(ItemEvent arg0)
+    {
+		for (Courier item : couriers) {
+			if(arg0.getItem() == item.getName())
+			{
+				currentlySelectedCourier = item;
+				
+				courierNameField.setText(item.getName());
+				if(item.getIsActive().equals("Y"))
+					activeStatusSelection.setSelected(true);
+				else
+					inactiveStatusSelection.setSelected(true);
+				break;
+			}
+		}	
+    }
+    
+    public void PopulateFormData()
+    {
+    	//Get Data
+    	couriers = CourierDAO.listCourier();
+		for (Courier item : couriers) {
+			courierComboBox.addItem(item.getName());
+		}
+    }
+    
+    public Courier GetCurrentlySelectedCourier()
+    {    	
+    	if(activeStatusSelection.isSelected())
+    		currentlySelectedCourier.setIsActive("Y");
+    	else
+    		currentlySelectedCourier.setIsActive("N");
+    	
+    	currentlySelectedCourier.setName(courierNameField.getText());
+    	
+    	return currentlySelectedCourier;
+    }
 }

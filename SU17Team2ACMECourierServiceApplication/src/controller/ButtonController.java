@@ -22,6 +22,7 @@ import view.AddCourierScreen;
 import view.AddCustomerScreen;
 import view.AddUserScreen;
 import view.EditCompanyInfoScreen;
+import view.EditCourierScreen;
 import view.EditCustomerScreen;
 import view.EditUserScreen;
 import view.LoginScreen;
@@ -489,6 +490,23 @@ public class ButtonController implements ActionListener
 	   	   				{
 	   	   				JOptionPane.showMessageDialog(null, "Unable to add Courier. Courier already exists.", "Add Courier", JOptionPane.INFORMATION_MESSAGE);
 	   	   				}
+	   	   			}
+   	   			}
+	   			else if(viewListener.getClass().getName().contains("EditCourierScreen"))
+   	   			{
+	   				EditCourierScreen editCourierScreen = (EditCourierScreen)viewListener.GetView();
+   	   				Courier editCourier = editCourierScreen.GetCurrentlySelectedCourier();
+	   	   			if(editCourier.getName().isEmpty())
+	   	   			{
+	   	   				JOptionPane.showMessageDialog(null, "Courier name cannot be empty.", "Edit Courier", JOptionPane.INFORMATION_MESSAGE);
+	   	   			}
+		   	   		else
+	   	   			{
+						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+						userTransaction.begin();
+		   	   			CourierDAO.saveCourier(editCourier);
+						userTransaction.commit();
+						JOptionPane.showMessageDialog(null, "Courier was Updated.", "Edit Courier", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
    	   			}
    				break;

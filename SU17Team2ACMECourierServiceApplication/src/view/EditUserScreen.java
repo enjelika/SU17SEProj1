@@ -176,7 +176,7 @@ public class EditUserScreen extends JPanel
 		
 			// -- User ID Label
 			JLabel userIdLabel = new JLabel();
-			userIdLabel.setText("User ID:");
+			userIdLabel.setText("User List:");
 			userIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			userIdLabel.setAlignmentX(LEFT_ALIGNMENT);
 			userIdContainer.add(userIdLabel);
