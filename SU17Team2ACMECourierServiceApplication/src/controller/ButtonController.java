@@ -603,6 +603,27 @@ public class ButtonController implements ActionListener
     			break;	
     			
     		/*
+    		 *  Create Delivery Ticket Screen buttons
+    		 */
+    		case "nextTicketScreenButton":
+    			System.out.println("Going to the next Create a Delivery Ticket screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CreateDeliveryTicketScreen2(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;
+    			
+    		case "ticketBackButton":
+    			System.out.println("Going back to Create a Delivery Ticket screen 1..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.CreateDeliveryTicketScreen1(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;
+    			
+    		/*
     		 * Login Screen Button
     		 */
     		case "loginButton":
@@ -644,7 +665,6 @@ public class ButtonController implements ActionListener
     		 * Logout Button
     		 */
     		case "logoutButton":
-    			// TODO: Logout action here (wire up to the Model for the logic)
     			System.out.println("Going back to the Login Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.LoginScreen(this)); 

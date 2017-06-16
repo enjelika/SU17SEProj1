@@ -49,13 +49,14 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     DateFormat dateFormat, timeFormat;
     String dateText, timeText, packageID;
     
-    // TEMPORARY
+    // TODO: TEMPORARY
     String[] tempArray;
     
     private ButtonController deliveryTicket1Controller;
     
     public CreateDeliveryTicketScreen1(ButtonController buttonController)
     {
+    	// TODO: Remove this once the comboboxes are retrieving the list of customer names from the DB
 		tempArray = new String[] {"-- select a customer --", "test1", "test2"};
     	
     	deliveryTicket1Controller = buttonController;
@@ -354,7 +355,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	 	resetAndNextButtonsContainer.add(resetButton);
 	 	    
 	    // -- Next Button
-	 	nextButton.setName("nextButton");
+	 	nextButton.setName("nextTicketScreenButton");
 	 	nextButton.setOpaque(false);
 	 	nextButton.setContentAreaFilled(false);
 	 	nextButton.setBorder(new EmptyBorder(0, 0, 0, 0));

@@ -9,8 +9,6 @@ package model;
 
 import java.util.Calendar;
 
-import courierDAO.UserDAO;
-
 public class Model 
 {
 	String packageID;

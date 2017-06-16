@@ -52,6 +52,7 @@ public class EditCourierScreen extends JPanel
 	private JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
     private List<Courier> couriers;
     private Courier currentlySelectedCourier;
+    
     private JComboBox<String> courierComboBox = new JComboBox<String>();
 	private JTextField courierNameField = new JTextField("", 20);
     
