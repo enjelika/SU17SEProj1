@@ -31,9 +31,7 @@ import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
 import courierDAO.CourierDAO;
-import courierDAO.UserDAO;
 import courierPD.Courier;
-import courierPD.User;
 import model.Utility;
 
 public class EditCourierScreen extends JPanel
@@ -54,7 +52,7 @@ public class EditCourierScreen extends JPanel
 	private JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
     private List<Courier> couriers;
     private Courier currentlySelectedCourier;
-    private JComboBox courierComboBox = new JComboBox();
+    private JComboBox<String> courierComboBox = new JComboBox<String>();
 	private JTextField courierNameField = new JTextField("", 20);
     
     private ButtonController editCourierController;

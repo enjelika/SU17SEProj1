@@ -273,17 +273,19 @@ public class UpdatePasswordScreen extends JPanel
 		this.add(mainPane);
     }
     
-    public String GetOldPassword()
+    @SuppressWarnings("deprecation")
+	public String GetOldPassword()
     {
     	return oldPasswordField.getText();
     }
     
-    
+    @SuppressWarnings("deprecation")    
     public String GetNewPassword1()
     {
     	return newPasswordField1.getText();
     }
-    
+ 
+    @SuppressWarnings("deprecation")
     public String GetNewPassword2()
     {
     	return newPasswordField2.getText();

@@ -12,7 +12,6 @@ import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -58,7 +57,7 @@ public class EditUserScreen extends JPanel
     private JRadioButton adminUserSelection = new JRadioButton("Admin");
     private JRadioButton activeStatusSelection = new JRadioButton("Active");
     private JRadioButton inactiveStatusSelection = new JRadioButton("Inactive");
-    private JComboBox userIdComboBox = new JComboBox();
+    private JComboBox<String> userIdComboBox = new JComboBox<String>();
     private List<User> users;
     private User currentlySelectedUser;
     private JLabel saveMessageLabel = new JLabel();
@@ -479,12 +478,14 @@ public class EditUserScreen extends JPanel
     	
     	return currentlySelectedUser;
     }
-    
+  
+    @SuppressWarnings("deprecation")
     public String GetNewPassword1()
     {
     	return newPasswordField1.getText();
     }
     
+    @SuppressWarnings("deprecation")
     public String GetNewPassword2()
     {
     	return newPasswordField2.getText();
