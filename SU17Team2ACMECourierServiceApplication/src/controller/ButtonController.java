@@ -230,8 +230,12 @@ public class ButtonController implements ActionListener
     			break;
     			
     		case "editTicketButton":
-    			// TODO: Edit a Ticket action here
-    			System.out.println(buttonID + " was pressed");
+    			System.out.println("Going to Edit a Ticket Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.EditDeliveryTicketScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
     			break;
     			
     		case "cancelTicketButton":
@@ -571,6 +575,15 @@ public class ButtonController implements ActionListener
     			System.out.println("Going back to the Customer Maintenance Menu screen..."); 
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.CustomerMaintenanceMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;	
+    		
+    		case "deliveryBackButton":
+    			System.out.println("Going back to the Delivery Ticket Menu screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.DeliveryTicketMenuScreen(this)); 
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();

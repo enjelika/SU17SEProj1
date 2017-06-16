@@ -27,7 +27,7 @@ import model.Utility;
 @SuppressWarnings("serial")
 public class DeliveryTicketMenuScreen extends JPanel
 {
-	private JButton createNewTicketButton, editTicketButton, cancelTicketButton, backButton, logoutButton;
+	private JButton createNewTicketButton, editTicketButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketMenuContainer, mainPane, imgContainer;
 	
@@ -72,10 +72,6 @@ public class DeliveryTicketMenuScreen extends JPanel
     	// Edit a Ticket Button
     	Image editTicketButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "editTicketButton.png");
     	editTicketButton = new JButton(new ImageIcon(editTicketButtonIcon));      	
-    	
-    	// Cancel a Ticket Button
-    	Image cancelTicketButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "cancelTicketButton.png");
-    	cancelTicketButton = new JButton(new ImageIcon(cancelTicketButtonIcon));    	
     	
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton.png");
@@ -131,14 +127,6 @@ public class DeliveryTicketMenuScreen extends JPanel
 		editTicketButton.setBorder(new EmptyBorder(0, 75, 0, 75));
 		editTicketButton.addActionListener(ticketController);
 		ticketMenuContainer.add(editTicketButton);
-		
-        // -- Cancel a Ticket Button
-		cancelTicketButton.setName("cancelTicketButton");
-		cancelTicketButton.setOpaque(false);
-		cancelTicketButton.setContentAreaFilled(false);
-		cancelTicketButton.setBorder(new EmptyBorder(0, 75, 0, 75));
-		cancelTicketButton.addActionListener(ticketController);
-		ticketMenuContainer.add(cancelTicketButton);
 		
         // -- Back Button
 		backButton.setName("backButton");
