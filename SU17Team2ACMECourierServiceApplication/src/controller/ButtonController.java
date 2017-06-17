@@ -244,11 +244,15 @@ public class ButtonController implements ActionListener
     			break;
     			
    			/*
-   			 * Customer Maintenance Menu Buttons	
+   			 * Reports Menu Buttons	
    			 */
    			case "coPerformanceReportButton":
-   				// TODO: Company Performance Report Reports Menu action here
-   				System.out.println(buttonID + " was pressed");
+   				System.out.println("Going to the Company Performance Report Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.ReportCompanyPerformanceScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
    				break; 
     					
    			case "courierPerformanceReportButton":
@@ -260,6 +264,16 @@ public class ButtonController implements ActionListener
    				// TODO: Customer Billing Report Reports Menu action here
    				System.out.println(buttonID + " was pressed");
    				break;  
+   				
+   			case "generateCompanyPerformanceReport":
+   				// TODO: Generate Company Performance Report action here
+   				System.out.println(buttonID + " was pressed");
+   				break;
+   				
+   			case "printCoPerformanceReport":
+   				// TODO: Print Company Performance Report action here
+   				System.out.println(buttonID + " was pressed");
+   				break;
    				
    	   		/*
    	   		 *  Reset Button
@@ -597,6 +611,15 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
     			break;	
+    			
+    		case "reportsBackButton":
+    			System.out.println("Going back to the Reports Menu screen..."); 
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.ReportsMenuScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;
     			
     		case "settingsBackButton":
     			System.out.println("Going back to the Settings Menu screen...");
