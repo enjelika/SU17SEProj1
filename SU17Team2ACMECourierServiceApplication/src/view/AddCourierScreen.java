@@ -142,7 +142,7 @@ public class AddCourierScreen extends JPanel
 			courierIdLabel.setText("Courier ID:");
 			courierIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			courierIdLabel.setAlignmentX(LEFT_ALIGNMENT);
-			courierIdContainer.add(courierIdLabel);
+			//courierIdContainer.add(courierIdLabel);
 			
 			// -- Courier ID TextField
 			Border borderO1 = new LineBorder(Color.BLUE, 1);
@@ -152,7 +152,7 @@ public class AddCourierScreen extends JPanel
 			courierIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
 			courierIdField.setBorder(new CompoundBorder(marginO2, borderO1));
 			courierIdField.setEditable(false);
-			courierIdContainer.add(courierIdField);
+			//courierIdContainer.add(courierIdField);
 		
 		// -- end of Courier ID Field
 		addCourierContainer.add(courierIdContainer);

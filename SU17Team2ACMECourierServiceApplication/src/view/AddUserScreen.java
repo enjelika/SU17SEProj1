@@ -156,7 +156,7 @@ public class AddUserScreen extends JPanel
 			userIdLabel.setText("User ID:");
 			userIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			userIdLabel.setAlignmentX(LEFT_ALIGNMENT);
-			userIdContainer.add(userIdLabel);
+			//userIdContainer.add(userIdLabel);
 			
 			// -- User ID TextField
 			Border borderO1 = new LineBorder(Color.BLUE, 1);
@@ -166,7 +166,7 @@ public class AddUserScreen extends JPanel
 			userIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
 			userIdField.setBorder(new CompoundBorder(marginO2, borderO1));
 			userIdField.setEditable(false);
-			userIdContainer.add(userIdField);
+			//userIdContainer.add(userIdField);
 		
 		// -- end of User ID Field
 		addNewUserContainer.add(userIdContainer);
