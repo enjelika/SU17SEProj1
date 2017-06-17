@@ -224,7 +224,6 @@ public class EditCompanyInfoScreen extends JPanel
 				billRateTextboxContainer.setBorder(new EmptyBorder(0, 0, 0, 10));
 				
 				// -- Bill Rate TextField
-		    	JTextField billRateField = new JTextField("10", 5);
 				billRateField = new JTextField("10", 5);
 		    	billRateField.setHorizontalAlignment(JTextField.CENTER);
 		    	billRateField.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -245,7 +244,6 @@ public class EditCompanyInfoScreen extends JPanel
 				costPerBlockTextboxContainer.setBorder(new EmptyBorder(0, 0, 0, 25));
 				
 				// -- Cost per Block TextField
-		    	JTextField costPerBlockField = new JTextField("2", 5);
 				costPerBlockField = new JTextField("2", 5);
 		    	costPerBlockField.setHorizontalAlignment(JTextField.CENTER);
 		    	costPerBlockField.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -279,7 +277,6 @@ public class EditCompanyInfoScreen extends JPanel
 					courierSpeedTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 205));
 						
 					// -- Courier Speed TextField
-			    	JTextField courierSpeedField = new JTextField("10", 5);
 					courierSpeedField = new JTextField("10", 5);
 			    	courierSpeedField.setHorizontalAlignment(JTextField.CENTER);
 			    	courierSpeedField.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -339,7 +336,6 @@ public class EditCompanyInfoScreen extends JPanel
 					bonusOnTimeTextboxContainer.setBorder(new EmptyBorder(0, 0, 0, 115));
 						
 					// -- Bonus on Time TextField
-			    	JTextField bonusOnTimeField = new JTextField("2", 5);
 					bonusOnTimeField = new JTextField("2", 5);
 			    	bonusOnTimeField.setHorizontalAlignment(JTextField.CENTER);
 			    	bonusOnTimeField.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -393,7 +389,6 @@ public class EditCompanyInfoScreen extends JPanel
 				bonusTimeVarianceTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 2));
 						
 				// -- Bonus Time Variance (+/-) TextField
-			   	JTextField bonusTimeVarianceField = new JTextField("5", 5);
 				bonusTimeVarianceField = new JTextField("5", 5);
 			   	bonusTimeVarianceField.setHorizontalAlignment(JTextField.CENTER);
 			   	bonusTimeVarianceField.setFont(new Font("Calibri", Font.PLAIN, 26));

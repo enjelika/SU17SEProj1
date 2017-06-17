@@ -176,7 +176,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 				Border bCB = new LineBorder(Color.BLUE, 1);
 				Border mCB = new EmptyBorder(0, 15, 0, 15);
 				//customerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
-				customerNameCB.setSelectedIndex(0);
+				//customerNameCB.setSelectedIndex(0);
 				customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 				customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
 				customerNameCB.addActionListener(null); 
