@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "customer")
+@Entity(name = "Customer")
 public class Customer implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -64,7 +64,7 @@ public class Customer implements Serializable
 		return this.customerName;
 	}
 
-	public void setUserName(String customerName)
+	public void setName(String customerName)
 	{
 		this.customerName = customerName;
 	}

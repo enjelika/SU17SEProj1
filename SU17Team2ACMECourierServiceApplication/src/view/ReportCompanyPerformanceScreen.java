@@ -11,14 +11,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -29,6 +32,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CourierDAO;
+import courierDAO.CustomerDAO;
+import courierPD.Courier;
+import courierPD.Customer;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -36,7 +43,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 {
 	private JLabel imageFrame;
 	public JRadioButton weeklyCycle, monthlyCycle;
-	public JComboBox<String> customerNameCB;
+	public JComboBox<Customer> customerNameCB = new JComboBox();
 	public JTextField reportStartDateText;
 	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
@@ -48,18 +55,16 @@ public class ReportCompanyPerformanceScreen extends JPanel
     private BufferedImage acmeCourierServiceLogo;
     	
 	public String dateText, timeText;
-	
-	// TODO: Remove this once wired up to retrieve the list of Customer Names from the DB (including an option for "All Customers")
-	String[] tempArray;
+	private List<Customer> customers;
 	
 	ButtonController buttonController;
 	
 	public ReportCompanyPerformanceScreen(ButtonController buttonController)
-	{
-    	// TODO: Remove this once the comboboxes are retrieving the list of customer names from the DB
-		tempArray = new String[] {"-- select a customer --", "test1", "test2"};
-		
+	{		
 		this.buttonController = buttonController;
+		
+		// Populate customers data
+		PopulateFormData();
 		
 		dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
     	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
@@ -170,7 +175,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 				// ComboBox
 				Border bCB = new LineBorder(Color.BLUE, 1);
 				Border mCB = new EmptyBorder(0, 15, 0, 15);
-				customerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
+				//customerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
 				customerNameCB.setSelectedIndex(0);
 				customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 				customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
@@ -272,4 +277,29 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
 	}
+	
+	// Populate customers list
+	public void PopulateFormData()
+    {
+    	// Get all customer names in DB and put it into the combo box
+    	customers = CustomerDAO.ListCustomer();
+		for (Customer customer : customers)
+		{
+			customerNameCB.addItem(customer);
+		}
+		
+		// Only display name of the customer in the combo box
+		customerNameCB.setRenderer(new DefaultListCellRenderer() 
+		{
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if(value instanceof Customer){
+                	Customer customer = (Customer) value;
+                    setText(customer.getName());
+                }
+                return this;
+            }
+		});
+    }
 }
