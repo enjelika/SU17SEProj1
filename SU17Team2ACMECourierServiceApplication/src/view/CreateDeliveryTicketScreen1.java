@@ -41,6 +41,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	public JRadioButton pickUpSelection, deliverySelection;
 	public JComboBox<String> deliveryCustomerNameCB, pickUpCustomerNameCB;
 	
+	public JTextField estBlocksText, estDeliveryTimeText, quotedPriceText, deliveryTimeText, pickUpTimeText, courierPickUpTimeText, courierDeliveredTimeText;
+	public JRadioButton courierSelection;
+	public JComboBox<String> courierNameCB;
+	
+	
+	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -65,6 +71,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
     	
     	packageID = buttonController.model.getPackageId();
+    	
+    	tempArray = new String[] {"-- select a customer --", "test1", "test2"};
+		courierNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket2Controller.model.getCourierNames());
+    	    
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -137,8 +147,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		JLabel deliveryTicketScreen1Title = new JLabel("Delivery Ticket:");
 		deliveryTicketScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 		deliveryTicketScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
-		titleContainer.add(deliveryTicketScreen1Title);
-		overallTicketContainer.add(titleContainer);
+		//titleContainer.add(deliveryTicketScreen1Title);
+		//overallTicketContainer.add(titleContainer);
 		
 		// Pick Up and Delivery Information --space-- Date --space-- Time
 		JPanel subtitleContainer = new JPanel();
@@ -148,18 +158,18 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		pickUpDeliveryInfoSubtitle.setLayout(new BoxLayout(pickUpDeliveryInfoSubtitle, BoxLayout.X_AXIS));
 		pickUpDeliveryInfoSubtitle.setBorder(new EmptyBorder(0, 5, 0, 0));
 		
-		JLabel pickUpAndDeliveryLabel = new JLabel("Pick Up and Delivery Information");
-		pickUpAndDeliveryLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		JLabel pickUpAndDeliveryLabel = new JLabel("Delivery Ticket: Pick Up and Delivery Information");
+		pickUpAndDeliveryLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		pickUpAndDeliveryLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		pickUpDeliveryInfoSubtitle.add(pickUpAndDeliveryLabel);
 		
 		JLabel dateLabel = new JLabel("Date: " + dateText);
-		dateLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		dateLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		dateLabel.setBorder(new EmptyBorder(0, 200, 0, 0));
 		pickUpDeliveryInfoSubtitle.add(dateLabel);
 		
 		JLabel timeLabel = new JLabel("Time: " + timeText);
-		timeLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		timeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
 		pickUpDeliveryInfoSubtitle.add(timeLabel);
 		subtitleContainer.add(pickUpDeliveryInfoSubtitle);
@@ -181,9 +191,9 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		ticketPackageIdLabel.setText("Package ID: " + packageID);
 		ticketPackageIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 		ticketPackageIdLabel.setBorder(new EmptyBorder(5, 5, 0, 200));
-		ticketPackageID.add(ticketPackageIdLabel);
+		//ticketPackageID.add(ticketPackageIdLabel);
 		
-		ticketScreen1Container.add(ticketPackageID);
+		//ticketScreen1Container.add(ticketPackageID);
 		
 		// Container for Pick Up Customer # Label & Field (un-editable)
 		JPanel pickUpCustomerNumContainer = new JPanel();
@@ -195,7 +205,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			pickUpCustomerLabel.setText("Pick Up Customer #:");
 			pickUpCustomerLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			pickUpCustomerLabel.setBorder(new EmptyBorder(0, 5, 0, 0));
-			pickUpCustomerNumContainer.add(pickUpCustomerLabel);
+			//pickUpCustomerNumContainer.add(pickUpCustomerLabel);
 			
 			// -- Pick Up Customer TextField
 			Border b1 = new LineBorder(Color.BLUE, 1);
@@ -205,7 +215,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			pickUpCustomerNumText.setFont(new Font("Calibri", Font.PLAIN, 26));
 			pickUpCustomerNumText.setBorder(new CompoundBorder(m1, b1));
 			pickUpCustomerNumText.setEditable(false);
-			pickUpCustomerNumContainer.add(pickUpCustomerNumText);
+			//pickUpCustomerNumContainer.add(pickUpCustomerNumText);
 			
 		ticketScreen1Container.add(pickUpCustomerNumContainer);
 		
@@ -216,7 +226,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		
 			// Customer Name Label
 			JLabel pickUpCustomerNameLabel= new JLabel();
-			pickUpCustomerNameLabel.setText("Customer Name:");
+			pickUpCustomerNameLabel.setText("Pick Up Customer Name:");
 			pickUpCustomerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			pickUpCustomerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
 			pickUpCustomerNameCbContainer.add(pickUpCustomerNameLabel);
@@ -304,7 +314,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			deliveryCustomerLabel.setText("Delivery Customer #:");
 			deliveryCustomerLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			deliveryCustomerLabel.setBorder(new EmptyBorder(0, 5, 0, 0));
-			deliveryCustomerNumContainer.add(deliveryCustomerLabel);
+			//deliveryCustomerNumContainer.add(deliveryCustomerLabel);
 			
 			// -- Delivery Customer TextField
 			Border b2 = new LineBorder(Color.BLUE, 1);
@@ -314,18 +324,18 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			deliveryCustomerNumText.setFont(new Font("Calibri", Font.PLAIN, 26));
 			deliveryCustomerNumText.setBorder(new CompoundBorder(m2, b2));
 			deliveryCustomerNumText.setEditable(false);
-			deliveryCustomerNumContainer.add(deliveryCustomerNumText);
+			//deliveryCustomerNumContainer.add(deliveryCustomerNumText);
 			
 		ticketScreen1Container.add(deliveryCustomerNumContainer);
 		
 		// Delivery : Customer Name drop down
 		JPanel deliveryCustomerNameCbContainer = new JPanel();
 		deliveryCustomerNameCbContainer.setLayout(new BoxLayout(deliveryCustomerNameCbContainer, BoxLayout.X_AXIS));
-		deliveryCustomerNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
+		deliveryCustomerNameCbContainer.setBorder(new EmptyBorder(0, 25, 0, 0));
 		
 			// Customer Name Label
 			JLabel deliveryCustomerNameLabel= new JLabel();
-			deliveryCustomerNameLabel.setText("Customer Name:");
+			deliveryCustomerNameLabel.setText("Delivery Customer Name:");
 			deliveryCustomerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			deliveryCustomerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
 			deliveryCustomerNameCbContainer.add(deliveryCustomerNameLabel);
@@ -340,11 +350,150 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			deliveryCustomerNameCbContainer.add(deliveryCustomerNameCB);
 			
 		ticketScreen1Container.add(deliveryCustomerNameCbContainer);
+		
+		// Courier Label and ComboBox
+		JPanel courierNameCbContainer = new JPanel();
+		courierNameCbContainer.setLayout(new BoxLayout(courierNameCbContainer, BoxLayout.X_AXIS));
+		courierNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
+		
+		// Courier Name Label
+		JLabel courierNameLabel= new JLabel();
+		courierNameLabel.setText("Courier:");
+		courierNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		courierNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
+		//courierNameCbContainer.add(courierNameLabel);
+	
+		// ComboBox
+		Border bCB1 = new LineBorder(Color.BLUE, 1);
+		Border mCB1 = new EmptyBorder(0, 15, 0, 25);
+		courierNameCB.setSelectedIndex(0);
+		courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
+		courierNameCB.setBorder(new CompoundBorder(mCB1, bCB1));
+		courierNameCB.addActionListener(null); 
+		//TODO: Create an ActionListener for CBs to the controller package
+		//courierNameCbContainer.add(courierNameCB);
+		
+		//ticketScreen1Container.add(courierNameCbContainer);
+		
+		// Estimated Blocks --space-- Estimated Delivery Time
+				JPanel estBlocksAndDeliveryTimeContainer = new JPanel();
+				estBlocksAndDeliveryTimeContainer.setLayout(new BoxLayout(estBlocksAndDeliveryTimeContainer, BoxLayout.X_AXIS));
+				estBlocksAndDeliveryTimeContainer.setBorder(new EmptyBorder(20, 5, 10, 25));
+				
+					JLabel estBlocksLabel = new JLabel("Estimated Blocks: ");
+					estBlocksLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+					estBlocksLabel.setBorder(new EmptyBorder(0, 0, 0, 10));
+					estBlocksAndDeliveryTimeContainer.add(estBlocksLabel);
+					
+					estBlocksText = new JTextField();
+					estBlocksText.setFont(new Font("Calibri", Font.PLAIN, 24));
+					estBlocksText.setBorder(new LineBorder(Color.BLUE, 1));
+					estBlocksText.setEditable(false);
+					estBlocksAndDeliveryTimeContainer.add(estBlocksText);
+					
+					JLabel estDeliveryTimeLabel = new JLabel("Estimated Delivery Time: ");
+					estDeliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+					estDeliveryTimeLabel.setBorder(new EmptyBorder(0, 25, 0, 10));
+					estBlocksAndDeliveryTimeContainer.add(estDeliveryTimeLabel);
+
+					estDeliveryTimeText = new JTextField();
+					estDeliveryTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
+					estDeliveryTimeText.setBorder(new LineBorder(Color.BLUE, 1));
+					estDeliveryTimeText.setEditable(false);
+					estBlocksAndDeliveryTimeContainer.add(estDeliveryTimeText);
+				
+					ticketScreen1Container.add(estBlocksAndDeliveryTimeContainer);
 			 
+					// JPanel BoxLayout.X_AXIS
+					JPanel outerBoxLayoutXaxisContainer = new JPanel();
+					outerBoxLayoutXaxisContainer.setLayout(new BoxLayout(outerBoxLayoutXaxisContainer, BoxLayout.X_AXIS));
+					outerBoxLayoutXaxisContainer.setBorder(new EmptyBorder(10, 0, 0, 25));
+					
+						JPanel firstInnerBoxLayoutYaxisContainer = new JPanel();
+						firstInnerBoxLayoutYaxisContainer.setLayout(new BoxLayout(firstInnerBoxLayoutYaxisContainer, BoxLayout.Y_AXIS));
+						firstInnerBoxLayoutYaxisContainer.setBorder(new EmptyBorder(25, 25, 0, 25));
+						
+							// JPanel BoxLayout.X_AXIS: Quoted Price Label & TextField
+							JPanel quotedPriceBoxLayoutXaxis = new JPanel();
+							quotedPriceBoxLayoutXaxis.setLayout(new BoxLayout(quotedPriceBoxLayoutXaxis, BoxLayout.X_AXIS));
+							quotedPriceBoxLayoutXaxis.setBorder(new EmptyBorder(0, 0, 0, 25));
+							
+								JLabel quotedPriceLabel = new JLabel("Quoted Price: ");
+								quotedPriceLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+								quotedPriceLabel.setBorder(new EmptyBorder(0, 0, 0, 25));
+								quotedPriceBoxLayoutXaxis.add(quotedPriceLabel);
+								
+								quotedPriceText = new JTextField();
+								quotedPriceText.setFont(new Font("Calibri", Font.PLAIN, 24));
+								quotedPriceText.setBorder(new LineBorder(Color.BLUE, 1));
+								quotedPriceText.setEditable(false);
+								quotedPriceBoxLayoutXaxis.add(quotedPriceText);
+						
+							// JPanel BoxLayout.X_AXIS: Delivery Time Label & TextField
+							JPanel deliveryTimeBoxLayoutXaxis = new JPanel();
+							deliveryTimeBoxLayoutXaxis.setLayout(new BoxLayout(deliveryTimeBoxLayoutXaxis, BoxLayout.X_AXIS));
+							deliveryTimeBoxLayoutXaxis.setBorder(new EmptyBorder(25, 0, 25, 25));
+							
+								JLabel deliveryTimeLabel = new JLabel("Delivery Time: ");
+								deliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+								deliveryTimeLabel.setBorder(new EmptyBorder(0, 0, 0, 25));
+								deliveryTimeBoxLayoutXaxis.add(deliveryTimeLabel);	
+								
+								deliveryTimeText = new JTextField();
+								deliveryTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
+								deliveryTimeText.setBorder(new LineBorder(Color.BLUE, 1));
+								deliveryTimeText.setEditable(false);
+								deliveryTimeBoxLayoutXaxis.add(deliveryTimeText);
+								
+							firstInnerBoxLayoutYaxisContainer.add(quotedPriceBoxLayoutXaxis);
+							firstInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis);
+					
+						Border lineB = new LineBorder(Color.BLUE, 1);
+						Border marginB = new EmptyBorder(0, 50, 0, 0);
+						JPanel secondInnerBoxLayoutYaxisContainer = new JPanel();
+						secondInnerBoxLayoutYaxisContainer.setLayout(new BoxLayout(secondInnerBoxLayoutYaxisContainer, BoxLayout.Y_AXIS));
+						secondInnerBoxLayoutYaxisContainer.setBorder(new CompoundBorder(marginB, lineB));
+
+							// JPanel BoxLayout.X_AXIS: Pick Up Time Label & TextField
+							JPanel pickUpTimeBoxLayoutXaxis1 = new JPanel();
+							pickUpTimeBoxLayoutXaxis1.setLayout(new BoxLayout(pickUpTimeBoxLayoutXaxis1, BoxLayout.X_AXIS));
+							pickUpTimeBoxLayoutXaxis1.setBorder(new EmptyBorder(25, 25, 0, 25));
+							
+								JLabel pickUpTimeLabel1 = new JLabel("Pick Up Time: ");
+								pickUpTimeLabel1.setFont(new Font("Calibri", Font.PLAIN, 24));
+								pickUpTimeLabel1.setBorder(new EmptyBorder(0, 0, 0, 25));
+								pickUpTimeBoxLayoutXaxis1.add(pickUpTimeLabel1);
+								
+								pickUpTimeText = new JTextField();
+								pickUpTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
+								pickUpTimeBoxLayoutXaxis1.add(pickUpTimeText);
+						
+							// JPanel BoxLayout.X_AXIS: Delivered Time Label & TextField
+							JPanel deliveryTimeBoxLayoutXaxis1 = new JPanel();
+							deliveryTimeBoxLayoutXaxis1.setLayout(new BoxLayout(deliveryTimeBoxLayoutXaxis1, BoxLayout.X_AXIS));
+							deliveryTimeBoxLayoutXaxis1.setBorder(new EmptyBorder(25, 25, 25, 25));
+								
+								JLabel deliveryTimeLabel1 = new JLabel("Delivered Time: ");
+								deliveryTimeLabel1.setFont(new Font("Calibri", Font.PLAIN, 24));
+								deliveryTimeLabel1.setBorder(new EmptyBorder(0, 0, 0, 25));
+								deliveryTimeBoxLayoutXaxis1.add(deliveryTimeLabel1);
+									
+								deliveryTimeText = new JTextField();
+								deliveryTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
+								deliveryTimeBoxLayoutXaxis1.add(deliveryTimeText);
+					
+							secondInnerBoxLayoutYaxisContainer.add(pickUpTimeBoxLayoutXaxis1);
+							secondInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis1);
+								
+						outerBoxLayoutXaxisContainer.add(firstInnerBoxLayoutYaxisContainer);
+						outerBoxLayoutXaxisContainer.add(secondInnerBoxLayoutYaxisContainer);
+						
+					ticketScreen1Container.add(outerBoxLayoutXaxisContainer);
+					
 	    // Container Reset and Next buttons
 	 	JPanel resetAndNextButtonsContainer = new JPanel();
 	 	resetAndNextButtonsContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
-	 	resetAndNextButtonsContainer.setBorder(new EmptyBorder(25, 25, 5, 25));
+	 	resetAndNextButtonsContainer.setBorder(new EmptyBorder(5, 25, 5, 25));
 	 		    	 		   
 	 	// -- Reset Button
 	 	resetButton.setName("resetButton");

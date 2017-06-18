@@ -8,6 +8,7 @@
 		 <class>courierPD.User</class>
 		 <class>courierPD.Customer</class>
 		 <class>courierPD.Courier</class>
+		 <class>courierPD.Ticket</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sample" />
