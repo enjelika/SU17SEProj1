@@ -34,7 +34,7 @@ import model.Utility;
 @SuppressWarnings("serial")
 public class CreateDeliveryTicketScreen1 extends JPanel
 {
-	private JButton resetButton, nextButton, backButton, logoutButton;
+	private JButton saveButton, resetButton, nextButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketScreen1Container, southButtonContainer, mainPane, imgContainer;
 	public JTextField deliveryCustomerNumText, pickUpCustomerNumText, pickUpTimeField;
@@ -108,8 +108,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	resetButton = new JButton(new ImageIcon(resetButtonIcon)); 
     	
     	// Next Button
-    	Image nextButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "nextButton.png");
-    	nextButton = new JButton(new ImageIcon(nextButtonIcon));     	
+    	//Image nextButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "nextButton.png");
+    	//nextButton = new JButton(new ImageIcon(nextButtonIcon));     	
+    	
+    	// Save Button
+    	Image saveButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "saveButton.png");
+    	saveButton = new JButton(new ImageIcon(saveButtonIcon));     
     	
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton2.png");
@@ -504,12 +508,20 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	 	resetAndNextButtonsContainer.add(resetButton);
 	 	    
 	    // -- Next Button
-	 	nextButton.setName("nextTicketScreenButton");
+	 	
+	 	saveButton.setName("saveButton");
+	 	saveButton.setOpaque(false);
+	 	saveButton.setContentAreaFilled(false);
+	 	saveButton.setBorder(new EmptyBorder(0, 0, 0, 0));
+	 	saveButton.addActionListener(deliveryTicket1Controller);
+	 	resetAndNextButtonsContainer.add(saveButton);
+	 	
+	 	/*nextButton.setName("nextTicketScreenButton");
 	 	nextButton.setOpaque(false);
 	 	nextButton.setContentAreaFilled(false);
 	 	nextButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 	 	nextButton.addActionListener(deliveryTicket1Controller);
-	 	resetAndNextButtonsContainer.add(nextButton);
+	 	resetAndNextButtonsContainer.add(nextButton);*/
 	 	
 	 	ticketScreen1Container.add(resetAndNextButtonsContainer);
 
