@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -29,12 +30,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CustomerDAO;
+import courierDAO.UserDAO;
+import courierPD.Customer;
+import courierPD.User;
 import model.Utility;
 
 @SuppressWarnings("serial")
 public class CreateDeliveryTicketScreen1 extends JPanel
 {
-	private JButton saveButton, resetButton, nextButton, backButton, logoutButton;
+	private JButton saveButton, resetButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketScreen1Container, southButtonContainer, mainPane, imgContainer;
 	public JTextField deliveryCustomerNumText, pickUpCustomerNumText, pickUpTimeField;
@@ -44,6 +49,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	public JTextField estBlocksText, estDeliveryTimeText, quotedPriceText, deliveryTimeText, pickUpTimeText, courierPickUpTimeText, courierDeliveredTimeText;
 	public JRadioButton courierSelection;
 	public JComboBox<String> courierNameCB;
+    private List<Customer> customers;
 	
 	
 	
@@ -55,15 +61,11 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     DateFormat dateFormat, timeFormat;
     String dateText, timeText, packageID;
     
-    // TODO: TEMPORARY
-    String[] tempArray;
-    
     private ButtonController deliveryTicket1Controller;
     
     public CreateDeliveryTicketScreen1(ButtonController buttonController)
     {
     	// TODO: Remove this once the comboboxes are retrieving the list of customer names from the DB
-		tempArray = new String[] {"-- select a customer --", "test1", "test2"};
     	
     	deliveryTicket1Controller = buttonController;
     	
@@ -72,8 +74,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	
     	packageID = buttonController.model.getPackageId();
     	
-    	tempArray = new String[] {"-- select a customer --", "test1", "test2"};
-		courierNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket2Controller.model.getCourierNames());
+		courierNameCB = new JComboBox<String>(); //TODO: deliveryTicket2Controller.model.getCourierNames());
     	    
     	
     	mainPane = new JPanel();
@@ -238,8 +239,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			// ComboBox
 			Border bCB = new LineBorder(Color.BLUE, 1);
 			Border mCB = new EmptyBorder(0, 15, 0, 25);
-			pickUpCustomerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
-			pickUpCustomerNameCB.setSelectedIndex(0);
+			pickUpCustomerNameCB = new JComboBox<String>(); //TODO: deliveryTicket1Controller.model.getCustomerNames());
 			pickUpCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			pickUpCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
 			pickUpCustomerNameCB.addActionListener(null); 
@@ -345,8 +345,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			deliveryCustomerNameCbContainer.add(deliveryCustomerNameLabel);
 		
 			// ComboBox
-			deliveryCustomerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
-			deliveryCustomerNameCB.setSelectedIndex(0);
+			deliveryCustomerNameCB = new JComboBox<String>(); //TODO: deliveryTicket1Controller.model.getCustomerNames());
 			deliveryCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			deliveryCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
 			deliveryCustomerNameCB.addActionListener(null); 
@@ -370,7 +369,6 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		// ComboBox
 		Border bCB1 = new LineBorder(Color.BLUE, 1);
 		Border mCB1 = new EmptyBorder(0, 15, 0, 25);
-		courierNameCB.setSelectedIndex(0);
 		courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 		courierNameCB.setBorder(new CompoundBorder(mCB1, bCB1));
 		courierNameCB.addActionListener(null); 
@@ -553,5 +551,19 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+		PopulateFormData();
+    }
+    
+    public void PopulateFormData()
+    {
+    	//Get Data
+    	customers = CustomerDAO.ListCustomer();
+		for (Customer item : customers) {
+			if(item.getIsActive().equals("Y"))
+			{
+				deliveryCustomerNameCB.addItem(item.getName());
+				pickUpCustomerNameCB.addItem(item.getName());
+			}
+		}
     }
 }
