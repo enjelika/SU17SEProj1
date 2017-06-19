@@ -265,9 +265,13 @@ public class ButtonController implements ActionListener
    				break; 
     					
    			case "customerBillingReportButton":
-   				// TODO: Customer Billing Report Reports Menu action here
-   				System.out.println(buttonID + " was pressed");
-   				break;  
+   				System.out.println("Going to the Customer Billing Report Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.ReportCustomerBillingScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+   				break;
    				
    			case "generateCompanyPerformanceReport":
    				// TODO: Generate Company Performance Report action here
@@ -286,6 +290,16 @@ public class ButtonController implements ActionListener
    				
    			case "printCourierPerformanceReport":
    				// TODO: Print Courier Performance Report action here
+   				System.out.println(buttonID + " was pressed");
+   				break;
+   				
+   			case "generateCustomerBillingReport":
+   				// TODO: Generate Customer Billing Report action here
+   				System.out.println(buttonID + " was pressed");
+   				break;
+   				
+   			case "printCustomerBillingReport":
+   				// TODO: Print Customer Billing Report action here
    				System.out.println(buttonID + " was pressed");
    				break;
    				

@@ -32,16 +32,16 @@ import controller.ButtonController;
 import model.Utility;
 
 @SuppressWarnings("serial")
-public class ReportCourierPerformanceScreen extends JPanel
+public class ReportCustomerBillingScreen extends JPanel
 {
 	private JLabel imageFrame;
 	public JRadioButton weeklyCycle, monthlyCycle;
-	public JComboBox<String> courierNameCB;
+	public JComboBox<String> customerNameCB;
 	public JTextField reportStartDateText;
 	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
 	
-	public JScrollPane courierPerformanceReportViewer;
+	public JScrollPane customerBillingReportViewer;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
@@ -49,15 +49,15 @@ public class ReportCourierPerformanceScreen extends JPanel
     	
 	public String dateText, timeText;
 	
-	// TODO: Remove this once wired up to retrieve the list of Courier Names from the DB (including an option for "All Couriers")
+	// TODO: Remove this once wired up to retrieve the list of Customer Names from the DB (including an option for "All Customers")
 	String[] tempArray;
 	
 	ButtonController buttonController;
 	
-	public ReportCourierPerformanceScreen(ButtonController buttonController)
+	public ReportCustomerBillingScreen(ButtonController buttonController)
 	{
     	// TODO: Remove this once the comboboxes are retrieving the list of customer names from the DB
-		tempArray = new String[] {"-- select a courier --", "test1", "test2"};
+		tempArray = new String[] {"-- select a customer --", "test1", "test2"};
 		
 		this.buttonController = buttonController;
 		
@@ -132,7 +132,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 		titleContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 			// Courier Performance Report: --space-- Date --space-- Time
-			JLabel reportScreen1Title = new JLabel("Courier Performance Report:");
+			JLabel reportScreen1Title = new JLabel("Customer Billing Report:");
 			reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 			reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
 			titleContainer.add(reportScreen1Title);
@@ -155,38 +155,38 @@ public class ReportCourierPerformanceScreen extends JPanel
 		reportContainer.setLayout(new BoxLayout(reportContainer, BoxLayout.Y_AXIS));
 		reportContainer.setOpaque(false);
 		
-			// Courier Name drop down AND Generate Report Button
-			JPanel courierNameCbContainer = new JPanel();
-			courierNameCbContainer.setLayout(new BoxLayout(courierNameCbContainer, BoxLayout.X_AXIS));
-			courierNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
+			// Customer Name drop down AND Generate Report Button
+			JPanel customerNameCbContainer = new JPanel();
+			customerNameCbContainer.setLayout(new BoxLayout(customerNameCbContainer, BoxLayout.X_AXIS));
+			customerNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
 			
-				// Courier Name Label
-				JLabel courierNameLabel= new JLabel();
-				courierNameLabel.setText("Courier Name:");
-				courierNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-				courierNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
-				courierNameCbContainer.add(courierNameLabel);
+				// Customer Name Label
+				JLabel customerNameLabel= new JLabel();
+				customerNameLabel.setText("Customer Name:");
+				customerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+				customerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
+				customerNameCbContainer.add(customerNameLabel);
 			
 				// ComboBox
 				Border bCB = new LineBorder(Color.BLUE, 1);
 				Border mCB = new EmptyBorder(0, 15, 0, 15);
-				courierNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCourierNames());
-				courierNameCB.setSelectedIndex(0);
-				courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
-				courierNameCB.setBorder(new CompoundBorder(mCB, bCB));
-				courierNameCB.addActionListener(null); 
+				customerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
+				customerNameCB.setSelectedIndex(0);
+				customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
+				customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
+				customerNameCB.addActionListener(null); 
 				//TODO: Create an ActionListener for CBs to the controller package
-				courierNameCbContainer.add(courierNameCB);
+				customerNameCbContainer.add(customerNameCB);
 				
 				// Generate Report Button
-				generateReportButton.setName("generateCourierPerformanceReport");
+				generateReportButton.setName("generateCustomerBillingReport");
 				generateReportButton.setOpaque(false);
 				generateReportButton.setContentAreaFilled(false);
 				generateReportButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 				generateReportButton.addActionListener(buttonController);
-				courierNameCbContainer.add(generateReportButton);
+				customerNameCbContainer.add(generateReportButton);
 				
-			reportContainer.add(courierNameCbContainer);
+			reportContainer.add(customerNameCbContainer);
 				
 			// Report Start Date: --space-- Cycle type radio buttons
 			JPanel reportDateAndCycleContainer = new JPanel();
@@ -234,10 +234,10 @@ public class ReportCourierPerformanceScreen extends JPanel
 			JPanel scrollPaneContainer = new JPanel();
 			scrollPaneContainer.setBorder(new EmptyBorder(5, 0, 5, 0));
 			
-				courierPerformanceReportViewer = new JScrollPane();
-				courierPerformanceReportViewer.setPreferredSize(new Dimension(800, 325));
-				courierPerformanceReportViewer.setAutoscrolls(true);
-				scrollPaneContainer.add(courierPerformanceReportViewer);
+				customerBillingReportViewer = new JScrollPane();
+				customerBillingReportViewer.setPreferredSize(new Dimension(800, 325));
+				customerBillingReportViewer.setAutoscrolls(true);
+				scrollPaneContainer.add(customerBillingReportViewer);
 			
 			reportContainer.add(scrollPaneContainer);
 			
@@ -256,7 +256,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 		southButtonContainer.add(backButton);
 		
         // -- Print Report Button
-		printReportButton.setName("printCourierPerformanceReport");
+		printReportButton.setName("printCustomerBillingReport");
 		printReportButton.setOpaque(false);
 		printReportButton.setContentAreaFilled(false);
 		printReportButton.setBorder(new EmptyBorder(0, 70, 0, 70));
