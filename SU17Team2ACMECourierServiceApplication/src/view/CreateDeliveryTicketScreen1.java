@@ -598,11 +598,11 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	{
 		if(pickupCustomer != null && deliveryCustomer != null)
 		{
-			GetEstimatedBlocks();
+			SetEstimatedBlocksAndCost();
 		}
 	}
 	
-	private void GetEstimatedBlocks()
+	private void SetEstimatedBlocksAndCost()
 	{
 		String companyAddress = GetCompanyAddress();
 		StreetMap streetMap = new StreetMap();
@@ -615,9 +615,16 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		streetMap.GetDirection(companyAddress, "From delivery location to office");
 		
 		estBlocksText.setText(String.valueOf(streetMap.TotalDistance));
+		SetEstimatedCost(streetMap.TotalDistance);
 		
 	}
     
+	private void SetEstimatedCost(int blocks)
+	{
+		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
+		quotedPriceText.setText(String.valueOf(blocks * company.getCostPerBlock() + company.getBillRate()));
+	}
+	
     private String GetCompanyAddress() {
 		String companyAddress = "";
 		
