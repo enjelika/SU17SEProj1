@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,16 +26,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CompanyInfoDAO;
 import courierDAO.CustomerDAO;
 import courierDAO.UserDAO;
+import courierPD.CompanyInfo;
 import courierPD.Customer;
 import courierPD.User;
+import model.StreetMap;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -50,6 +56,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	public JRadioButton courierSelection;
 	public JComboBox<String> courierNameCB;
     private List<Customer> customers;
+    private Customer pickupCustomer;
+    private Customer deliveryCustomer;
 	
 	
 	
@@ -242,7 +250,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			pickUpCustomerNameCB = new JComboBox<String>(); //TODO: deliveryTicket1Controller.model.getCustomerNames());
 			pickUpCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			pickUpCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
-			pickUpCustomerNameCB.addActionListener(null); 
+			pickUpCustomerNameCB.addItemListener(new ItemListener() {
+		        public void itemStateChanged(ItemEvent arg0) {
+		            //Do Something
+		        	UpdatePickupCustomer(arg0);
+		        }
+		    });;
 			//TODO: Create an ActionListener for CBs to the controller package
 			pickUpCustomerNameCbContainer.add(pickUpCustomerNameCB);
 			
@@ -348,7 +361,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			deliveryCustomerNameCB = new JComboBox<String>(); //TODO: deliveryTicket1Controller.model.getCustomerNames());
 			deliveryCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			deliveryCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
-			deliveryCustomerNameCB.addActionListener(null); 
+			deliveryCustomerNameCB.addItemListener(new ItemListener() {
+		        public void itemStateChanged(ItemEvent arg0) {
+		            //Do Something
+		        	UpdateDeliveryCustomer(arg0);
+		        }
+		    });;
 			//TODO: Create an ActionListener for CBs to the controller package
 			deliveryCustomerNameCbContainer.add(deliveryCustomerNameCB);
 			
@@ -391,6 +409,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 					estBlocksText.setFont(new Font("Calibri", Font.PLAIN, 24));
 					estBlocksText.setBorder(new LineBorder(Color.BLUE, 1));
 					estBlocksText.setEditable(false);
+					estBlocksText.setHorizontalAlignment(SwingConstants.CENTER);
+					estBlocksText.setText("0");
 					estBlocksAndDeliveryTimeContainer.add(estBlocksText);
 					
 					JLabel estDeliveryTimeLabel = new JLabel("Estimated Delivery Time: ");
@@ -554,7 +574,59 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		PopulateFormData();
     }
     
-    public void PopulateFormData()
+	private void UpdatePickupCustomer(ItemEvent arg0) {
+		for (Customer customer : customers) {
+			if(arg0.getItem() == customer.getName())
+			{
+				pickupCustomer = customer;
+				UpdateScreenInformation();
+			}
+		}
+	}
+	
+	private void UpdateDeliveryCustomer(ItemEvent arg0) {
+		for (Customer customer : customers) {
+			if(arg0.getItem() == customer.getName())
+			{
+				deliveryCustomer = customer;
+				UpdateScreenInformation();
+			}
+		}
+	}
+	
+	private void UpdateScreenInformation()
+	{
+		if(pickupCustomer != null && deliveryCustomer != null)
+		{
+			GetEstimatedBlocks();
+		}
+	}
+	
+	private void GetEstimatedBlocks()
+	{
+		String companyAddress = GetCompanyAddress();
+		StreetMap streetMap = new StreetMap();
+		
+		streetMap.Dijkstra(companyAddress);
+		streetMap.GetDirection(pickupCustomer.getAddress(), "From company to pickup location");
+		streetMap.Dijkstra(pickupCustomer.getAddress());
+		streetMap.GetDirection(deliveryCustomer.getAddress(), "From pickup location to delivery location");
+		streetMap.Dijkstra(deliveryCustomer.getAddress());
+		streetMap.GetDirection(companyAddress, "From delivery location to office");
+		
+		estBlocksText.setText(String.valueOf(streetMap.TotalDistance));
+		
+	}
+    
+    private String GetCompanyAddress() {
+		String companyAddress = "";
+		
+		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
+		companyAddress = company.getAddress();
+		return companyAddress;
+	}
+
+	public void PopulateFormData()
     {
     	//Get Data
     	customers = CustomerDAO.ListCustomer();
