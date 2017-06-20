@@ -459,16 +459,16 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 								JLabel deliveryTimeLabel = new JLabel("Delivery Time: ");
 								deliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 								deliveryTimeLabel.setBorder(new EmptyBorder(0, 0, 0, 25));
-								deliveryTimeBoxLayoutXaxis.add(deliveryTimeLabel);	
+								//deliveryTimeBoxLayoutXaxis.add(deliveryTimeLabel);	
 								
 								deliveryTimeText = new JTextField();
 								deliveryTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
 								deliveryTimeText.setBorder(new LineBorder(Color.BLUE, 1));
 								deliveryTimeText.setEditable(false);
-								deliveryTimeBoxLayoutXaxis.add(deliveryTimeText);
+								//deliveryTimeBoxLayoutXaxis.add(deliveryTimeText);
 								
 							firstInnerBoxLayoutYaxisContainer.add(quotedPriceBoxLayoutXaxis);
-							firstInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis);
+							//firstInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis);
 					
 						Border lineB = new LineBorder(Color.BLUE, 1);
 						Border marginB = new EmptyBorder(0, 50, 0, 0);
@@ -504,8 +504,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 								deliveryTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
 								deliveryTimeBoxLayoutXaxis1.add(deliveryTimeText);
 					
-							secondInnerBoxLayoutYaxisContainer.add(pickUpTimeBoxLayoutXaxis1);
-							secondInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis1);
+							//secondInnerBoxLayoutYaxisContainer.add(pickUpTimeBoxLayoutXaxis1);
+							//secondInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis1);
 								
 						outerBoxLayoutXaxisContainer.add(firstInnerBoxLayoutYaxisContainer);
 						outerBoxLayoutXaxisContainer.add(secondInnerBoxLayoutYaxisContainer);
