@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -304,20 +305,27 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	public void Generate()
 	{
 		Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
-		List<Ticket> listTicket = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID());
-		int numberOfRow = listTicket.size();
-		int row = 0;
-		Object[][] rowData = new Object[numberOfRow][3];
-		
-		for(Ticket ticket : TicketDAO.listTickets()) 
+		try 
+		{ 
+			List<Ticket> listTicket = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID());
+			int numberOfRow = listTicket.size();
+			int row = 0;
+			Object[][] rowData = new Object[numberOfRow][3];
+			
+			for(Ticket ticket : TicketDAO.listTickets()) 
+			{
+				rowData[row][0] = ticket.GetTicketID();
+				rowData[row][1] = ticket.GetEstimatedDeliveryTime();
+				rowData[row][2] = ticket.GetDeliveryTime();
+			    row++;
+			}
+			
+			reportTable = new JTable(rowData, Header);
+			coPerformanceReportViewer.add(reportTable);
+		} 
+		catch (Exception e) 
 		{
-			rowData[row][0] = ticket.GetTicketID();
-			rowData[row][1] = ticket.GetEstimatedDeliveryTime();
-			rowData[row][2] = ticket.GetDeliveryTime();
-		    row++;
+			JOptionPane.showMessageDialog(null, "Unable to find ticket(s) info for this customer", "Company Performance Report Screen", JOptionPane.INFORMATION_MESSAGE);
 		}
-		
-		reportTable = new JTable(rowData, Header);
-		coPerformanceReportViewer.add(reportTable);
 	}
 }
