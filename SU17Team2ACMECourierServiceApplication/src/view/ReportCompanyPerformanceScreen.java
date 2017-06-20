@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -20,7 +19,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -35,10 +33,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
-import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
 import courierDAO.TicketDAO;
-import courierPD.Courier;
 import courierPD.Customer;
 import courierPD.Ticket;
 import model.Utility;
@@ -46,9 +42,9 @@ import model.Utility;
 @SuppressWarnings("serial")
 public class ReportCompanyPerformanceScreen extends JPanel
 {
-	private JLabel imageFrame, dateLabel, timeLabel;
+	private JLabel imageFrame;
 	public JRadioButton weeklyCycle, monthlyCycle;
-	public JComboBox<Customer> customerNameCB = new JComboBox();
+	public JComboBox<Customer> customerNameCB = new JComboBox<Customer>();
 	public JTextField reportStartDateText;
 	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
@@ -59,8 +55,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
-    	
-	public String dateText, timeText;
+
 	public String[] Header = new String[] {"Package ID", "Est. Delivery Time", "Act. Delivery Time"};
 	
 	private List<Customer> customers;
@@ -80,9 +75,6 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		
 		// Populate customers data
 		PopulateFormData();
-		
-		dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
-    	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -156,17 +148,6 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 			reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
 			titleContainer.add(reportScreen1Title);
-
-					
-			dateLabel = new JLabel("Date: " + dateText);
-			dateLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
-			dateLabel.setBorder(new EmptyBorder(0, 200, 0, 0));
-			titleContainer.add(dateLabel);
-			
-			timeLabel = new JLabel("Time: " + timeText);
-			timeLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
-			timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
-			titleContainer.add(timeLabel);
 		
 		overallContainer.add(titleContainer);
 		
