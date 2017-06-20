@@ -59,14 +59,10 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
-<<<<<<< Upstream, based on origin/master
-
-=======
     	
 	public String dateText, timeText;
 	public String[] Header = new String[] {"Package ID", "Est. Delivery Time", "Act. Delivery Time"};
 	
->>>>>>> afec4df Obtain list of ticket from a customer for report
 	private List<Customer> customers;
 	
 	ButtonController buttonController;
@@ -84,6 +80,9 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		
 		// Populate customers data
 		PopulateFormData();
+		
+		dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
+    	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -157,8 +156,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 			reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
 			titleContainer.add(reportScreen1Title);
-<<<<<<< Upstream, based on origin/master
-=======
+
 					
 			dateLabel = new JLabel("Date: " + dateText);
 			dateLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -169,7 +167,6 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			timeLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 			timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
 			titleContainer.add(timeLabel);
->>>>>>> afec4df Obtain list of ticket from a customer for report
 		
 		overallContainer.add(titleContainer);
 		
@@ -252,17 +249,6 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportContainer.add(reportDateAndCycleContainer);
 			
 			// JScrollPane (report viewer)
-<<<<<<< Upstream, based on origin/master
-			JPanel scrollPaneContainer = new JPanel();
-			scrollPaneContainer.setBorder(new EmptyBorder(5, 0, 5, 0));
-			
-				coPerformanceReportViewer = new JScrollPane();
-				coPerformanceReportViewer.setPreferredSize(new Dimension(800, 325));
-				coPerformanceReportViewer.setAutoscrolls(true);
-				scrollPaneContainer.add(coPerformanceReportViewer);
-			
-			reportContainer.add(scrollPaneContainer);
-=======
 			coPerformanceReportViewer = new JScrollPane();
 			coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
 			coPerformanceReportViewer.setAutoscrolls(true);
@@ -271,7 +257,6 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			a.setText("asdfasdfsadfsadfasdfasdf");	// For testing
 			coPerformanceReportViewer.add(a);
 			reportContainer.add(coPerformanceReportViewer);
->>>>>>> afec4df Obtain list of ticket from a customer for report
 			
 		overallContainer.add(reportContainer);
 		mainPane.add(overallContainer, BorderLayout.CENTER);
