@@ -76,6 +76,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     int counter = 0;
     DateFormat dateFormat, timeFormat;
     String dateText, timeText, packageID;
+    private int estimatedTime;
+    private int deliveryDistance;
     
     private ButtonController deliveryTicket1Controller;
     
@@ -622,20 +624,29 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		
 		streetMap.Dijkstra(companyAddress);
 		streetMap.GetDirection(pickupCustomer.getAddress(), "From company to pickup location");
+		deliveryDistance = streetMap.TotalDistance;
 		streetMap.Dijkstra(pickupCustomer.getAddress());
 		streetMap.GetDirection(deliveryCustomer.getAddress(), "From pickup location to delivery location");
+		deliveryDistance = streetMap.TotalDistance - deliveryDistance;
 		streetMap.Dijkstra(deliveryCustomer.getAddress());
 		streetMap.GetDirection(companyAddress, "From delivery location to office");
 		
 		estBlocksText.setText(String.valueOf(streetMap.TotalDistance));
-		SetEstimatedCost(streetMap.TotalDistance);
+		SetEstimatedCostAndTime(streetMap.TotalDistance);
 		
 	}
     
-	private void SetEstimatedCost(int blocks)
+	private void SetEstimatedCostAndTime(int blocks)
 	{
 		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
 		quotedPriceText.setText(String.valueOf(blocks * company.getCostPerBlock() + company.getBillRate()));
+		if(!time.getTimeStringOrEmptyString().equals(""))
+		{
+			LocalTime tempTime = LocalTime.parse(time.getTimeStringOrEmptyString());
+			int minutesToDeliver = 1;
+			tempTime = tempTime.plusMinutes(deliveryDistance);
+			estDeliveryTimeText.setText(tempTime.toString());
+		}
 	}
 	
     private String GetCompanyAddress() {
