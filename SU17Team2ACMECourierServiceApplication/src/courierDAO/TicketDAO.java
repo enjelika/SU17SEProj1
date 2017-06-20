@@ -37,14 +37,6 @@ public class TicketDAO {
 			return list;
 		}
 		
-		public static Ticket findTicketById(int id) {
-			Customer cust = CustomerDAO.findCustomerById(1001);
-			Query query = emDAO.getEM().createQuery("SELECT t FROM ticket t where t.pickupcustomer = :cust");
-			query.setParameter("cust", cust);
-			Ticket ticket = (Ticket) query.getSingleResult();
-			return ticket;
-		}
-		
 		public static Ticket findTicket(String username, String password) {
 			Query query = emDAO.getEM().createQuery("SELECT u FROM user u WHERE u.userName = '" + username + "' and u.password = '" + password + "'");
 			Ticket ticket = null;
