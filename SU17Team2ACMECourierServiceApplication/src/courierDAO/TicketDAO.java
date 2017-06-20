@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import courierPD.Customer;
 import courierPD.Ticket;
 import courierPD.User;
 
@@ -26,7 +27,9 @@ public class TicketDAO {
 		}
 
 		public static Ticket findTicketById(int id) {
-			Query query = emDAO.getEM().createQuery("SELECT ticket FROM ticket ticket");
+			Customer cust = CustomerDAO.findCustomerById(1001);
+			Query query = emDAO.getEM().createQuery("SELECT t FROM ticket t where t.pickupcustomer = :cust");
+			query.setParameter("cust", cust);
 			Ticket ticket = (Ticket) query.getSingleResult();
 			return ticket;
 		}

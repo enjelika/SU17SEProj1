@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,9 +33,14 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
+
 import controller.ButtonController;
 import courierDAO.CompanyInfoDAO;
 import courierDAO.CustomerDAO;
+import courierDAO.TicketDAO;
 import courierDAO.UserDAO;
 import courierPD.CompanyInfo;
 import courierPD.Customer;
@@ -58,6 +64,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     private List<Customer> customers;
     private Customer pickupCustomer;
     private Customer deliveryCustomer;
+    
+    private TimePicker time;
 	
 	
 	
@@ -87,6 +95,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+    	
+    	TimePickerSettings settings = new TimePickerSettings();
+    	settings.generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, LocalTime.of(8, 0), LocalTime.of(20, 0));
+    	time = new TimePicker(settings);
     	
     	// Container for the menu buttons
     	ticketScreen1Container = new JPanel();
@@ -281,11 +293,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			pickUpTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Pick Up Time TextField
-	    	pickUpTimeField = new JTextField("", 5);
-	    	pickUpTimeField.setHorizontalAlignment(JTextField.LEFT);
-	    	pickUpTimeField.setFont(new Font("Calibri", Font.PLAIN, 28));
-	    	pickUpTimeField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	pickUpTimeTextboxContainer.add(pickUpTimeField);
+			pickUpTimeTextboxContainer.add(time);
+	    	//pickUpTimeField = new JTextField("", 5);
+	    	//pickUpTimeField.setHorizontalAlignment(JTextField.LEFT);
+	    	//pickUpTimeField.setFont(new Font("Calibri", Font.PLAIN, 28));
+	    	//pickUpTimeField.setBorder(new LineBorder(Color.BLUE, 1));
+	    	//pickUpTimeTextboxContainer.add(pickUpTimeField);
 			pickUpTimeAndBillToRBContainer.add(pickUpTimeTextboxContainer);
 			 		
 		 	// Bill To RadioButtons
