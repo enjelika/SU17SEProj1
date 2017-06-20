@@ -150,4 +150,8 @@ private static final long serialVersionUID = 1L;
 		this.paid = paid;
 	}
 	
+	public long GetTicketID() 
+	{
+		return ticketId;
+	}
 }

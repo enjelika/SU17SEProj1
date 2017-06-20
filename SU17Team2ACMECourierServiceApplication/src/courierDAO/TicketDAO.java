@@ -26,6 +26,17 @@ public class TicketDAO {
 			return list;
 		}
 
+		public static List<Ticket> listTicketsByCustomerId(long id) 
+		{
+			Customer customer = CustomerDAO.findCustomerById(id);
+			Query query = emDAO.getEM().createQuery("SELECT t FROM ticket t WHERE t.pickupcustomer = :customer");
+			query.setParameter("customer", customer);
+			@SuppressWarnings("unchecked")
+			List<Ticket> list= (List<Ticket>) query.getResultList();
+
+			return list;
+		}
+		
 		public static Ticket findTicketById(int id) {
 			Customer cust = CustomerDAO.findCustomerById(1001);
 			Query query = emDAO.getEM().createQuery("SELECT t FROM ticket t where t.pickupcustomer = :cust");

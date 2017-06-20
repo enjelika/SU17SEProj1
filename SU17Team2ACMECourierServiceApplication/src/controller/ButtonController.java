@@ -26,6 +26,7 @@ import view.EditCourierScreen;
 import view.EditCustomerScreen;
 import view.EditUserScreen;
 import view.LoginScreen;
+import view.ReportCompanyPerformanceScreen;
 import view.UpdatePasswordScreen;
 import view.ViewListener;
 
@@ -276,6 +277,8 @@ public class ButtonController implements ActionListener
    			case "generateCompanyPerformanceReport":
    				// TODO: Generate Company Performance Report action here
    				System.out.println(buttonID + " was pressed");
+   				ReportCompanyPerformanceScreen reportCompanyPerformanceScreen = (ReportCompanyPerformanceScreen)viewListener.GetView();
+   				reportCompanyPerformanceScreen.Generate();
    				break;
    				
    			case "printCoPerformanceReport":

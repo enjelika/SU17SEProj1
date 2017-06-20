@@ -20,11 +20,14 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -34,14 +37,16 @@ import javax.swing.border.LineBorder;
 import controller.ButtonController;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
+import courierDAO.TicketDAO;
 import courierPD.Courier;
 import courierPD.Customer;
+import courierPD.Ticket;
 import model.Utility;
 
 @SuppressWarnings("serial")
 public class ReportCompanyPerformanceScreen extends JPanel
 {
-	private JLabel imageFrame;
+	private JLabel imageFrame, dateLabel, timeLabel;
 	public JRadioButton weeklyCycle, monthlyCycle;
 	public JComboBox<Customer> customerNameCB = new JComboBox();
 	public JTextField reportStartDateText;
@@ -49,11 +54,19 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
 	
 	public JScrollPane coPerformanceReportViewer;
+	public JTable reportTable;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
+<<<<<<< Upstream, based on origin/master
 
+=======
+    	
+	public String dateText, timeText;
+	public String[] Header = new String[] {"Package ID", "Est. Delivery Time", "Act. Delivery Time"};
+	
+>>>>>>> afec4df Obtain list of ticket from a customer for report
 	private List<Customer> customers;
 	
 	ButtonController buttonController;
@@ -61,6 +74,13 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	public ReportCompanyPerformanceScreen(ButtonController buttonController)
 	{		
 		this.buttonController = buttonController;
+		
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return ReportCompanyPerformanceScreen.this;
+			}			
+
+		});
 		
 		// Populate customers data
 		PopulateFormData();
@@ -137,6 +157,19 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 			reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
 			titleContainer.add(reportScreen1Title);
+<<<<<<< Upstream, based on origin/master
+=======
+					
+			dateLabel = new JLabel("Date: " + dateText);
+			dateLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+			dateLabel.setBorder(new EmptyBorder(0, 200, 0, 0));
+			titleContainer.add(dateLabel);
+			
+			timeLabel = new JLabel("Time: " + timeText);
+			timeLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+			timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
+			titleContainer.add(timeLabel);
+>>>>>>> afec4df Obtain list of ticket from a customer for report
 		
 		overallContainer.add(titleContainer);
 		
@@ -149,7 +182,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			// Customer Name drop down AND Generate Report Button
 			JPanel customerNameCbContainer = new JPanel();
 			customerNameCbContainer.setLayout(new BoxLayout(customerNameCbContainer, BoxLayout.X_AXIS));
-			customerNameCbContainer.setBorder(new EmptyBorder(25, 25, 0, 0));
+			customerNameCbContainer.setBorder(new EmptyBorder(15, 15, 0, 0));
 			
 				// Customer Name Label
 				JLabel customerNameLabel= new JLabel();
@@ -161,12 +194,9 @@ public class ReportCompanyPerformanceScreen extends JPanel
 				// ComboBox
 				Border bCB = new LineBorder(Color.BLUE, 1);
 				Border mCB = new EmptyBorder(0, 15, 0, 15);
-				//customerNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCustomerNames());
-				//customerNameCB.setSelectedIndex(0);
 				customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 				customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
 				customerNameCB.addActionListener(null); 
-				//TODO: Create an ActionListener for CBs to the controller package
 				customerNameCbContainer.add(customerNameCB);
 				
 				// Generate Report Button
@@ -222,6 +252,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportContainer.add(reportDateAndCycleContainer);
 			
 			// JScrollPane (report viewer)
+<<<<<<< Upstream, based on origin/master
 			JPanel scrollPaneContainer = new JPanel();
 			scrollPaneContainer.setBorder(new EmptyBorder(5, 0, 5, 0));
 			
@@ -231,6 +262,16 @@ public class ReportCompanyPerformanceScreen extends JPanel
 				scrollPaneContainer.add(coPerformanceReportViewer);
 			
 			reportContainer.add(scrollPaneContainer);
+=======
+			coPerformanceReportViewer = new JScrollPane();
+			coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
+			coPerformanceReportViewer.setAutoscrolls(true);
+			JTextArea a = new JTextArea(100, 100);
+			a.setPreferredSize(new Dimension(350,325));
+			a.setText("asdfasdfsadfsadfasdfasdf");	// For testing
+			coPerformanceReportViewer.add(a);
+			reportContainer.add(coPerformanceReportViewer);
+>>>>>>> afec4df Obtain list of ticket from a customer for report
 			
 		overallContainer.add(reportContainer);
 		mainPane.add(overallContainer, BorderLayout.CENTER);
@@ -292,4 +333,25 @@ public class ReportCompanyPerformanceScreen extends JPanel
             }
 		});
     }
+	
+	// Generate report
+	public void Generate()
+	{
+		Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
+		List<Ticket> listTicket = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID());
+		int numberOfRow = listTicket.size();
+		int row = 0;
+		Object[][] rowData = new Object[numberOfRow][3];
+		
+		for(Ticket ticket : TicketDAO.listTickets()) 
+		{
+			rowData[row][0] = ticket.GetTicketID();
+			rowData[row][1] = ticket.GetEstimatedDeliveryTime();
+			rowData[row][2] = ticket.GetDeliveryTime();
+		    row++;
+		}
+		
+		reportTable = new JTable(rowData, Header);
+		coPerformanceReportViewer.add(reportTable);
+	}
 }
