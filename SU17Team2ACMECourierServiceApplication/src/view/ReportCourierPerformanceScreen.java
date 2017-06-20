@@ -46,8 +46,6 @@ public class ReportCourierPerformanceScreen extends JPanel
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
-    	
-	public String dateText, timeText;
 	
 	// TODO: Remove this once wired up to retrieve the list of Courier Names from the DB (including an option for "All Couriers")
 	String[] tempArray;
@@ -60,9 +58,6 @@ public class ReportCourierPerformanceScreen extends JPanel
 		tempArray = new String[] {"-- select a courier --", "test1", "test2"};
 		
 		this.buttonController = buttonController;
-		
-		dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
-    	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -136,16 +131,6 @@ public class ReportCourierPerformanceScreen extends JPanel
 			reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 			reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
 			titleContainer.add(reportScreen1Title);
-					
-			JLabel dateLabel = new JLabel("Date: " + dateText);
-			dateLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
-			dateLabel.setBorder(new EmptyBorder(0, 200, 0, 0));
-			titleContainer.add(dateLabel);
-			
-			JLabel timeLabel = new JLabel("Time: " + timeText);
-			timeLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
-			timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
-			titleContainer.add(timeLabel);
 		
 		overallContainer.add(titleContainer);
 		
