@@ -381,7 +381,6 @@ public class ButtonController implements ActionListener
 		   						|| editCompanyInfoView.billRateField.getText().isEmpty()
 		   						|| editCompanyInfoView.costPerBlockField.getText().isEmpty()
 		   		    			|| editCompanyInfoView.courierSpeedField.getText().isEmpty() 
-		   		    			|| editCompanyInfoView.blocksToMileField.getText().isEmpty()
 		   		    			|| editCompanyInfoView.bonusOnTimeField.getText().isEmpty() 
 		   		    			|| editCompanyInfoView.pickUpTimeField.getText().isEmpty() 
 		   		    			|| editCompanyInfoView.bonusTimeVarianceField.getText().isEmpty()

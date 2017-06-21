@@ -30,9 +30,6 @@ public class CompanyInfo implements Serializable
 	@Column(name = "courierSpeed", nullable = false, length = 2)
 	private int courierSpeed;
 	
-	@Column(name = "blocksToAMile", nullable = false, length = 2)
-	private int blocksToAMile;
-	
 	@Column(name = "bonusTimeVariance", nullable = false, length = 2)
 	private int bonusTimeVariance;
 	
@@ -53,7 +50,7 @@ public class CompanyInfo implements Serializable
 	
 	// Update the company's information
 	public void UpdateCompanyInfo(String name, String address, double billRate, int costPerBlock,
-			int courierSpeed, int blocksToAMile, int bonusTimeVariance, double bonusOnTime, int pickUpTimeAllowance,
+			int courierSpeed, int bonusTimeVariance, double bonusOnTime, int pickUpTimeAllowance,
 			int deliveryTimeAllowance) 
 	{
 		this.name = name;
@@ -61,7 +58,6 @@ public class CompanyInfo implements Serializable
 		this.billRate = billRate;
 		this.costPerBlock = costPerBlock;
 		this.courierSpeed = courierSpeed;
-		this.blocksToAMile = blocksToAMile;
 		this.bonusTimeVariance = bonusTimeVariance;
 		this.bonusOnTime = bonusOnTime;
 		this.pickUpTimeAllowance = pickUpTimeAllowance;
@@ -116,16 +112,6 @@ public class CompanyInfo implements Serializable
 	public void setCourierSpeed(int courierSpeed)
 	{
 		this.courierSpeed = courierSpeed;
-	}
-	
-	public int getBlocksToAMile()
-	{
-		return this.blocksToAMile;
-	}
-
-	public void setBlocksToAMile(int blocksToAMile)
-	{
-		this.blocksToAMile = blocksToAMile;
 	}
 	
 	public int getBonusTimeVariance()

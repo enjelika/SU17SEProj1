@@ -1,6 +1,6 @@
 INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('1', 'admin', 'Y', 'admin', 'admin');
 INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('2', 'user', 'Y', 'user', 'user');
-INSERT INTO `COMPANYINFO` (`name`, `address`, `billRate`, `blocksToAMile`, `bonusOnTime`, `bonusTimeVariance`, `costPerBlock`, `courierSpeed`, `deliveryTimeAllowance`, `pickUpTimeAllowance`) VALUES ('ACME Courier Service', '4th Ave and D Street', '10.00', '10', '2.00', '5', '2', '10', '10', '10');
+INSERT INTO `COMPANYINFO` (`name`, `address`, `billRate`, `bonusOnTime`, `bonusTimeVariance`, `costPerBlock`, `courierSpeed`, `deliveryTimeAllowance`, `pickUpTimeAllowance`) VALUES ('ACME Courier Service', '4th Ave and D Street', '10.00', '2.00', '5', '2', '2', '10', '10');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1001, '1st Ave and D Street', 'Bickers & Bickers', 'Y');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1002, '2nd Ave and B Street', 'Slaughter & Slaugher', 'Y');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1003, '2nd Ave and F Street', 'Payne & Fears', 'Y');
