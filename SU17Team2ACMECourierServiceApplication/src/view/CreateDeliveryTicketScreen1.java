@@ -13,7 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -199,12 +201,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		JLabel dateLabel = new JLabel("Date: " + dateText);
 		dateLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		dateLabel.setBorder(new EmptyBorder(0, 200, 0, 0));
-		pickUpDeliveryInfoSubtitle.add(dateLabel);
+		//pickUpDeliveryInfoSubtitle.add(dateLabel);
 		
 		JLabel timeLabel = new JLabel("Time: " + timeText);
 		timeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
-		pickUpDeliveryInfoSubtitle.add(timeLabel);
+		//pickUpDeliveryInfoSubtitle.add(timeLabel);
 		subtitleContainer.add(pickUpDeliveryInfoSubtitle);
 		overallTicketContainer.add(subtitleContainer);
 		
@@ -649,8 +651,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		if(!time.getTimeStringOrEmptyString().equals(""))
 		{
 			LocalTime tempTime = LocalTime.parse(time.getTimeStringOrEmptyString());
-			int minutesToDeliver = 1;
-			tempTime = tempTime.plusMinutes(deliveryDistance);
+			tempTime = tempTime.plusMinutes(deliveryDistance * company.getCourierSpeed());
 			estDeliveryTimeText.setText(tempTime.toString());
 		}
 	}
@@ -688,6 +689,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		else
 			currentTicket.SetPayee(deliveryCustomer);
 		currentTicket.SetCost(quotedPriceText.getText());
+		currentTicket.SetCreatedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		return currentTicket;
 	}
 }

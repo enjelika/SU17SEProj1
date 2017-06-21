@@ -44,7 +44,7 @@ public class EditCompanyInfoScreen extends JPanel
     private ButtonController editCompanyController;
     
     public JTextField courierIdField, companyAddressField, billRateField, costPerBlockField,
-    			courierSpeedField, blocksToMileField, bonusOnTimeField, pickUpTimeField,
+    			courierSpeedField, bonusOnTimeField, pickUpTimeField,
     			bonusTimeVarianceField, deliveryTimeField;
     
     public EditCompanyInfoScreen(ButtonController buttonController)
@@ -285,30 +285,11 @@ public class EditCompanyInfoScreen extends JPanel
 			    	courierSpeedContainer.add(courierSpeedTextboxContainer);
 			    	
 			    	// -- Courier Speed mph label
-			    	JLabel courierSpeedMphLabel = new JLabel("mph");
+			    	JLabel courierSpeedMphLabel = new JLabel("min/block");
 			    	courierSpeedMphLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 			    	courierSpeedTextboxContainer.add(courierSpeedMphLabel);
 			    	courierSpeedContainer.add(courierSpeedTextboxContainer);
-				    	
-			    	// -- Blocks to a Mile Label
-					JLabel blockToMileLabel = new JLabel();
-					blockToMileLabel.setText("Blocks to a Mile:");
-					blockToMileLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-					blockToMileLabel.setAlignmentX(LEFT_ALIGNMENT);
-					courierSpeedContainer.add(blockToMileLabel);
-						
-					// Used to "pretty" up the Text Field
-					JPanel blocksToMileTextboxContainer = new JPanel();
-					blocksToMileTextboxContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-					blocksToMileTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
-						
-					// -- Blocks to a Mile TextField
-					blocksToMileField = new JTextField("10", 5);
-			    	blocksToMileField.setHorizontalAlignment(JTextField.CENTER);
-			    	blocksToMileField.setFont(new Font("Calibri", Font.PLAIN, 26));
-			    	blocksToMileField.setBorder(new LineBorder(Color.BLUE, 1));
-			    	blocksToMileTextboxContainer.add(blocksToMileField);
-			    	courierSpeedContainer.add(blocksToMileTextboxContainer);
+			
 				
 			    	courierSpeedAndBlocksToMileContainer.add(courierSpeedContainer);
 				    	
@@ -487,7 +468,6 @@ public class EditCompanyInfoScreen extends JPanel
 			Double.parseDouble(billRateField.getText()), 
 			Integer.parseInt(costPerBlockField.getText()),
 			Integer.parseInt(courierSpeedField.getText()), 
-			Integer.parseInt(blocksToMileField.getText()),
 			Integer.parseInt(bonusTimeVarianceField.getText()), 
 			Double.parseDouble(bonusOnTimeField.getText()),
 			Integer.parseInt(pickUpTimeField.getText()), 
@@ -501,7 +481,6 @@ public class EditCompanyInfoScreen extends JPanel
     	billRateField.setText(Double.toString(companyInfo.getBillRate()));
     	costPerBlockField.setText(Integer.toString(companyInfo.getCostPerBlock()));
     	courierSpeedField.setText(Integer.toString(companyInfo.getCourierSpeed()));
-    	blocksToMileField.setText(Integer.toString(companyInfo.getBlocksToAMile()));
     	bonusTimeVarianceField.setText(Integer.toString(companyInfo.getBonusTimeVariance()));
     	bonusOnTimeField.setText(Double.toString(companyInfo.getBonusOnTime()));
     	pickUpTimeField.setText(Integer.toString(companyInfo.getPickUpTimeAllowance()));
