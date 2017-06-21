@@ -363,6 +363,8 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportTable.setFont(new Font("Serif", Font.BOLD, 16));
 			reportTable.setRowHeight(18);
 			reportTable.setEnabled(false);
+			reportTable.setShowHorizontalLines(true);
+			reportTable.setGridColor(Color.black);
 			JScrollPane reportTableScroller = new JScrollPane(reportTable);
 			reportTableScroller.setPreferredSize(new Dimension(850, 255));
 			reportTableScroller.setAutoscrolls(true);

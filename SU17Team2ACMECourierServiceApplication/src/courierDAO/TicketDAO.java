@@ -49,10 +49,10 @@ public class TicketDAO {
 			List<Ticket> filteredList = new ArrayList<Ticket>();
 			try 
 			{
-				Date ticketDate = new SimpleDateFormat("MM/dd/yy").parse("10/10/10");	// TODO: get date in ticket
 				for(Ticket ticket : list) 
 				{
-					if(ticketDate.after(startDate) && ticketDate.before(endDate)) // TODO: Replace ticketDate with actual date
+					Date ticketDate = new SimpleDateFormat("MM/dd/yy").parse(ticket.GetCreatedDate());
+					if(ticketDate.after(startDate) && ticketDate.before(endDate) || ticketDate.equals(startDate) || ticketDate.equals(endDate)) 
 					{
 						filteredList.add(ticket);
 					}
