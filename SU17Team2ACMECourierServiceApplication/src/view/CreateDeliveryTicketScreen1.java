@@ -13,7 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -687,6 +689,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		else
 			currentTicket.SetPayee(deliveryCustomer);
 		currentTicket.SetCost(quotedPriceText.getText());
+		currentTicket.SetCreatedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		return currentTicket;
 	}
 }

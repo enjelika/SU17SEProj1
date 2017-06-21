@@ -53,6 +53,9 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "paid", nullable = true,length = 10)
 	private String paid;
 
+	@Column(name = "createdDate", nullable = true,length = 10)
+	private String createdDate;
+	
 	public Ticket()
 	{
 		
@@ -150,6 +153,16 @@ private static final long serialVersionUID = 1L;
 	public void SetPaid(String paid)
 	{
 		this.paid = paid;
+	}
+	
+	public String GetCreatedDate()
+	{
+		return this.createdDate;
+	}
+	
+	public void SetCreatedDate(String createdDate)
+	{
+		this.createdDate = createdDate;
 	}
 	
 	public long GetTicketID() 
