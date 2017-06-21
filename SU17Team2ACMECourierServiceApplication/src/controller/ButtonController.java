@@ -30,6 +30,7 @@ import view.EditCustomerScreen;
 import view.EditUserScreen;
 import view.LoginScreen;
 import view.ReportCompanyPerformanceScreen;
+import view.ReportCourierPerformanceScreen;
 import view.UpdatePasswordScreen;
 import view.ViewListener;
 
@@ -278,7 +279,6 @@ public class ButtonController implements ActionListener
    				break;
    				
    			case "generateCompanyPerformanceReport":
-   				// TODO: Generate Company Performance Report action here
    				System.out.println(buttonID + " was pressed");
    				ReportCompanyPerformanceScreen reportCompanyPerformanceScreen = (ReportCompanyPerformanceScreen)viewListener.GetView();
    				reportCompanyPerformanceScreen.Generate();
@@ -290,8 +290,9 @@ public class ButtonController implements ActionListener
    				break;
    				
    			case "generateCourierPerformanceReport":
-   				// TODO: Generate Courier Performance Report action here
    				System.out.println(buttonID + " was pressed");
+   				ReportCourierPerformanceScreen reportCourierPerformanceScreen = (ReportCourierPerformanceScreen)viewListener.GetView();
+   				reportCourierPerformanceScreen.Generate();
    				break;
    				
    			case "printCourierPerformanceReport":

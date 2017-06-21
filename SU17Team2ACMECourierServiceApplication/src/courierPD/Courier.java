@@ -35,7 +35,11 @@ public class Courier implements Serializable {
 		this.isActive = isactive;
 	}
 	
-
+	public long getCourierID() 
+	{
+		return this.courier_Id;
+	}
+	
 	public String getName()
 	{
 		return this.name;

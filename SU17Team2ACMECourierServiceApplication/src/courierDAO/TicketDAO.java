@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import courierPD.Courier;
 import courierPD.Customer;
 import courierPD.Ticket;
 
@@ -28,6 +29,43 @@ public class TicketDAO {
 			return list;
 		}
 
+		public static List<Ticket> listTicketsByCourierId(long id) 
+		{
+			Courier courier = CourierDAO.findCourierById(id);
+			Query query = emDAO.getEM().createQuery("SELECT t FROM ticket t WHERE t.courier = :courier");
+			query.setParameter("courier", courier);
+			@SuppressWarnings("unchecked")
+			List<Ticket> list= (List<Ticket>) query.getResultList();
+
+			return list;
+		}
+		
+		public static List<Ticket> listTicketsByCourierId(long id, Date startDate, Date endDate) 
+		{
+			Courier courier = CourierDAO.findCourierById(id);
+			Query query = emDAO.getEM().createQuery("SELECT t FROM ticket t WHERE t.courier = :courier");
+			query.setParameter("courier", courier);
+			@SuppressWarnings("unchecked")
+			List<Ticket> list = (List<Ticket>) query.getResultList();
+			List<Ticket> filteredList = new ArrayList<Ticket>();
+			try 
+			{
+				for(Ticket ticket : list) 
+				{
+					Date ticketDate = new SimpleDateFormat("MM/dd/yy").parse(ticket.GetCreatedDate());
+					if(ticketDate.after(startDate) && ticketDate.before(endDate) || ticketDate.equals(startDate) || ticketDate.equals(endDate)) 
+					{
+						filteredList.add(ticket);
+					}
+				}
+			}
+			catch(Exception e) 
+			{
+				System.out.println(e);
+			}
+			return filteredList;
+		}
+		
 		public static List<Ticket> listTicketsByCustomerId(long id) 
 		{
 			Customer customer = CustomerDAO.findCustomerById(id);

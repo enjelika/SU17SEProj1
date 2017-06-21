@@ -234,7 +234,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			
 			reportContainer.add(reportDateAndCycleContainer);
 			
-			// JScrollPane (report viewer)		
+			// Report Viewer		
 			coPerformanceReportViewer = new JPanel();
 			coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
 			reportContainer.add(coPerformanceReportViewer);

@@ -10,17 +10,27 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -28,6 +38,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CourierDAO;
+import courierDAO.CustomerDAO;
+import courierDAO.TicketDAO;
+import courierPD.Courier;
+import courierPD.Customer;
+import courierPD.Ticket;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -35,29 +51,36 @@ public class ReportCourierPerformanceScreen extends JPanel
 {
 	private JLabel imageFrame;
 	public JRadioButton weeklyCycle, monthlyCycle;
-	public JComboBox<String> courierNameCB;
+	public JComboBox<Courier> courierNameCB = new JComboBox<Courier>();
 	public JTextField reportStartDateText;
-	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer;
+	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer, coPerformanceReportViewer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
-	
-	public JScrollPane courierPerformanceReportViewer;
+	public JTable reportTable;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
+		
+    public String[] Header = new String[] {"Ticket ID", "Est. Delivery Time", "Act. Delivery Time", "Bonus"};
 	
-	// TODO: Remove this once wired up to retrieve the list of Courier Names from the DB (including an option for "All Couriers")
-	String[] tempArray;
-	
+	private List<Courier> couriers;
+    
 	ButtonController buttonController;
 	
 	public ReportCourierPerformanceScreen(ButtonController buttonController)
 	{
-    	// TODO: Remove this once the comboboxes are retrieving the list of customer names from the DB
-		tempArray = new String[] {"-- select a courier --", "test1", "test2"};
-		
 		this.buttonController = buttonController;
     	
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return ReportCourierPerformanceScreen.this;
+			}			
+
+		});
+		
+		// Populate customers data
+		PopulateFormData();
+		
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
     	
@@ -154,12 +177,9 @@ public class ReportCourierPerformanceScreen extends JPanel
 				// ComboBox
 				Border bCB = new LineBorder(Color.BLUE, 1);
 				Border mCB = new EmptyBorder(0, 15, 0, 15);
-				courierNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket1Controller.model.getCourierNames());
-				courierNameCB.setSelectedIndex(0);
 				courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 				courierNameCB.setBorder(new CompoundBorder(mCB, bCB));
 				courierNameCB.addActionListener(null); 
-				//TODO: Create an ActionListener for CBs to the controller package
 				courierNameCbContainer.add(courierNameCB);
 				
 				// Generate Report Button
@@ -187,6 +207,8 @@ public class ReportCourierPerformanceScreen extends JPanel
 				// Report Start Date TextField
 				reportStartDateText = new JTextField("", 5);
 				reportStartDateText.setFont(new Font("Calibri", Font.PLAIN, 24));
+				reportStartDateText.setToolTipText("mm/dd/yy");
+				reportStartDateText.setText("mm/dd/yy");
 				reportDateAndCycleContainer.add(reportStartDateText);
 				
 				// Cycle radio buttons Label
@@ -214,17 +236,11 @@ public class ReportCourierPerformanceScreen extends JPanel
 			
 			reportContainer.add(reportDateAndCycleContainer);
 			
-			// JScrollPane (report viewer)
-			JPanel scrollPaneContainer = new JPanel();
-			scrollPaneContainer.setBorder(new EmptyBorder(5, 0, 5, 0));
-			
-				courierPerformanceReportViewer = new JScrollPane();
-				courierPerformanceReportViewer.setPreferredSize(new Dimension(800, 325));
-				courierPerformanceReportViewer.setAutoscrolls(true);
-				scrollPaneContainer.add(courierPerformanceReportViewer);
-			
-			reportContainer.add(scrollPaneContainer);
-			
+			// Report Viewer		
+			coPerformanceReportViewer = new JPanel();
+			coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
+			reportContainer.add(coPerformanceReportViewer);
+					
 		overallContainer.add(reportContainer);
 		mainPane.add(overallContainer, BorderLayout.CENTER);
 		
@@ -259,5 +275,119 @@ public class ReportCourierPerformanceScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+	}
+	
+	// Populate customers list
+	public void PopulateFormData()
+    {
+    	// Get all customer names in DB and put it into the combo box
+    	couriers = CourierDAO.listCourier();
+		for (Courier courier : couriers)
+		{
+			courierNameCB.addItem(courier);
+		}
+		
+		// Only display name of the customer in the combo box
+		courierNameCB.setRenderer(new DefaultListCellRenderer() 
+		{
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if(value instanceof Courier){
+                	Courier courier = (Courier) value;
+                    setText(courier.getName());
+                }
+                return this;
+            }
+		});
+    }
+	
+	// Generate report
+	public void Generate()
+	{
+		try 
+		{ 
+			// Local variables
+			Date startDate = new SimpleDateFormat("MM/dd/yy").parse(reportStartDateText.getText());
+			GregorianCalendar calendar = new GregorianCalendar();
+			calendar.setTime(startDate);
+			if(weeklyCycle.isSelected()) 
+			{
+				calendar.add(Calendar.DATE, 7);
+			} 
+			else if(monthlyCycle.isSelected()) 
+			{
+				calendar.add(Calendar.MONTH, 1);
+			}
+			Date endDate = calendar.getTime();
+
+			Courier selectedCourier = (Courier)courierNameCB.getSelectedItem();
+			List<Ticket> tickets = TicketDAO.listTicketsByCourierId(selectedCourier.getCourierID(), startDate, endDate);
+			int numberOfRow = tickets.size();
+			Object[][] rowData = new Object[numberOfRow][4];
+			int row = 0;
+			
+			// Retrieve data from the db
+			for(Ticket ticket : tickets) 
+			{
+				rowData[row][0] = ticket.GetTicketID();
+				rowData[row][1] = ticket.GetEstimatedDeliveryTime();
+				rowData[row][2] = ticket.GetDeliveryTime();
+				rowData[row][3] = "Yes";	// TODO: Need to check from the db to see if this courier has bonus for this ticket
+			    row++;
+			}
+			
+			// Remove previous viewer
+			reportContainer.remove(coPerformanceReportViewer);
+			
+			// Create report template
+			JPanel reportTemplate = new JPanel();
+			reportTemplate.setLayout(new BorderLayout());
+			
+			// Create report header and add it into the db
+			JTextArea headerText = new JTextArea();
+			String courierId = "Courier ID: " + selectedCourier.getCourierID();
+			String courierName = "Courier Name: " + selectedCourier.getName();
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+			String reportCycleDate = "Report Cycle: " + sdf.format(startDate) + " to " + sdf.format(endDate);
+			String totalDeliveredPackage = "Total Packaged Delivered :" + tickets.size();
+			String description = courierId + "                                                 " 
+									+ courierName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage;
+			headerText.setFont(new Font("Serif", Font.BOLD, 16));
+			headerText.setEditable(false);  
+		    headerText.setOpaque(false);  
+		    headerText.setFocusable(false);
+			headerText.setText(description);
+			reportTemplate.add(headerText, BorderLayout.NORTH);
+			
+			// Create table data for report and add it into the report template
+			reportTable = new JTable(rowData, Header);
+			reportTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+			reportTable.setFont(new Font("Serif", Font.BOLD, 16));
+			reportTable.setRowHeight(18);
+			reportTable.setEnabled(false);
+			reportTable.setShowHorizontalLines(true);
+			reportTable.setGridColor(Color.black);
+			JScrollPane reportTableScroller = new JScrollPane(reportTable);
+			reportTableScroller.setPreferredSize(new Dimension(850, 255));
+			reportTableScroller.setAutoscrolls(true);
+			reportTemplate.add(reportTableScroller, BorderLayout.CENTER);
+			
+			// Create report reviewer
+			coPerformanceReportViewer = new JPanel();
+			coPerformanceReportViewer.setPreferredSize(new Dimension(850, 325));
+			coPerformanceReportViewer.add(reportTemplate);
+			coPerformanceReportViewer.setAutoscrolls(true);
+			reportContainer.add(coPerformanceReportViewer);
+			
+			// Re-validate
+			reportTemplate.revalidate();
+			reportContainer.revalidate();
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+			JOptionPane.showMessageDialog(null, "Invalid input! Cannot generate the report", "Courier Performance Report Screen", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }
