@@ -306,18 +306,12 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		try 
 		{ 
 			// Local variables
-			Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
-			List<Ticket> listTicket = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID());
-			int numberOfRow = listTicket.size();
-			int row = 0;
-			Object[][] rowData = new Object[numberOfRow][3];
-			
 			Date startDate = new SimpleDateFormat("MM/dd/yy").parse(reportStartDateText.getText());
-			@SuppressWarnings("deprecation")
-			Calendar calendar = new GregorianCalendar(startDate.getYear(),startDate.getMonth(),startDate.getDay());
+			GregorianCalendar calendar = new GregorianCalendar();
+			calendar.setTime(startDate);
 			if(weeklyCycle.isSelected()) 
 			{
-				calendar.add(Calendar.DAY_OF_MONTH, 7);
+				calendar.add(Calendar.DATE, 7);
 			} 
 			else if(monthlyCycle.isSelected()) 
 			{
@@ -325,8 +319,14 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			}
 			Date endDate = calendar.getTime();
 
+			Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
+			List<Ticket> tickets = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID(), startDate, endDate);
+			int numberOfRow = tickets.size();
+			Object[][] rowData = new Object[numberOfRow][3];
+			int row = 0;
+			
 			// Retrieve data from the db
-			for(Ticket ticket : TicketDAO.listTickets()) 
+			for(Ticket ticket : tickets) 
 			{
 				rowData[row][0] = ticket.GetTicketID();
 				rowData[row][1] = ticket.GetEstimatedDeliveryTime();
@@ -347,7 +347,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			String customerName = "Customer Name: " + selectedCustomer.getName();
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 			String reportCycleDate = "Report Cycle: " + sdf.format(startDate) + " to " + sdf.format(endDate);
-			String totalDeliveredPackage = "Total Packaged Delivered :" + listTicket.size();
+			String totalDeliveredPackage = "Total Packaged Delivered :" + tickets.size();
 			String description = customerId + "                                                 " 
 									+ customerName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage;
 			headerText.setFont(new Font("Serif", Font.BOLD, 16));
