@@ -10,6 +10,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -47,17 +51,15 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	public JRadioButton weeklyCycle, monthlyCycle;
 	public JComboBox<Customer> customerNameCB = new JComboBox<Customer>();
 	public JTextField reportStartDateText;
-	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer;
+	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer, coPerformanceReportViewer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
-	
-	public JScrollPane coPerformanceReportViewer;
 	public JTable reportTable;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
 
-	public String[] Header = new String[] {"Package ID", "Est. Delivery Time", "Act. Delivery Time"};
+	public String[] Header = new String[] {"Ticket ID", "Est. Delivery Time", "Act. Delivery Time"};
 	
 	private List<Customer> customers;
 	
@@ -203,6 +205,8 @@ public class ReportCompanyPerformanceScreen extends JPanel
 				// Report Start Date TextField
 				reportStartDateText = new JTextField("", 5);
 				reportStartDateText.setFont(new Font("Calibri", Font.PLAIN, 24));
+				reportStartDateText.setToolTipText("mm/dd/yy");
+				reportStartDateText.setText("mm/dd/yy");
 				reportDateAndCycleContainer.add(reportStartDateText);
 				
 				// Cycle radio buttons Label
@@ -230,14 +234,9 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			
 			reportContainer.add(reportDateAndCycleContainer);
 			
-			// JScrollPane (report viewer)
-			coPerformanceReportViewer = new JScrollPane();
+			// JScrollPane (report viewer)		
+			coPerformanceReportViewer = new JPanel();
 			coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
-			coPerformanceReportViewer.setAutoscrolls(true);
-			JTextArea a = new JTextArea(100, 100);
-			a.setPreferredSize(new Dimension(350,325));
-			a.setText("asdfasdfsadfsadfasdfasdf");	// For testing
-			coPerformanceReportViewer.add(a);
 			reportContainer.add(coPerformanceReportViewer);
 			
 		overallContainer.add(reportContainer);
@@ -304,14 +303,29 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	// Generate report
 	public void Generate()
 	{
-		Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
 		try 
 		{ 
+			// Local variables
+			Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
 			List<Ticket> listTicket = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID());
 			int numberOfRow = listTicket.size();
 			int row = 0;
 			Object[][] rowData = new Object[numberOfRow][3];
 			
+			Date startDate = new SimpleDateFormat("MM/dd/yy").parse(reportStartDateText.getText());
+			@SuppressWarnings("deprecation")
+			Calendar calendar = new GregorianCalendar(startDate.getYear(),startDate.getMonth(),startDate.getDay());
+			if(weeklyCycle.isSelected()) 
+			{
+				calendar.add(Calendar.DAY_OF_MONTH, 7);
+			} 
+			else if(monthlyCycle.isSelected()) 
+			{
+				calendar.add(Calendar.MONTH, 1);
+			}
+			Date endDate = calendar.getTime();
+
+			// Retrieve data from the db
 			for(Ticket ticket : TicketDAO.listTickets()) 
 			{
 				rowData[row][0] = ticket.GetTicketID();
@@ -320,12 +334,55 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			    row++;
 			}
 			
+			// Remove previous viewer
+			reportContainer.remove(coPerformanceReportViewer);
+			
+			// Create report template
+			JPanel reportTemplate = new JPanel();
+			reportTemplate.setLayout(new BorderLayout());
+			
+			// Create report header and add it into the db
+			JTextArea headerText = new JTextArea();
+			String customerId = "Customer ID: " + selectedCustomer.getCustomerID();
+			String customerName = "Customer Name: " + selectedCustomer.getName();
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+			String reportCycleDate = "Report Cycle: " + sdf.format(startDate) + " to " + sdf.format(endDate);
+			String totalDeliveredPackage = "Total Packaged Delivered :" + listTicket.size();
+			String description = customerId + "                                                 " 
+									+ customerName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage;
+			headerText.setFont(new Font("Serif", Font.BOLD, 16));
+			headerText.setEditable(false);  
+		    headerText.setOpaque(false);  
+		    headerText.setFocusable(false);
+			headerText.setText(description);
+			reportTemplate.add(headerText, BorderLayout.NORTH);
+			
+			// Create table data for report and add it into the report template
 			reportTable = new JTable(rowData, Header);
-			coPerformanceReportViewer.add(reportTable);
+			reportTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+			reportTable.setFont(new Font("Serif", Font.BOLD, 16));
+			reportTable.setRowHeight(18);
+			reportTable.setEnabled(false);
+			JScrollPane reportTableScroller = new JScrollPane(reportTable);
+			reportTableScroller.setPreferredSize(new Dimension(850, 255));
+			reportTableScroller.setAutoscrolls(true);
+			reportTemplate.add(reportTableScroller, BorderLayout.CENTER);
+			
+			// Create report reviewer
+			coPerformanceReportViewer = new JPanel();
+			coPerformanceReportViewer.setPreferredSize(new Dimension(850, 325));
+			coPerformanceReportViewer.add(reportTemplate);
+			coPerformanceReportViewer.setAutoscrolls(true);
+			reportContainer.add(coPerformanceReportViewer);
+			
+			// Re-validate
+			reportTemplate.revalidate();
+			reportContainer.revalidate();
 		} 
 		catch (Exception e) 
 		{
-			JOptionPane.showMessageDialog(null, "Unable to find ticket(s) info for this customer", "Company Performance Report Screen", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println(e);
+			JOptionPane.showMessageDialog(null, "Invalid input! Cannot generate the report", "Company Performance Report Screen", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }
