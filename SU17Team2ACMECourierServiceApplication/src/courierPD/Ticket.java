@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -21,12 +22,12 @@ private static final long serialVersionUID = 1L;
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long ticketId;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@PrimaryKeyJoinColumn(name = "pickupcustomer",referencedColumnName="customer_id") 
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "pickupcustomer",referencedColumnName="customer_id") 
 	private Customer pickupcustomer;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@PrimaryKeyJoinColumn(name = "deliverycustomer",referencedColumnName="customer_id") 
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "deliverycustomer",referencedColumnName="customer_id") 
 	private Customer deliverycustomer;
 	
 	@Column(name = "pickuptime", nullable = true,length = 10)
@@ -38,12 +39,12 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "estimateddeliverytime", nullable = false,length = 10)
 	private String estimateddeliverytime;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@PrimaryKeyJoinColumn(name = "courier",referencedColumnName="courier_id") 
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "courier",referencedColumnName="courier_id") 
 	private Courier courier;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@PrimaryKeyJoinColumn(name = "payee",referencedColumnName="customer_id") 
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "payee",referencedColumnName="customer_id") 
 	private Customer payee;
 	
 	@Column(name = "cost", nullable = false,length = 10)
