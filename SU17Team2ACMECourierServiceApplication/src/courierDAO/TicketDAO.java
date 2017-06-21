@@ -14,7 +14,7 @@ public class TicketDAO {
 		emDAO.getEM().persist(ticket);
 	}
 	
-		public static void addTicket(User ticket) {
+		public static void addTicket(Ticket ticket) {
 			emDAO.getEM().persist(ticket);
 		}
 

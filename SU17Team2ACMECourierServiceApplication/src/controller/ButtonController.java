@@ -11,16 +11,19 @@ import javax.swing.JOptionPane;
 import courierDAO.CompanyInfoDAO;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
+import courierDAO.TicketDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
 import courierPD.Courier;
 import courierPD.Customer;
+import courierPD.Ticket;
 import courierPD.User;
 import model.Model;
 import model.StreetMap;
 import view.AddCourierScreen;
 import view.AddCustomerScreen;
 import view.AddUserScreen;
+import view.CreateDeliveryTicketScreen1;
 import view.EditCompanyInfoScreen;
 import view.EditCourierScreen;
 import view.EditCustomerScreen;
@@ -559,6 +562,16 @@ public class ButtonController implements ActionListener
 						userTransaction.commit();
 						JOptionPane.showMessageDialog(null, "Courier was Updated.", "Edit Courier", JOptionPane.INFORMATION_MESSAGE);
 	   	   			}
+   	   			}
+	   			else if(viewListener.getClass().getName().contains("CreateDeliveryTicketScreen1"))
+   	   			{
+	   				CreateDeliveryTicketScreen1 createDelivery = (CreateDeliveryTicketScreen1)viewListener.GetView();
+   	   				Ticket newticket = createDelivery.GetTicket();
+					EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+					userTransaction.begin();
+	   	   			TicketDAO.saveTicket(newticket);
+					userTransaction.commit();
+					JOptionPane.showMessageDialog(null, "Ticket was Created.", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
    	   			System.out.println("Save button pressed...");
    				break;

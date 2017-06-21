@@ -2,6 +2,7 @@ package courierPD;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,35 +21,35 @@ private static final long serialVersionUID = 1L;
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long ticketId;
 	
-	@ManyToOne(optional=false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@PrimaryKeyJoinColumn(name = "pickupcustomer",referencedColumnName="customer_id") 
 	private Customer pickupcustomer;
 	
-	@ManyToOne(optional=false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@PrimaryKeyJoinColumn(name = "deliverycustomer",referencedColumnName="customer_id") 
 	private Customer deliverycustomer;
 	
-	@Column(name = "pickuptime", nullable = false,length = 10)
+	@Column(name = "pickuptime", nullable = true,length = 10)
 	private String pickuptime;
 	
-	@Column(name = "deliverytime", nullable = false,length = 1)
+	@Column(name = "deliverytime", nullable = true,length = 10)
 	private String deliverytime;
 	
 	@Column(name = "estimateddeliverytime", nullable = false,length = 10)
 	private String estimateddeliverytime;
 	
-	@ManyToOne(optional=false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@PrimaryKeyJoinColumn(name = "courier",referencedColumnName="courier_id") 
 	private Courier courier;
 	
-	@ManyToOne(optional=false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@PrimaryKeyJoinColumn(name = "payee",referencedColumnName="customer_id") 
 	private Customer payee;
 	
 	@Column(name = "cost", nullable = false,length = 10)
 	private String cost;
 	
-	@Column(name = "paid", nullable = false,length = 10)
+	@Column(name = "paid", nullable = true,length = 10)
 	private String paid;
 
 	public Ticket()

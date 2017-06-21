@@ -44,6 +44,7 @@ import courierDAO.TicketDAO;
 import courierDAO.UserDAO;
 import courierPD.CompanyInfo;
 import courierPD.Customer;
+import courierPD.Ticket;
 import courierPD.User;
 import model.StreetMap;
 import model.Utility;
@@ -94,6 +95,11 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	
 		courierNameCB = new JComboBox<String>(); //TODO: deliveryTicket2Controller.model.getCourierNames());
     	    
+		buttonController.setViewListener(new ViewListener(){
+			public Object GetView() {
+				return CreateDeliveryTicketScreen1.this;
+			}			
+		});
     	
     	mainPane = new JPanel();
     	mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
@@ -669,4 +675,19 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			}
 		}
     }
+	
+	public Ticket GetTicket()
+	{
+		Ticket currentTicket = new Ticket();
+		currentTicket.SetPickupCustomer(pickupCustomer);
+		currentTicket.SetDeliveryCustomer(deliveryCustomer);
+		currentTicket.SetPickupTime(time.getTimeStringOrEmptyString());
+		currentTicket.SetEstimatedDeliveryTime(estDeliveryTimeText.getText());
+		if(pickUpSelection.isSelected())
+			currentTicket.SetPayee(pickupCustomer);
+		else
+			currentTicket.SetPayee(deliveryCustomer);
+		currentTicket.SetCost(quotedPriceText.getText());
+		return currentTicket;
+	}
 }
