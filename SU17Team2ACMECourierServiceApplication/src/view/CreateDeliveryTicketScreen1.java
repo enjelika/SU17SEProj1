@@ -38,6 +38,8 @@ import javax.swing.border.LineBorder;
 import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
+import com.github.lgooddatepicker.optionalusertools.TimeChangeListener;
+import com.github.lgooddatepicker.zinternaltools.TimeChangeEvent;
 
 import controller.ButtonController;
 import courierDAO.CompanyInfoDAO;
@@ -109,6 +111,13 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	TimePickerSettings settings = new TimePickerSettings();
     	settings.generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, LocalTime.of(8, 0), LocalTime.of(20, 0));
     	time = new TimePicker(settings);
+    	time.addTimeChangeListener(new TimeChangeListener(){
+			@Override
+			public void timeChanged(TimeChangeEvent arg0) {
+				// TODO Auto-generated method stub
+				UpdateScreenInformation();
+			}
+    	});
     	
     	// Container for the menu buttons
     	ticketScreen1Container = new JPanel();
