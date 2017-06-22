@@ -178,7 +178,6 @@ public class ButtonController implements ActionListener
     		 * Main Menu Buttons
     		 */
     		case "adminMenuButton":
-    			// TODO: Admin Menu action here (Be sure to implement boolean for menu option)
     			System.out.println("Going to the Admin Menu Screen...");
     			mainFrame.getContentPane().removeAll();
 				mainFrame.setContentPane(new view.AdminMenuScreen(this)); 
@@ -244,11 +243,6 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().repaint();
     			break;
     			
-    		case "cancelTicketButton":
-    			// TODO: Cancel a Ticket action here
-    			System.out.println(buttonID + " was pressed");
-    			break;
-    			
    			/*
    			 * Reports Menu Buttons	
    			 */
@@ -280,37 +274,31 @@ public class ButtonController implements ActionListener
    				break;
    				
    			case "generateCompanyPerformanceReport":
-   				System.out.println(buttonID + " was pressed");
    				ReportCompanyPerformanceScreen reportCompanyPerformanceScreen = (ReportCompanyPerformanceScreen)viewListener.GetView();
    				reportCompanyPerformanceScreen.Generate();
    				break;
    				
    			case "printCoPerformanceReport":
-   				System.out.println(buttonID + " was pressed");
    				ReportCompanyPerformanceScreen reportCompanyPerformanceView = (ReportCompanyPerformanceScreen)viewListener.GetView();
    				reportCompanyPerformanceView.printPanel();
    				break;
    				
    			case "generateCourierPerformanceReport":
-   				System.out.println(buttonID + " was pressed");
    				ReportCourierPerformanceScreen reportCourierPerformanceScreen = (ReportCourierPerformanceScreen)viewListener.GetView();
    				reportCourierPerformanceScreen.Generate();
    				break;
    				
    			case "printCourierPerformanceReport":
-   				System.out.println(buttonID + " was pressed");
    				ReportCourierPerformanceScreen reportCourierPerformanceView = (ReportCourierPerformanceScreen)viewListener.GetView();
    				reportCourierPerformanceView.printPanel();
    				break;
    				
    			case "generateCustomerBillingReport":
-   				System.out.println(buttonID + " was pressed");
    				ReportCustomerBillingScreen reportCustomerBillingScreen = (ReportCustomerBillingScreen)viewListener.GetView();
    				reportCustomerBillingScreen.Generate();
    				break;
    				
    			case "printCustomerBillingReport":
-   				System.out.println(buttonID + " was pressed");
    				ReportCustomerBillingScreen reportCustomerBillingView = (ReportCustomerBillingScreen)viewListener.GetView();
    				reportCustomerBillingView.printPanel();
    				break;
@@ -707,6 +695,16 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
+    			break;
+    			
+    		case "cancelThisTicketButton":
+    			// TODO: Cancel Ticket action
+   				System.out.println(buttonID + " was pressed");
+    			break;
+    			
+    		case "printDirectionsButton":
+    			// TODO: Print Directions action
+   				System.out.println(buttonID + " was pressed");
     			break;
     			
     		/*

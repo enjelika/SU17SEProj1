@@ -53,10 +53,10 @@ import courierPD.User;
 import model.StreetMap;
 import model.Utility;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial" })
 public class CreateDeliveryTicketScreen1 extends JPanel
 {
-	private JButton saveButton, resetButton, backButton, logoutButton;
+	private JButton cancelTicketButton, printDirectionsButton, saveButton, resetButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketScreen1Container, southButtonContainer, mainPane, imgContainer;
 	public JTextField deliveryCustomerNumText, pickUpCustomerNumText, pickUpTimeField;
@@ -72,15 +72,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     
     private TimePicker time;
 	
-	
-	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
     int counter = 0;
     DateFormat dateFormat, timeFormat;
-    String dateText, timeText, packageID;
     private int estimatedTime;
     private int deliveryDistance;
     
@@ -88,16 +85,9 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     
     public CreateDeliveryTicketScreen1(ButtonController buttonController)
     {
-    	// TODO: Remove this once the comboboxes are retrieving the list of customer names from the DB
-    	
     	deliveryTicket1Controller = buttonController;
     	
-    	dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
-    	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
-    	
-    	packageID = buttonController.model.getPackageId();
-    	
-		courierNameCB = new JComboBox<String>(); //TODO: deliveryTicket2Controller.model.getCourierNames());
+		courierNameCB = new JComboBox<String>();
     	    
 		buttonController.setViewListener(new ViewListener(){
 			public Object GetView() {
@@ -111,10 +101,11 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	TimePickerSettings settings = new TimePickerSettings();
     	settings.generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, LocalTime.of(8, 0), LocalTime.of(20, 0));
     	time = new TimePicker(settings);
-    	time.addTimeChangeListener(new TimeChangeListener(){
+    	time.addTimeChangeListener(new TimeChangeListener()
+    	{
 			@Override
-			public void timeChanged(TimeChangeEvent arg0) {
-				// TODO Auto-generated method stub
+			public void timeChanged(TimeChangeEvent arg0) 
+			{
 				UpdateScreenInformation();
 			}
     	});
@@ -147,9 +138,9 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	Image resetButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "resetButton2.png");
     	resetButton = new JButton(new ImageIcon(resetButtonIcon)); 
     	
-    	// Next Button
-    	//Image nextButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "nextButton.png");
-    	//nextButton = new JButton(new ImageIcon(nextButtonIcon));     	
+    	// Cancel Ticket Button
+    	Image cancelTicketButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "cancelThisTicketButton.png");
+    	cancelTicketButton = new JButton(new ImageIcon(cancelTicketButtonIcon));     	
     	
     	// Save Button
     	Image saveButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "saveButton.png");
@@ -158,6 +149,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton2.png");
     	backButton = new JButton(new ImageIcon(backButtonIcon));
+    	
+    	// Cancel Ticket Button
+    	Image printDirectionsButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "printDirectionsButton.png");
+    	printDirectionsButton = new JButton(new ImageIcon(printDirectionsButtonIcon));
     	
     	// Logout Button
 		Image logoutButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "logoutButton.png");
@@ -191,8 +186,6 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		JLabel deliveryTicketScreen1Title = new JLabel("Delivery Ticket:");
 		deliveryTicketScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
 		deliveryTicketScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
-		//titleContainer.add(deliveryTicketScreen1Title);
-		//overallTicketContainer.add(titleContainer);
 		
 		// Pick Up and Delivery Information --space-- Date --space-- Time
 		JPanel subtitleContainer = new JPanel();
@@ -206,16 +199,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		pickUpAndDeliveryLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		pickUpAndDeliveryLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		pickUpDeliveryInfoSubtitle.add(pickUpAndDeliveryLabel);
-		
-		JLabel dateLabel = new JLabel("Date: " + dateText);
-		dateLabel.setFont(new Font("Calibri", Font.BOLD, 18));
-		dateLabel.setBorder(new EmptyBorder(0, 200, 0, 0));
-		//pickUpDeliveryInfoSubtitle.add(dateLabel);
-		
-		JLabel timeLabel = new JLabel("Time: " + timeText);
-		timeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
-		timeLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
-		//pickUpDeliveryInfoSubtitle.add(timeLabel);
+
 		subtitleContainer.add(pickUpDeliveryInfoSubtitle);
 		overallTicketContainer.add(subtitleContainer);
 		
@@ -224,21 +208,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		 */
 		ticketScreen1Container.setLayout(new BoxLayout(ticketScreen1Container, BoxLayout.Y_AXIS));
 		ticketScreen1Container.setOpaque(false);
-		
-		JPanel ticketPackageID = new JPanel();
-		ticketPackageID.setLayout(new FlowLayout(FlowLayout.LEFT));
-		ticketPackageID.setBorder(new EmptyBorder(5, 5, 0, 0));
-		
-		
-		// -- Ticket Package ID Label
-		JLabel ticketPackageIdLabel = new JLabel();
-		ticketPackageIdLabel.setText("Package ID: " + packageID);
-		ticketPackageIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-		ticketPackageIdLabel.setBorder(new EmptyBorder(5, 5, 0, 200));
-		//ticketPackageID.add(ticketPackageIdLabel);
-		
-		//ticketScreen1Container.add(ticketPackageID);
-		
+				
 		// Container for Pick Up Customer # Label & Field (un-editable)
 		JPanel pickUpCustomerNumContainer = new JPanel();
 		pickUpCustomerNumContainer.setLayout(new BoxLayout(pickUpCustomerNumContainer, BoxLayout.X_AXIS));
@@ -254,7 +224,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			// -- Pick Up Customer TextField
 			Border b1 = new LineBorder(Color.BLUE, 1);
 			Border m1 = new EmptyBorder(0, 15, 0, 500);
-			pickUpCustomerNumText = new JTextField(" <test>", 5); // TODO: wire up to model to retrieve the Customer ID num from drop down selection
+			pickUpCustomerNumText = new JTextField(" <test>", 5);
 			pickUpCustomerNumText.setHorizontalAlignment(JTextField.LEFT);
 			pickUpCustomerNumText.setFont(new Font("Calibri", Font.PLAIN, 26));
 			pickUpCustomerNumText.setBorder(new CompoundBorder(m1, b1));
@@ -278,16 +248,16 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			// ComboBox
 			Border bCB = new LineBorder(Color.BLUE, 1);
 			Border mCB = new EmptyBorder(0, 15, 0, 25);
-			pickUpCustomerNameCB = new JComboBox<String>(); //TODO: deliveryTicket1Controller.model.getCustomerNames());
+			pickUpCustomerNameCB = new JComboBox<String>();
 			pickUpCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			pickUpCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
-			pickUpCustomerNameCB.addItemListener(new ItemListener() {
-		        public void itemStateChanged(ItemEvent arg0) {
-		            //Do Something
+			pickUpCustomerNameCB.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
 		        	UpdatePickupCustomer(arg0);
 		        }
-		    });;
-			//TODO: Create an ActionListener for CBs to the controller package
+		    });
 			pickUpCustomerNameCbContainer.add(pickUpCustomerNameCB);
 			
 		ticketScreen1Container.add(pickUpCustomerNameCbContainer);
@@ -313,11 +283,6 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			
 			// -- Pick Up Time TextField
 			pickUpTimeTextboxContainer.add(time);
-	    	//pickUpTimeField = new JTextField("", 5);
-	    	//pickUpTimeField.setHorizontalAlignment(JTextField.LEFT);
-	    	//pickUpTimeField.setFont(new Font("Calibri", Font.PLAIN, 28));
-	    	//pickUpTimeField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	//pickUpTimeTextboxContainer.add(pickUpTimeField);
 			pickUpTimeAndBillToRBContainer.add(pickUpTimeTextboxContainer);
 			 		
 		 	// Bill To RadioButtons
@@ -368,7 +333,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			// -- Delivery Customer TextField
 			Border b2 = new LineBorder(Color.BLUE, 1);
 			Border m2 = new EmptyBorder(0, 15, 0, 500);
-			deliveryCustomerNumText = new JTextField(" <test>", 5); // TODO: wire up to model to retrieve the Customer ID num from drop down selection
+			deliveryCustomerNumText = new JTextField(" <test>", 5);
 			deliveryCustomerNumText.setHorizontalAlignment(JTextField.LEFT);
 			deliveryCustomerNumText.setFont(new Font("Calibri", Font.PLAIN, 26));
 			deliveryCustomerNumText.setBorder(new CompoundBorder(m2, b2));
@@ -390,16 +355,16 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			deliveryCustomerNameCbContainer.add(deliveryCustomerNameLabel);
 		
 			// ComboBox
-			deliveryCustomerNameCB = new JComboBox<String>(); //TODO: deliveryTicket1Controller.model.getCustomerNames());
+			deliveryCustomerNameCB = new JComboBox<String>();
 			deliveryCustomerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			deliveryCustomerNameCB.setBorder(new CompoundBorder(mCB, bCB));
-			deliveryCustomerNameCB.addItemListener(new ItemListener() {
-		        public void itemStateChanged(ItemEvent arg0) {
-		            //Do Something
+			deliveryCustomerNameCB.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
 		        	UpdateDeliveryCustomer(arg0);
 		        }
-		    });;
-			//TODO: Create an ActionListener for CBs to the controller package
+		    });
 			deliveryCustomerNameCbContainer.add(deliveryCustomerNameCB);
 			
 		ticketScreen1Container.add(deliveryCustomerNameCbContainer);
@@ -422,11 +387,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 		courierNameCB.setBorder(new CompoundBorder(mCB1, bCB1));
 		courierNameCB.addActionListener(null); 
-		//TODO: Create an ActionListener for CBs to the controller package
-		//courierNameCbContainer.add(courierNameCB);
-		
-		//ticketScreen1Container.add(courierNameCbContainer);
-		
+
 		// Estimated Blocks --space-- Estimated Delivery Time
 				JPanel estBlocksAndDeliveryTimeContainer = new JPanel();
 				estBlocksAndDeliveryTimeContainer.setLayout(new BoxLayout(estBlocksAndDeliveryTimeContainer, BoxLayout.X_AXIS));
@@ -544,11 +505,19 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 						
 					ticketScreen1Container.add(outerBoxLayoutXaxisContainer);
 					
-	    // Container Reset and Next buttons
+	    // Container Cancel Ticket, Reset and Next buttons
 	 	JPanel resetAndNextButtonsContainer = new JPanel();
 	 	resetAndNextButtonsContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	 	resetAndNextButtonsContainer.setBorder(new EmptyBorder(5, 25, 5, 25));
-	 		    	 		   
+
+	 	// -- Cancel Ticket Button
+	 	cancelTicketButton.setName("cancelThisTicketButton");
+	 	cancelTicketButton.setOpaque(false);
+	 	cancelTicketButton.setContentAreaFilled(false);
+	 	cancelTicketButton.setBorder(new EmptyBorder(0, 0, 0, 0));
+	 	cancelTicketButton.addActionListener(deliveryTicket1Controller);
+	 	resetAndNextButtonsContainer.add(cancelTicketButton);
+	 	
 	 	// -- Reset Button
 	 	resetButton.setName("resetButton");
 	 	resetButton.setOpaque(false);
@@ -557,21 +526,13 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	 	resetButton.addActionListener(deliveryTicket1Controller);
 	 	resetAndNextButtonsContainer.add(resetButton);
 	 	    
-	    // -- Next Button
-	 	
+	    // -- Save Button
 	 	saveButton.setName("saveButton");
 	 	saveButton.setOpaque(false);
 	 	saveButton.setContentAreaFilled(false);
 	 	saveButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 	 	saveButton.addActionListener(deliveryTicket1Controller);
 	 	resetAndNextButtonsContainer.add(saveButton);
-	 	
-	 	/*nextButton.setName("nextTicketScreenButton");
-	 	nextButton.setOpaque(false);
-	 	nextButton.setContentAreaFilled(false);
-	 	nextButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-	 	nextButton.addActionListener(deliveryTicket1Controller);
-	 	resetAndNextButtonsContainer.add(nextButton);*/
 	 	
 	 	ticketScreen1Container.add(resetAndNextButtonsContainer);
 
@@ -587,15 +548,23 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		backButton.setName("deliveryTicketButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(0, 0, 0, 210));
+		backButton.setBorder(new EmptyBorder(0, 0, 0, 70));
 		backButton.addActionListener(deliveryTicket1Controller);
 		southButtonContainer.add(backButton);
+		
+		// -- Print Directions Button
+		printDirectionsButton.setName("printDirectionsButton");
+		printDirectionsButton.setOpaque(false);
+		printDirectionsButton.setContentAreaFilled(false);
+		printDirectionsButton.setBorder(new EmptyBorder(0, 70, 0, 70));
+		printDirectionsButton.addActionListener(deliveryTicket1Controller);
+		southButtonContainer.add(printDirectionsButton);
 		
 		// -- Logout Button
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 210, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 70, 0, 0));
 		logoutButton.addActionListener(deliveryTicket1Controller);
 		southButtonContainer.add(logoutButton);
 		
