@@ -6,8 +6,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -389,5 +395,38 @@ public class ReportCourierPerformanceScreen extends JPanel
 			System.out.println(e);
 			JOptionPane.showMessageDialog(null, "Invalid input! Cannot generate the report", "Courier Performance Report Screen", JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+	
+	public void printPanel()
+	{
+	    PrinterJob pj = PrinterJob.getPrinterJob();
+	    pj.setJobName(" Print Component ");
+
+	    pj.setPrintable (new Printable() 
+		{    
+		    public int print(Graphics pg, PageFormat pf, int pageNum)
+		    {
+		    	if (pageNum > 0)
+		    	{
+		    		return Printable.NO_SUCH_PAGE;
+		    	}
+		    	Graphics2D g2 = (Graphics2D) pg;
+		    	g2.translate(pf.getImageableX(), pf.getImageableY());
+		    	coPerformanceReportViewer.paint(g2);
+		    	return Printable.PAGE_EXISTS;
+		    }
+		 });
+	    
+		 if (pj.printDialog() == false)
+			 return;
+		 
+		 try 
+		 {
+			 pj.print();
+		 } 
+		 catch (PrinterException ex)
+		 {
+			 System.out.println(ex);
+		 }
 	}
 }

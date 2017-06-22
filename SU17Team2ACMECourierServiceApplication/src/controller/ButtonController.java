@@ -286,8 +286,9 @@ public class ButtonController implements ActionListener
    				break;
    				
    			case "printCoPerformanceReport":
-   				// TODO: Print Company Performance Report action here
    				System.out.println(buttonID + " was pressed");
+   				ReportCompanyPerformanceScreen reportCompanyPerformanceView = (ReportCompanyPerformanceScreen)viewListener.GetView();
+   				reportCompanyPerformanceView.printPanel();
    				break;
    				
    			case "generateCourierPerformanceReport":
@@ -297,8 +298,9 @@ public class ButtonController implements ActionListener
    				break;
    				
    			case "printCourierPerformanceReport":
-   				// TODO: Print Courier Performance Report action here
    				System.out.println(buttonID + " was pressed");
+   				ReportCourierPerformanceScreen reportCourierPerformanceView = (ReportCourierPerformanceScreen)viewListener.GetView();
+   				reportCourierPerformanceView.printPanel();
    				break;
    				
    			case "generateCustomerBillingReport":
@@ -308,8 +310,9 @@ public class ButtonController implements ActionListener
    				break;
    				
    			case "printCustomerBillingReport":
-   				// TODO: Print Customer Billing Report action here
    				System.out.println(buttonID + " was pressed");
+   				ReportCustomerBillingScreen reportCustomerBillingView = (ReportCustomerBillingScreen)viewListener.GetView();
+   				reportCustomerBillingView.printPanel();
    				break;
    				
    	   		/*
