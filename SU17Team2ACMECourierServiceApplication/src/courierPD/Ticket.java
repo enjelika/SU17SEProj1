@@ -169,4 +169,9 @@ private static final long serialVersionUID = 1L;
 	{
 		return ticketId;
 	}
+	
+	public Courier GetCourier() 
+	{
+		return courier;
+	}
 }
