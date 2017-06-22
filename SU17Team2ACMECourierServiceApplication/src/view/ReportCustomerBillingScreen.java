@@ -331,7 +331,7 @@ public class ReportCustomerBillingScreen extends JPanel
 			Customer selectedCustomer = (Customer)customerNameCB.getSelectedItem();
 			List<Ticket> tickets = TicketDAO.listTicketsByCustomerId(selectedCustomer.getCustomerID(), startDate, endDate);
 			int numberOfRow = tickets.size();
-			Object[][] rowData = new Object[numberOfRow][5];
+			Object[][] rowData = new Object[numberOfRow][Header.length];
 			int row = 0;
 			
 			// Retrieve data from the db

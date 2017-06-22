@@ -330,7 +330,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 			Courier selectedCourier = (Courier)courierNameCB.getSelectedItem();
 			List<Ticket> tickets = TicketDAO.listTicketsByCourierId(selectedCourier.getCourierID(), startDate, endDate);
 			int numberOfRow = tickets.size();
-			Object[][] rowData = new Object[numberOfRow][4];
+			Object[][] rowData = new Object[numberOfRow][Header.length];
 			int row = 0;
 			
 			// Retrieve data from the db
