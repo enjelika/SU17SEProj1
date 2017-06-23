@@ -56,7 +56,7 @@ import model.Utility;
 @SuppressWarnings({ "serial" })
 public class CreateDeliveryTicketScreen1 extends JPanel
 {
-	private JButton cancelTicketButton, printDirectionsButton, saveButton, resetButton, backButton, logoutButton;
+	private JButton saveButton, resetButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel ticketScreen1Container, southButtonContainer, mainPane, imgContainer;
 	public JTextField deliveryCustomerNumText, pickUpCustomerNumText, pickUpTimeField;
@@ -138,10 +138,6 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	Image resetButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "resetButton2.png");
     	resetButton = new JButton(new ImageIcon(resetButtonIcon)); 
     	
-    	// Cancel Ticket Button
-    	Image cancelTicketButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "cancelThisTicketButton.png");
-    	cancelTicketButton = new JButton(new ImageIcon(cancelTicketButtonIcon));     	
-    	
     	// Save Button
     	Image saveButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "saveButton.png");
     	saveButton = new JButton(new ImageIcon(saveButtonIcon));     
@@ -149,10 +145,6 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton2.png");
     	backButton = new JButton(new ImageIcon(backButtonIcon));
-    	
-    	// Cancel Ticket Button
-    	Image printDirectionsButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "printDirectionsButton.png");
-    	printDirectionsButton = new JButton(new ImageIcon(printDirectionsButtonIcon));
     	
     	// Logout Button
 		Image logoutButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "logoutButton.png");
@@ -505,18 +497,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 						
 					ticketScreen1Container.add(outerBoxLayoutXaxisContainer);
 					
-	    // Container Cancel Ticket, Reset and Next buttons
+	    // Container Reset and Next buttons
 	 	JPanel resetAndNextButtonsContainer = new JPanel();
 	 	resetAndNextButtonsContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	 	resetAndNextButtonsContainer.setBorder(new EmptyBorder(5, 25, 5, 25));
-
-	 	// -- Cancel Ticket Button
-	 	cancelTicketButton.setName("cancelThisTicketButton");
-	 	cancelTicketButton.setOpaque(false);
-	 	cancelTicketButton.setContentAreaFilled(false);
-	 	cancelTicketButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-	 	cancelTicketButton.addActionListener(deliveryTicket1Controller);
-	 	resetAndNextButtonsContainer.add(cancelTicketButton);
 	 	
 	 	// -- Reset Button
 	 	resetButton.setName("resetButton");
@@ -548,23 +532,15 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		backButton.setName("deliveryTicketButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(0, 0, 0, 70));
+		backButton.setBorder(new EmptyBorder(0, 0, 0, 210));
 		backButton.addActionListener(deliveryTicket1Controller);
 		southButtonContainer.add(backButton);
-		
-		// -- Print Directions Button
-		printDirectionsButton.setName("printDirectionsButton");
-		printDirectionsButton.setOpaque(false);
-		printDirectionsButton.setContentAreaFilled(false);
-		printDirectionsButton.setBorder(new EmptyBorder(0, 70, 0, 70));
-		printDirectionsButton.addActionListener(deliveryTicket1Controller);
-		southButtonContainer.add(printDirectionsButton);
 		
 		// -- Logout Button
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 70, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 210, 0, 0));
 		logoutButton.addActionListener(deliveryTicket1Controller);
 		southButtonContainer.add(logoutButton);
 		
