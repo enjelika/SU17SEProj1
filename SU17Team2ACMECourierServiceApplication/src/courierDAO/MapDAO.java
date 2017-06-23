@@ -16,7 +16,7 @@ public class MapDAO {
 		}
 
 		public static List<Map> listMap() {
-			Query query = emDAO.getEM().createQuery("SELECT m FROM Map m");
+			Query query = emDAO.getEM().createQuery("SELECT m FROM map m");
 			@SuppressWarnings("unchecked")
 			List<Map> list= (List<Map>) query.getResultList();
 

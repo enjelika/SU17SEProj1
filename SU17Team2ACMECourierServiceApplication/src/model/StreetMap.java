@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import courierDAO.MapDAO;
+import courierPD.Courier;
+
 public class StreetMap
 {	
 	// Mapping of intersection names to Intersection objects, built from a set of Street Segment
@@ -28,7 +31,7 @@ public class StreetMap
 	{
 		try 
 		{
-			LoadMap(mapFileName);
+			LoadMap();
 		}
 		catch(Exception ex)
 		{
@@ -127,59 +130,11 @@ public class StreetMap
 	}
 	
 	// Load the map from cvs file
-	public static void LoadMap(String pathName) throws IOException
-	{	
-		String line = null;
-		String[] token;
-		
-		String intersection1;
-		String intersection2;
-		String distance;		
-		
-		BufferedReader bufferedReader = null;
-	    try 
-	    {
-	        // FileReader reads text files in the default encoding.
-	        FileReader fileReader = new FileReader(pathName);
-
-	        // Always wrap FileReader in BufferedReader.
-	        bufferedReader = new BufferedReader(fileReader);
-	       
-	        // Read and discard headings in csv
-	        line = bufferedReader.readLine();
-	        
-	        while((line = bufferedReader.readLine()) != null) 
-		    {
-        		//split data by comma
-	        	token = line.split(",");
-	        	if ( token.length < 3)
-	        		throw new IOException("Bad file format: " + pathName);
-	        	else
-	        	{
-		        	intersection1 = token[0];
-		        	intersection2 = token[1];	
-		        	distance = token[2];	
-	        	}
-	        	StreetSegmentList.add(new StreetSegment(intersection1, intersection2, Integer.parseInt(distance)));    	
-	        }
-	    }
-	    catch(FileNotFoundException ex) 
-	    {
-	        System.out.println(
-	            "Unable to open file '" + 
-	            pathName + "'" + " at cur dir: " + System.getProperty("user.dir"));    
-	        throw ex;
-	    }
-	    catch(IOException ex) 
-	    {
-	        System.out.println("Error reading file '" + pathName + "'");  
-	        throw ex;
+	public static void LoadMap() throws IOException
+	{			
+		List<courierPD.Map> mapList = MapDAO.listMap();
+		for (courierPD.Map item : mapList) {
+			StreetSegmentList.add(new StreetSegment(item.getIntersection1(), item.getIntersection2(), item.getDistance()));    	
 		}
-	    finally
-	    {
-	    	 // Always close files.
-	    	if ( bufferedReader != null )
-	    		bufferedReader.close();     
-	    }
 	}
 }
