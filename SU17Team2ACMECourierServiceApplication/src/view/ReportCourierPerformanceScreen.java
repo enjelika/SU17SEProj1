@@ -332,6 +332,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 			int numberOfRow = tickets.size();
 			Object[][] rowData = new Object[numberOfRow][Header.length];
 			int row = 0;
+			int numberOfTicketDeliveryOnTime = 0;
 			
 			// Retrieve data from the db
 			for(Ticket ticket : tickets) 
@@ -341,7 +342,18 @@ public class ReportCourierPerformanceScreen extends JPanel
 				rowData[row][2] = ticket.GetDeliveryTime();
 				rowData[row][3] = "Yes";	// TODO: Need to check from the db to see if this courier has bonus for this ticket
 			    row++;
+			    
+			    // Count number of on time delivery
+			    Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+			    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+				if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
+				{
+					numberOfTicketDeliveryOnTime++;
+				}
 			}
+			
+			// Calculate percent of on time delivery
+			double percentOfOnTimeDelivery = ((double)numberOfTicketDeliveryOnTime / (double)tickets.size()) * 100;
 			
 			// Remove previous viewer
 			reportContainer.remove(coPerformanceReportViewer);
@@ -350,15 +362,17 @@ public class ReportCourierPerformanceScreen extends JPanel
 			JPanel reportTemplate = new JPanel();
 			reportTemplate.setLayout(new BorderLayout());
 			
-			// Create report header and add it into the db
+			// Create report header and add it into the previewer
 			JTextArea headerText = new JTextArea();
 			String courierId = "Courier ID: " + selectedCourier.getCourierID();
 			String courierName = "Courier Name: " + selectedCourier.getName();
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 			String reportCycleDate = "Report Cycle: " + sdf.format(startDate) + " to " + sdf.format(endDate);
 			String totalDeliveredPackage = "Total Packaged Delivered :" + tickets.size();
+			String percentOnTimeDelivery = "Percent of on time delivery: " + String.format("%.2f", percentOfOnTimeDelivery) + "%";
 			String description = courierId + "                                                 " 
-									+ courierName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage;
+									+ courierName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage + "\n"
+									+ percentOnTimeDelivery;
 			headerText.setFont(new Font("Serif", Font.BOLD, 16));
 			headerText.setEditable(false);  
 		    headerText.setOpaque(false);  

@@ -359,7 +359,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			JPanel reportTemplate = new JPanel();
 			reportTemplate.setLayout(new BorderLayout());
 			
-			// Create report header and add it into the db
+			// Create report header and add it into the previewer
 			JTextArea headerText = new JTextArea();
 			String customerId = "Customer ID: " + selectedCustomer.getCustomerID();
 			String customerName = "Customer Name: " + selectedCustomer.getName();
