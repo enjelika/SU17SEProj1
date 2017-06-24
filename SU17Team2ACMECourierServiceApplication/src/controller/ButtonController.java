@@ -755,6 +755,11 @@ public class ButtonController implements ActionListener
     			
     		case "printDirectionsButton":
     			// TODO: Print Directions action
+	   			if(viewListener.getClass().getName().contains("EditDeliveryTicketScreen"))
+   	   			{
+	   				EditDeliveryTicketScreen editDelivery = (EditDeliveryTicketScreen)viewListener.GetView();
+	   				editDelivery.PrintInstructions();
+   	   			}
    				System.out.println(buttonID + " was pressed");
     			break;
     			

@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -22,20 +23,26 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.JTextComponent;
 
 import controller.ButtonController;
+import courierDAO.CompanyInfoDAO;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
+import courierPD.CompanyInfo;
 import courierPD.Courier;
 import courierPD.Customer;
 import courierPD.Ticket;
+import model.StreetMap;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -451,7 +458,41 @@ public class EditDeliveryTicketScreen extends JPanel
     public void SetTicket(Ticket ticket)
     {
     	currentTicket = ticket;
-    	estDeliveryTimeText.setText(ticket.GetEstimatedDeliveryTime());
+    	estDeliveryTimeText.setText(ticket.GetEstimatedDeliveryTime());	
+    }
+	
+    private String GetCompanyAddress() {
+		String companyAddress = "";
+		
+		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
+		companyAddress = company.getAddress();
+		return companyAddress;
+	}
+    
+    public void PrintInstructions()
+    {
+    	try {
+    		if(currentTicket != null)
+    		{
+	    		String companyAddress = GetCompanyAddress();
+	    		StreetMap streetMap = new StreetMap();
+	    		
+	    		streetMap.Dijkstra(companyAddress);
+	    		streetMap.GetDirection(currentTicket.GetPickupCustomer().getAddress(), "From company to pickup location");
+	    		streetMap.Dijkstra(currentTicket.GetPickupCustomer().getAddress());
+	    		streetMap.GetDirection(currentTicket.GetDeliveryCustomer().getAddress(), "From pickup location to delivery location");
+	    		streetMap.Dijkstra(currentTicket.GetDeliveryCustomer().getAddress());
+	    		streetMap.GetDirection(companyAddress, "From delivery location to office");
+	    		
+	    		JTextArea text = new JTextArea();
+	    		text.setText(streetMap.Direction);
+				text.print();
+    		}
+		} catch (PrinterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//boolean test = textcomp.print();
     	
     }
 }
