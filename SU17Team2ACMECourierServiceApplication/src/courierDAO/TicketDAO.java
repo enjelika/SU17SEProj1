@@ -19,7 +19,6 @@ public class TicketDAO
 		emDAO.getEM().persist(ticket);
 	}
 	
-<<<<<<< HEAD
 	public static void deleteTicket(Ticket ticket)
 	{
 		emDAO.getEM().remove(ticket);
@@ -27,13 +26,6 @@ public class TicketDAO
 		public static void addTicket(Ticket ticket) {
 			emDAO.getEM().persist(ticket);
 		}
-=======
-	// Add a ticket
-	public static void addTicket(Ticket ticket) 
-	{
-		emDAO.getEM().persist(ticket);
-	}
->>>>>>> branch 'master' of https://github.com/enjelika/SU17SEProj1.git
 
 	// Get tickets list
 	public static List<Ticket> listTickets() {
