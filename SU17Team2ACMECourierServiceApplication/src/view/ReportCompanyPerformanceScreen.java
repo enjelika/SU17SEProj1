@@ -75,8 +75,11 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	{		
 		this.buttonController = buttonController;
 		
-		buttonController.setViewListener(new ViewListener(){
-			public Object GetView() {
+		// Set ViewListener
+		buttonController.setViewListener(new ViewListener()
+		{
+			public Object GetView() 
+			{
 				return ReportCompanyPerformanceScreen.this;
 			}			
 
@@ -152,11 +155,11 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		JPanel titleContainer = new JPanel();
 		titleContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
-			// Company Performance Report: --space-- Date --space-- Time
-			JLabel reportScreen1Title = new JLabel("Company Performance Report:");
-			reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
-			reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
-			titleContainer.add(reportScreen1Title);
+		// Company Performance Report: --space-- Date --space-- Time
+		JLabel reportScreen1Title = new JLabel("Company Performance Report:");
+		reportScreen1Title.setFont(new Font("Calibri", Font.PLAIN, 26));
+		reportScreen1Title.setBorder(new EmptyBorder(0, 5, 0, 0));
+		titleContainer.add(reportScreen1Title);
 		
 		overallContainer.add(titleContainer);
 		
@@ -166,84 +169,84 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		reportContainer.setLayout(new BoxLayout(reportContainer, BoxLayout.Y_AXIS));
 		reportContainer.setOpaque(false);
 		
-			// Customer Name drop down AND Generate Report Button
-			JPanel customerNameCbContainer = new JPanel();
-			customerNameCbContainer.setLayout(new BoxLayout(customerNameCbContainer, BoxLayout.X_AXIS));
-			customerNameCbContainer.setBorder(new EmptyBorder(15, 15, 0, 0));
+		// Customer Name drop down AND Generate Report Button
+		JPanel customerNameCbContainer = new JPanel();
+		customerNameCbContainer.setLayout(new BoxLayout(customerNameCbContainer, BoxLayout.X_AXIS));
+		customerNameCbContainer.setBorder(new EmptyBorder(15, 15, 0, 0));
+		
+		// Customer Name Label
+		JLabel customerNameLabel= new JLabel();
+		customerNameLabel.setText("Customer Name:");
+		customerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		customerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
+		customerNameCbContainer.add(customerNameLabel);
+	
+		// ComboBox
+		Border bCB = new LineBorder(Color.BLUE, 1);
+		Border mCB = new EmptyBorder(0, 15, 0, 15);
+		customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
+		customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
+		customerNameCB.addActionListener(null); 
+		customerNameCbContainer.add(customerNameCB);
+		
+		// Generate Report Button
+		generateReportButton.setName("generateCompanyPerformanceReport");
+		generateReportButton.setOpaque(false);
+		generateReportButton.setContentAreaFilled(false);
+		generateReportButton.setBorder(new EmptyBorder(0, 0, 0, 0));
+		generateReportButton.addActionListener(buttonController);
+		customerNameCbContainer.add(generateReportButton);
 			
-				// Customer Name Label
-				JLabel customerNameLabel= new JLabel();
-				customerNameLabel.setText("Customer Name:");
-				customerNameLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-				customerNameLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
-				customerNameCbContainer.add(customerNameLabel);
+		reportContainer.add(customerNameCbContainer);
 			
-				// ComboBox
-				Border bCB = new LineBorder(Color.BLUE, 1);
-				Border mCB = new EmptyBorder(0, 15, 0, 15);
-				customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
-				customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
-				customerNameCB.addActionListener(null); 
-				customerNameCbContainer.add(customerNameCB);
-				
-				// Generate Report Button
-				generateReportButton.setName("generateCompanyPerformanceReport");
-				generateReportButton.setOpaque(false);
-				generateReportButton.setContentAreaFilled(false);
-				generateReportButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-				generateReportButton.addActionListener(buttonController);
-				customerNameCbContainer.add(generateReportButton);
-				
-			reportContainer.add(customerNameCbContainer);
-				
-			// Report Start Date: --space-- Cycle type radio buttons
-			JPanel reportDateAndCycleContainer = new JPanel();
-			reportDateAndCycleContainer.setLayout(new BoxLayout(reportDateAndCycleContainer, BoxLayout.X_AXIS));
-			reportDateAndCycleContainer.setBorder(new EmptyBorder(25, 25, 10, 0));
-			
-				// Report Start Date Label
-				JLabel reportStartDateLabel= new JLabel();
-				reportStartDateLabel.setText("Report Start Date:");
-				reportStartDateLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
-				reportStartDateLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
-				reportDateAndCycleContainer.add(reportStartDateLabel);
-			
-				// Report Start Date TextField
-				reportStartDateText = new JTextField("", 5);
-				reportStartDateText.setFont(new Font("Calibri", Font.PLAIN, 24));
-				reportStartDateText.setToolTipText("mm/dd/yy");
-				reportStartDateText.setText("mm/dd/yy");
-				reportDateAndCycleContainer.add(reportStartDateText);
-				
-				// Cycle radio buttons Label
-				JLabel cycleTypeRB = new JLabel();
-		    	cycleTypeRB.setText("Cycle: ");
-		    	cycleTypeRB.setFont(new Font("Calibri", Font.PLAIN, 26));
-		    	cycleTypeRB.setBorder(new EmptyBorder(0, 5, 0, 5));
-		    	reportDateAndCycleContainer.add(cycleTypeRB);
-		    	
-		    	ButtonGroup radioButtons = new ButtonGroup();
-		    	
-		    	// Cycle Radio Buttons   		    	
-		    	weeklyCycle = new JRadioButton("Weekly");
-		    	weeklyCycle.setFont(new Font("Calibri", Font.PLAIN, 26));
-		    	weeklyCycle.setSelected(true);
-		    	
-		    	monthlyCycle = new JRadioButton("Monthly");
-		    	monthlyCycle.setFont(new Font("Calibri", Font.PLAIN, 26));
-		    	
-		    	radioButtons.add(weeklyCycle);
-		    	radioButtons.add(monthlyCycle);
-		    	
-		    	reportDateAndCycleContainer.add(weeklyCycle);
-		    	reportDateAndCycleContainer.add(monthlyCycle);
-			
-			reportContainer.add(reportDateAndCycleContainer);
-			
-			// Report Viewer		
-			coPerformanceReportViewer = new JPanel();
-			coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
-			reportContainer.add(coPerformanceReportViewer);
+		// Report Start Date: --space-- Cycle type radio buttons
+		JPanel reportDateAndCycleContainer = new JPanel();
+		reportDateAndCycleContainer.setLayout(new BoxLayout(reportDateAndCycleContainer, BoxLayout.X_AXIS));
+		reportDateAndCycleContainer.setBorder(new EmptyBorder(25, 25, 10, 0));
+		
+		// Report Start Date Label
+		JLabel reportStartDateLabel= new JLabel();
+		reportStartDateLabel.setText("Report Start Date:");
+		reportStartDateLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		reportStartDateLabel.setBorder(new EmptyBorder(0, 5, 0, 15));
+		reportDateAndCycleContainer.add(reportStartDateLabel);
+	
+		// Report Start Date TextField
+		reportStartDateText = new JTextField("", 5);
+		reportStartDateText.setFont(new Font("Calibri", Font.PLAIN, 24));
+		reportStartDateText.setToolTipText("mm/dd/yy");
+		reportStartDateText.setText("mm/dd/yy");
+		reportDateAndCycleContainer.add(reportStartDateText);
+		
+		// Cycle radio buttons Label
+		JLabel cycleTypeRB = new JLabel();
+    	cycleTypeRB.setText("Cycle: ");
+    	cycleTypeRB.setFont(new Font("Calibri", Font.PLAIN, 26));
+    	cycleTypeRB.setBorder(new EmptyBorder(0, 5, 0, 5));
+    	reportDateAndCycleContainer.add(cycleTypeRB);
+    	
+    	ButtonGroup radioButtons = new ButtonGroup();
+    	
+    	// Cycle Radio Buttons   		    	
+    	weeklyCycle = new JRadioButton("Weekly");
+    	weeklyCycle.setFont(new Font("Calibri", Font.PLAIN, 26));
+    	weeklyCycle.setSelected(true);
+    	
+    	monthlyCycle = new JRadioButton("Monthly");
+    	monthlyCycle.setFont(new Font("Calibri", Font.PLAIN, 26));
+    	
+    	radioButtons.add(weeklyCycle);
+    	radioButtons.add(monthlyCycle);
+    	
+    	reportDateAndCycleContainer.add(weeklyCycle);
+    	reportDateAndCycleContainer.add(monthlyCycle);
+		
+		reportContainer.add(reportDateAndCycleContainer);
+		
+		// Report Viewer		
+		coPerformanceReportViewer = new JPanel();
+		coPerformanceReportViewer.setPreferredSize(new Dimension(350, 325));
+		reportContainer.add(coPerformanceReportViewer);
 			
 		overallContainer.add(reportContainer);
 		mainPane.add(overallContainer, BorderLayout.CENTER);
@@ -341,12 +344,19 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			    row++;
 			    
 			    // Count number of on time delivery
-			    Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
-			    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
-				if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
-				{
-					numberOfTicketDeliveryOnTime++;
-				}
+			    try
+			    {
+			    	Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+					if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
+					{
+						numberOfTicketDeliveryOnTime++;
+					}
+			    }
+			    catch(Exception ex) 
+			    {
+			    	System.out.println(ex);
+			    }
 			}
 			
 			// Calculate percent of on time delivery
@@ -355,7 +365,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			// Remove previous viewer
 			reportContainer.remove(coPerformanceReportViewer);
 			
-			// Create report template
+			// Create a report template
 			JPanel reportTemplate = new JPanel();
 			reportTemplate.setLayout(new BorderLayout());
 			
@@ -377,7 +387,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			headerText.setText(description);
 			reportTemplate.add(headerText, BorderLayout.NORTH);
 			
-			// Create table data for report and add it into the report template
+			// Create a data table for report and add it into the report template
 			reportTable = new JTable(rowData, Header);
 			reportTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
 			reportTable.setFont(new Font("Serif", Font.BOLD, 16));
@@ -390,7 +400,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			reportTableScroller.setAutoscrolls(true);
 			reportTemplate.add(reportTableScroller, BorderLayout.CENTER);
 			
-			// Create report reviewer
+			// Create a report reviewer
 			coPerformanceReportViewer = new JPanel();
 			coPerformanceReportViewer.setPreferredSize(new Dimension(850, 325));
 			coPerformanceReportViewer.add(reportTemplate);
@@ -408,6 +418,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		}
 	}
 	
+	// Print Components
 	public void printPanel()
 	{
 	    PrinterJob pj = PrinterJob.getPrinterJob();
