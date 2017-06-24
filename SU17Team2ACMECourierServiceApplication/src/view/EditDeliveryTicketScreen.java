@@ -193,7 +193,7 @@ public class EditDeliveryTicketScreen extends JPanel
 				
 		// -- Ticket Package ID Label
 		JLabel ticketPackageIdLabel = new JLabel();
-		ticketPackageIdLabel.setText("Package ID: ");
+		ticketPackageIdLabel.setText("Ticket ID: ");
 		ticketPackageIdLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 		ticketPackageIdLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		ticketPackageID.add(ticketPackageIdLabel);
