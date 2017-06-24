@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +54,7 @@ public class EditDeliveryTicketScreen extends JPanel
     private BufferedImage acmeCourierServiceLogo;
     
     private List<Courier> couriers;
+    private Courier activeCourier;
     
     int counter = 0;
     DateFormat dateFormat, timeFormat;
@@ -223,7 +226,13 @@ public class EditDeliveryTicketScreen extends JPanel
 			Border mCB = new EmptyBorder(0, 15, 0, 25);
 			courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			courierNameCB.setBorder(new CompoundBorder(mCB, bCB));
-			courierNameCB.addActionListener(null); 
+			courierNameCB.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
+		        	UpdateCourier(arg0);
+		        }
+		    });
 			courierNameCbContainer.add(courierNameCB);
 			
 		editTicketScreenContainer.add(courierNameCbContainer);
@@ -236,13 +245,13 @@ public class EditDeliveryTicketScreen extends JPanel
 			JLabel estBlocksLabel = new JLabel("Estimated Blocks: ");
 			estBlocksLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 			estBlocksLabel.setBorder(new EmptyBorder(0, 0, 0, 10));
-			estBlocksAndDeliveryTimeContainer.add(estBlocksLabel);
+			//estBlocksAndDeliveryTimeContainer.add(estBlocksLabel);
 			
 			estBlocksText = new JTextField();
 			estBlocksText.setFont(new Font("Calibri", Font.PLAIN, 24));
 			estBlocksText.setBorder(new LineBorder(Color.BLUE, 1));
 			estBlocksText.setEditable(false);
-			estBlocksAndDeliveryTimeContainer.add(estBlocksText);
+			//estBlocksAndDeliveryTimeContainer.add(estBlocksText);
 			
 			JLabel estDeliveryTimeLabel = new JLabel("Estimated Delivery Time: ");
 			estDeliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
@@ -290,13 +299,13 @@ public class EditDeliveryTicketScreen extends JPanel
 					JLabel deliveryTimeLabel = new JLabel("Delivery Time: ");
 					deliveryTimeLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 					deliveryTimeLabel.setBorder(new EmptyBorder(0, 0, 0, 25));
-					deliveryTimeBoxLayoutXaxis.add(deliveryTimeLabel);	
+					//deliveryTimeBoxLayoutXaxis.add(deliveryTimeLabel);	
 					
 					deliveryTimeText = new JTextField();
 					deliveryTimeText.setFont(new Font("Calibri", Font.PLAIN, 24));
 					deliveryTimeText.setBorder(new LineBorder(Color.BLUE, 1));
 					deliveryTimeText.setEditable(false);
-					deliveryTimeBoxLayoutXaxis.add(deliveryTimeText);
+					//deliveryTimeBoxLayoutXaxis.add(deliveryTimeText);
 					
 				firstInnerBoxLayoutYaxisContainer.add(quotedPriceBoxLayoutXaxis);
 				firstInnerBoxLayoutYaxisContainer.add(deliveryTimeBoxLayoutXaxis);
@@ -357,7 +366,7 @@ public class EditDeliveryTicketScreen extends JPanel
 		 	bonusAndSaveButtonContainer.add(cancelTicketButton);
 		 	
 		    // -- Save Button
-		 	saveButton.setName("ticketSaveButton");
+		 	saveButton.setName("saveButton");
 		 	saveButton.setOpaque(false);
 		 	saveButton.setContentAreaFilled(false);
 		 	saveButton.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -405,6 +414,15 @@ public class EditDeliveryTicketScreen extends JPanel
 		this.add(mainPane);
     }
     
+	private void UpdateCourier(ItemEvent arg0) {
+		for (Courier courier : couriers) {
+			if(arg0.getItem() == courier.getName())
+			{
+				activeCourier = courier;
+			}
+		}
+	}
+	
 	public void PopulateCourierData()
     {
     	//Get Data
@@ -419,6 +437,9 @@ public class EditDeliveryTicketScreen extends JPanel
     
 	public Ticket GetTicket()
 	{
+		currentTicket.SetPickupTime(pickUpTimeText.getText());
+		currentTicket.SetDeliveryTime(deliveryTimeText.getText());
+		currentTicket.SetCourier(activeCourier);
 		return currentTicket;
 	}
 	
@@ -430,5 +451,7 @@ public class EditDeliveryTicketScreen extends JPanel
     public void SetTicket(Ticket ticket)
     {
     	currentTicket = ticket;
+    	estDeliveryTimeText.setText(ticket.GetEstimatedDeliveryTime());
+    	
     }
 }

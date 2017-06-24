@@ -188,4 +188,9 @@ private static final long serialVersionUID = 1L;
 	{
 		return courier;
 	}
+	
+	public void SetCourier(Courier courier) 
+	{
+		this.courier = courier;
+	}
 }

@@ -593,6 +593,16 @@ public class ButtonController implements ActionListener
 					userTransaction.commit();
 					JOptionPane.showMessageDialog(null, "Ticket was Created.", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
+	   			else if(viewListener.getClass().getName().contains("EditDeliveryTicketScreen"))
+   	   			{
+	   				EditDeliveryTicketScreen editTicket = (EditDeliveryTicketScreen)viewListener.GetView();
+   	   				Ticket editticket = editTicket.GetTicket();
+					EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+					userTransaction.begin();
+	   	   			TicketDAO.saveTicket(editticket);
+					userTransaction.commit();
+					JOptionPane.showMessageDialog(null, "Ticket was Edited.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
+   	   			}
    	   			System.out.println("Save button pressed...");
    				break;
    				
