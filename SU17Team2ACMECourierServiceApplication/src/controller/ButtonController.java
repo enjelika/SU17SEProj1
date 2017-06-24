@@ -27,6 +27,7 @@ import view.CreateDeliveryTicketScreen1;
 import view.EditCompanyInfoScreen;
 import view.EditCourierScreen;
 import view.EditCustomerScreen;
+import view.EditDeliveryTicketScreen;
 import view.EditUserScreen;
 import view.LoginScreen;
 import view.ReportCompanyPerformanceScreen;
@@ -171,6 +172,32 @@ public class ButtonController implements ActionListener
    				catch(Exception e)
 	   			{
    					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the customer id and customer name.", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+   					System.out.println(e);
+	   			}
+				break;
+			case "findButton":
+				System.out.println("findButton war pressed");
+				EditDeliveryTicketScreen editDeliveryScreen = (EditDeliveryTicketScreen)viewListener.GetView();
+	   			try
+   				{
+	   				String packageID = editDeliveryScreen.GetPackageID();
+	   				Ticket ticket;
+	   				if(packageID.isEmpty()) 
+	   				{
+						JOptionPane.showMessageDialog(null, "Please enter id to find a ticket.", "Edit Delivery Ticket", JOptionPane.INFORMATION_MESSAGE);
+	   				}
+	   				else 
+	   				{
+	   					ticket = TicketDAO.findTicketById(Long.parseLong(packageID)); 
+	   					if(ticket == null)
+	   						JOptionPane.showMessageDialog(null, "Unable to find a package with that id.", "Edit Delivery Ticket", JOptionPane.INFORMATION_MESSAGE);
+	   					else
+	   						editDeliveryScreen.SetTicket(ticket);
+	   				}
+   				}
+   				catch(Exception e)
+	   			{
+   					JOptionPane.showMessageDialog(null, "Invalid input! Please re-verify the ticket id.", "Edit Delivery Screen", JOptionPane.INFORMATION_MESSAGE);
    					System.out.println(e);
 	   			}
 				break;

@@ -508,7 +508,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	 	resetButton.setContentAreaFilled(false);
 	 	resetButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 	 	resetButton.addActionListener(deliveryTicket1Controller);
-	 	resetAndNextButtonsContainer.add(resetButton);
+	 	//resetAndNextButtonsContainer.add(resetButton);
 	 	    
 	    // -- Save Button
 	 	saveButton.setName("saveButton");

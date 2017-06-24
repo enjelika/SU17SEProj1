@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierPD.Ticket;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -49,6 +50,7 @@ public class EditDeliveryTicketScreen extends JPanel
     DateFormat dateFormat, timeFormat;
     String dateText, timeText, packageID;
     
+    private Ticket currentTicket;
     // TEMPORARY
     String[] tempArray;
     
@@ -398,5 +400,15 @@ public class EditDeliveryTicketScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+    }
+    
+    public String GetPackageID()
+    {
+    	return packageIdText.getText();
+    }
+    
+    public void SetTicket(Ticket ticket)
+    {
+    	currentTicket = ticket;
     }
 }

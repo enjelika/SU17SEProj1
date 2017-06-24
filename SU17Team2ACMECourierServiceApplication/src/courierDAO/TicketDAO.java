@@ -103,19 +103,9 @@ public class TicketDAO {
 			return filteredList;
 		}
 		
-		public static Ticket findTicket(String username, String password) {
-			Query query = emDAO.getEM().createQuery("SELECT u FROM user u WHERE u.userName = '" + username + "' and u.password = '" + password + "'");
-			Ticket ticket = null;
-			try
-			{
-				ticket = (Ticket) query.getSingleResult();
-			}
-			catch(Exception e)
-			{
-				
-			}
-
-			return ticket;
+		public static Ticket findTicketById(long packageID) 
+		{
+			return emDAO.getEM().find(Ticket.class, packageID);
 		}
 
 		public static void removeTicket(Ticket ticket) {
