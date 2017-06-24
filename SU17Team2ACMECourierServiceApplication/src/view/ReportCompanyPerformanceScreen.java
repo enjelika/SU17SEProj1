@@ -330,6 +330,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			int numberOfRow = tickets.size();
 			Object[][] rowData = new Object[numberOfRow][Header.length];
 			int row = 0;
+			int numberOfTicketDeliveryOnTime = 0;
 			
 			// Retrieve data from the db
 			for(Ticket ticket : tickets) 
@@ -338,8 +339,19 @@ public class ReportCompanyPerformanceScreen extends JPanel
 				rowData[row][1] = ticket.GetEstimatedDeliveryTime();
 				rowData[row][2] = ticket.GetDeliveryTime();
 			    row++;
+			    
+			    // Count number of on time delivery
+			    Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+			    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+				if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
+				{
+					numberOfTicketDeliveryOnTime++;
+				}
 			}
 			
+			// Calculate percent of on time delivery
+			double percentOfOnTimeDelivery = ((double)numberOfTicketDeliveryOnTime / (double)tickets.size()) * 100;
+
 			// Remove previous viewer
 			reportContainer.remove(coPerformanceReportViewer);
 			
@@ -354,8 +366,10 @@ public class ReportCompanyPerformanceScreen extends JPanel
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 			String reportCycleDate = "Report Cycle: " + sdf.format(startDate) + " to " + sdf.format(endDate);
 			String totalDeliveredPackage = "Total Packaged Delivered :" + tickets.size();
+			String percentOnTimeDelivery = "Percent of on time delivery: " + String.format("%.2f", percentOfOnTimeDelivery) + "%";
 			String description = customerId + "                                                 " 
-									+ customerName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage;
+									+ customerName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage + "\n"
+									+ percentOnTimeDelivery;
 			headerText.setFont(new Font("Serif", Font.BOLD, 16));
 			headerText.setEditable(false);  
 		    headerText.setOpaque(false);  
