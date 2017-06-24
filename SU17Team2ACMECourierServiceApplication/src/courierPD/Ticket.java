@@ -56,8 +56,6 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "createdDate", nullable = true,length = 10)
 	private String createdDate;
 	
-	@Column(name = "canceled", nullable = true,length = 1)
-	private String canceled;
 	
 	public Ticket()
 	{
@@ -65,7 +63,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public Ticket(Customer pickupcustomer, Customer deliverycustomer, String pickuptime, String deliverytime,
-			String estimateddeliverytime, Courier courier, Customer payee, String cost, String paid, String canceled)
+			String estimateddeliverytime, Courier courier, Customer payee, String cost, String paid)
 	{
 		this();
 		this.pickupcustomer = pickupcustomer;
@@ -77,7 +75,6 @@ private static final long serialVersionUID = 1L;
 		this.payee = payee;
 		this.cost = cost;
 		this.paid = paid;
-		this.canceled = canceled;
 	}
 	
 	public Customer GetPickupCustomer()
@@ -169,15 +166,6 @@ private static final long serialVersionUID = 1L;
 		this.createdDate = createdDate;
 	}
 	
-	public String GetCanceled()
-	{
-		return this.canceled;
-	}
-	
-	public void SetCanceled(String canceled)
-	{
-		this.canceled = canceled;
-	}
 	
 	public long GetTicketID() 
 	{
