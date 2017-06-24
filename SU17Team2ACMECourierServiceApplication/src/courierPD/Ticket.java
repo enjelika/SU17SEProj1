@@ -50,7 +50,7 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "cost", nullable = false,length = 10)
 	private String cost;
 	
-	@Column(name = "paid", nullable = true,length = 10)
+	@Column(name = "paid", nullable = true,length = 1)
 	private String paid;
 
 	@Column(name = "createdDate", nullable = true,length = 10)

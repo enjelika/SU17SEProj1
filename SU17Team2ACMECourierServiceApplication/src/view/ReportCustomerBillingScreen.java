@@ -65,7 +65,7 @@ public class ReportCustomerBillingScreen extends JPanel
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
 	
-    public String[] Header = new String[] {"Ticket ID", "Delivery To", "Courier", "Delivery Time", "Price"};
+    public String[] Header = new String[] {"Ticket ID", "Delivery To", "Courier", "Delivery Time", "Price", "Paid"};
 	
 	private List<Customer> customers;
     
@@ -333,6 +333,8 @@ public class ReportCustomerBillingScreen extends JPanel
 			int numberOfRow = tickets.size();
 			Object[][] rowData = new Object[numberOfRow][Header.length];
 			int row = 0;
+			int numberOfTicketDeliveryOnTime = 0;
+			double balance = 0;
 			
 			// Retrieve data from the db
 			for(Ticket ticket : tickets) 
@@ -341,9 +343,42 @@ public class ReportCustomerBillingScreen extends JPanel
 				rowData[row][1] = ticket.GetDeliveryCustomer().getName();
 				rowData[row][2] = ticket.GetCourier().getName();
 				rowData[row][3] = ticket.GetDeliveryTime();
-				rowData[row][4] = ticket.GetCost();
+				rowData[row][4] = "$" + String.format("%.2f", Double.parseDouble(ticket.GetCost()));
+				rowData[row][5] = ticket.GetPaid();
 			    row++;
+			    
+			    // Calculate customer's balance
+			    try 
+			    {
+					if(ticket.GetPaid().equals("N"))
+					{
+						balance += Double.parseDouble(ticket.GetCost());
+					}
+			    } 
+			    catch(Exception ex)
+			    {
+			    	System.out.print(ex);
+			    }
+			    
+			    // Count number of on time delivery
+			    try
+			    {
+			    	// Count number of on time delivery
+			    	Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+					if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
+					{
+						numberOfTicketDeliveryOnTime++;
+					}
+			    }
+			    catch(Exception ex) 
+			    {
+			    	System.out.println(ex);
+			    }
 			}
+			
+			// Calculate percent of on time delivery
+			double percentOfOnTimeDelivery = ((double)numberOfTicketDeliveryOnTime / (double)tickets.size()) * 100;
 			
 			// Remove previous viewer
 			reportContainer.remove(customerBillingReportViewer);
@@ -352,15 +387,18 @@ public class ReportCustomerBillingScreen extends JPanel
 			JPanel reportTemplate = new JPanel();
 			reportTemplate.setLayout(new BorderLayout());
 			
-			// Create report header and add it into the db
+			// Create report header and add it into the previewer
 			JTextArea headerText = new JTextArea();
 			String customerId = "Customer ID: " + selectedCustomer.getCustomerID();
 			String customerName = "Customer Name: " + selectedCustomer.getName();
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 			String reportCycleDate = "Report Cycle: " + sdf.format(startDate) + " to " + sdf.format(endDate);
 			String totalDeliveredPackage = "Total Packaged Delivered :" + tickets.size();
+			String percentOnTimeDelivery = "Percent of on time delivery: " + String.format("%.2f", percentOfOnTimeDelivery) + "%";
+			String customerBalance = "Balance: $" + String.format("%.2f", balance);
 			String description = customerId + "                                                 " 
-									+ customerName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage;
+									+ customerName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage + "\n"
+									+ percentOnTimeDelivery + "\n" + customerBalance;
 			headerText.setFont(new Font("Serif", Font.BOLD, 16));
 			headerText.setEditable(false);  
 		    headerText.setOpaque(false);  

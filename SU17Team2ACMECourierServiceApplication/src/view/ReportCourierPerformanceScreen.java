@@ -343,13 +343,19 @@ public class ReportCourierPerformanceScreen extends JPanel
 				rowData[row][3] = "Yes";	// TODO: Need to check from the db to see if this courier has bonus for this ticket
 			    row++;
 			    
-			    // Count number of on time delivery
-			    Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
-			    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
-				if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
-				{
-					numberOfTicketDeliveryOnTime++;
-				}
+			    try
+			    {
+			    	Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+					if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
+					{
+						numberOfTicketDeliveryOnTime++;
+					}
+			    }
+			    catch(Exception ex) 
+			    {
+			    	System.out.println(ex);
+			    }
 			}
 			
 			// Calculate percent of on time delivery
