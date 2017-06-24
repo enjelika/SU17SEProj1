@@ -726,6 +726,20 @@ public class ButtonController implements ActionListener
     			
     		case "cancelThisTicketButton":
     			// TODO: Cancel Ticket action
+	   			if(viewListener.getClass().getName().contains("EditDeliveryTicketScreen"))
+   	   			{
+	   				EditDeliveryTicketScreen cancelDelivery = (EditDeliveryTicketScreen)viewListener.GetView();
+   	   				Ticket cancelticket = cancelDelivery.GetTicket();
+   	   				if(cancelticket != null)
+   	   				{
+   	   					cancelticket.SetCanceled("Y");
+   						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
+   						userTransaction.begin();
+   		   	   			TicketDAO.saveTicket(cancelticket);
+   						userTransaction.commit();
+   	   					JOptionPane.showMessageDialog(null, "Ticket was Canceled.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
+   	   				}
+   	   			}
    				System.out.println(buttonID + " was pressed");
     			break;
     			

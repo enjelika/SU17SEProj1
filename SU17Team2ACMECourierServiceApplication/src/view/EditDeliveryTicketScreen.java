@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -28,6 +29,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CourierDAO;
+import courierDAO.CustomerDAO;
+import courierPD.Courier;
+import courierPD.Customer;
 import courierPD.Ticket;
 import model.Utility;
 
@@ -46,13 +51,13 @@ public class EditDeliveryTicketScreen extends JPanel
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
     
+    private List<Courier> couriers;
+    
     int counter = 0;
     DateFormat dateFormat, timeFormat;
     String dateText, timeText, packageID;
     
     private Ticket currentTicket;
-    // TEMPORARY
-    String[] tempArray;
     
     private ButtonController editDeliveryTicketController;
     
@@ -60,10 +65,8 @@ public class EditDeliveryTicketScreen extends JPanel
     {
     	editDeliveryTicketController = buttonController;
     	
-    	// TODO: Remove tempArray and replace with the list of Courier Names from DB
-    	tempArray = new String[] {"-- select a courier --", "test1", "test2"};
-		courierNameCB = new JComboBox<String>(tempArray); //TODO: deliveryTicket2Controller.model.getCourierNames());
-    	    	    	
+		courierNameCB = new JComboBox<String>(); 
+		
     	dateText = String.format("%02d", Calendar.MONTH) + "-" + String.format("%02d", Calendar.DAY_OF_MONTH) + "-17";
     	timeText = "" + Calendar.HOUR_OF_DAY + Calendar.MINUTE;
     	
@@ -218,7 +221,6 @@ public class EditDeliveryTicketScreen extends JPanel
 			// ComboBox
 			Border bCB = new LineBorder(Color.BLUE, 1);
 			Border mCB = new EmptyBorder(0, 15, 0, 25);
-			courierNameCB.setSelectedIndex(0);
 			courierNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 			courierNameCB.setBorder(new CompoundBorder(mCB, bCB));
 			courierNameCB.addActionListener(null); 
@@ -399,9 +401,27 @@ public class EditDeliveryTicketScreen extends JPanel
 		// -- end of southButtonContainer
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
+		PopulateCourierData();
 		this.add(mainPane);
     }
     
+	public void PopulateCourierData()
+    {
+    	//Get Data
+		couriers = CourierDAO.listCourier();
+		for (Courier item : couriers) {
+			if(item.getIsActive().equals("Y"))
+			{
+				courierNameCB.addItem(item.getName());
+			}
+		}
+    }
+    
+	public Ticket GetTicket()
+	{
+		return currentTicket;
+	}
+	
     public String GetPackageID()
     {
     	return packageIdText.getText();
