@@ -363,7 +363,6 @@ public class ReportCustomerBillingScreen extends JPanel
 			    // Count number of on time delivery
 			    try
 			    {
-			    	// Count number of on time delivery
 			    	Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
 				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
 					if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
