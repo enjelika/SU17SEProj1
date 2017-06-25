@@ -30,6 +30,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -71,6 +72,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	public JTextField reportStartDateText;
 	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer, coPerformanceReportViewer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
+	public JCheckBox allCustomers;
 	public JTable reportTable;
 	private DatePicker time;
 	
@@ -87,6 +89,8 @@ public class ReportCompanyPerformanceScreen extends JPanel
 	public ReportCompanyPerformanceScreen(ButtonController buttonController)
 	{		
 		this.buttonController = buttonController;
+		
+		allCustomers = new JCheckBox();
 		
 		// Set ViewListener
 		buttonController.setViewListener(new ViewListener()
@@ -182,7 +186,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		reportContainer.setLayout(new BoxLayout(reportContainer, BoxLayout.Y_AXIS));
 		reportContainer.setOpaque(false);
 		
-		// Customer Name drop down AND Generate Report Button
+		// Customer Name drop down AND All Customers check box
 		JPanel customerNameCbContainer = new JPanel();
 		customerNameCbContainer.setLayout(new BoxLayout(customerNameCbContainer, BoxLayout.X_AXIS));
 		customerNameCbContainer.setBorder(new EmptyBorder(15, 15, 0, 0));
@@ -199,23 +203,26 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		Border mCB = new EmptyBorder(0, 15, 0, 15);
 		customerNameCB.setFont(new Font("Calibri", Font.PLAIN, 24));
 		customerNameCB.setBorder(new CompoundBorder(mCB, bCB));
+		customerNameCB.setPreferredSize(new Dimension(75, 25));
 		customerNameCB.addActionListener(null); 
 		customerNameCbContainer.add(customerNameCB);
 		
-		// Generate Report Button
-		generateReportButton.setName("generateCompanyPerformanceReport");
-		generateReportButton.setOpaque(false);
-		generateReportButton.setContentAreaFilled(false);
-		generateReportButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-		generateReportButton.addActionListener(buttonController);
-		customerNameCbContainer.add(generateReportButton);
+		// TODO: All Customers check box
+		allCustomers.setName("allCustomersReportCheckbox");
+		allCustomers.setText("All Customers");
+		allCustomers.setFont(new Font("Calibri", Font.PLAIN, 24));
+		allCustomers.setOpaque(false);
+		allCustomers.setContentAreaFilled(false);
+		allCustomers.setBorder(new EmptyBorder(0, 10, 0, 10));
+		// TODO: Action Listener
+		customerNameCbContainer.add(allCustomers);
 			
 		reportContainer.add(customerNameCbContainer);
 			
 		// Report Start Date: --space-- Cycle type radio buttons
 		JPanel reportDateAndCycleContainer = new JPanel();
 		reportDateAndCycleContainer.setLayout(new BoxLayout(reportDateAndCycleContainer, BoxLayout.X_AXIS));
-		reportDateAndCycleContainer.setBorder(new EmptyBorder(25, 25, 10, 0));
+		reportDateAndCycleContainer.setBorder(new EmptyBorder(25, 15, 10, 0));
 		
 		// Report Start Date Label
 		JLabel reportStartDateLabel= new JLabel();
@@ -267,19 +274,27 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		/*
 		 * southButtonContainer for Back, Print Report, and Logout buttons
 		 */
-		// Back --space-- Print Report --space-- Logout Button
+		// Back --space-- Generate Report --space-- Print Report --space-- Logout Button
 		backButton.setName("reportsBackButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(0, 0, 0, 70));
+		backButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 		backButton.addActionListener(buttonController);
 		southButtonContainer.add(backButton);
+		
+		// Generate Report Button
+		generateReportButton.setName("generateCompanyPerformanceReport");
+		generateReportButton.setOpaque(false);
+		generateReportButton.setContentAreaFilled(false);
+		generateReportButton.setBorder(new EmptyBorder(0, 15, 0, 15));
+		generateReportButton.addActionListener(buttonController);
+		southButtonContainer.add(generateReportButton);
 		
         // -- Print Report Button
 		printReportButton.setName("printCoPerformanceReport");
 		printReportButton.setOpaque(false);
 		printReportButton.setContentAreaFilled(false);
-		printReportButton.setBorder(new EmptyBorder(0, 70, 0, 70));
+		printReportButton.setBorder(new EmptyBorder(0, 15, 0, 15));
 		printReportButton.addActionListener(buttonController);
 		southButtonContainer.add(printReportButton);
 		
@@ -287,7 +302,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 70, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 15, 0, 0));
 		logoutButton.addActionListener(buttonController);
 		southButtonContainer.add(logoutButton);
 		
