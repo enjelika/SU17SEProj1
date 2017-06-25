@@ -812,21 +812,6 @@ public class ButtonController implements ActionListener
 					mainFrame.getContentPane().revalidate();
 					mainFrame.getContentPane().repaint();
     			}
-				
-				//Testing purpose
-				StreetMap streetMap = new StreetMap();
-				final String companyAddress = "4th Ave and D Street";
-				final String startIntersection = "7th Ave and G Street";
-				final String endIntersection = "1st Ave and A Street";
-				streetMap.Dijkstra(companyAddress);
-				streetMap.GetDirection(startIntersection, "From company to pickup location");
-				streetMap.Dijkstra(startIntersection);
-				streetMap.GetDirection(endIntersection, "From pickup location to delivery location");
-				streetMap.Dijkstra(endIntersection);
-				streetMap.GetDirection(companyAddress, "From delivery location to office");
-				System.out.println("Total Distance: " + streetMap.TotalDistance + " blocks");
-				System.out.println(streetMap.Direction);
-
     			break;
     			
     		/*

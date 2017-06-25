@@ -485,7 +485,11 @@ public class EditDeliveryTicketScreen extends JPanel
 	    		streetMap.GetDirection(companyAddress, "From delivery location to office");
 	    		
 	    		JTextArea text = new JTextArea();
-	    		text.setText(streetMap.Direction);
+	    		text.setText("Ticket ID: "
+	                    + currentTicket.GetTicketID() + "\nPickup Time: "
+	                    + currentTicket.GetPickupTime() + "\nPickup Customer: " + currentTicket.GetPickupCustomer().getName()
+	                    + "\nDelivery Customer: " + currentTicket.GetDeliveryCustomer().getName()
+	                    + "\n\n" + streetMap.Direction);
 				text.print();
     		}
 		} catch (PrinterException e) {
