@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import courierDAO.CompanyInfoDAO;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
+import courierDAO.IntersectionsDAO;
 import courierDAO.TicketDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
@@ -33,6 +34,7 @@ import view.LoginScreen;
 import view.ReportCompanyPerformanceScreen;
 import view.ReportCourierPerformanceScreen;
 import view.ReportCustomerBillingScreen;
+import view.UpdateMapScreen;
 import view.UpdatePasswordScreen;
 import view.ViewListener;
 
@@ -518,7 +520,7 @@ public class ButtonController implements ActionListener
 	   					addCustomerScreen.ClearText();
 		   			}
 	   			}
-   	   			// Save for Edit Customer Screen ====== STILL WORKING ON THIS ONE
+   	   			// Save for Edit Customer Screen
    	   			else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
 	   			{
    	   				EditCustomerScreen editCustomerView = (EditCustomerScreen)viewListener.GetView();
@@ -612,7 +614,17 @@ public class ButtonController implements ActionListener
 					userTransaction.commit();
 					JOptionPane.showMessageDialog(null, "Ticket was Edited.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
-   	   			System.out.println("Save button pressed...");
+   	   			else if(viewListener.getClass().getName().contains("UpdateMapScreen"))
+	   			{
+	   	   			UpdateMapScreen updateMapScreen = (UpdateMapScreen)viewListener.GetView();
+	   	   			updateMapScreen.saveCheckBoxValues();
+	   	   			EntityTransaction mapTransaction = emDAO.getEM().getTransaction();
+	   	   			mapTransaction.begin();
+	   	   			IntersectionsDAO.saveIntersections(updateMapScreen.intersections);
+	   	   			mapTransaction.commit();
+					JOptionPane.showMessageDialog(null, "Map was updated.", "Map View", JOptionPane.INFORMATION_MESSAGE);
+	   			}
+	   			System.out.println("Save button pressed...");
    				break;
    				
    			/*

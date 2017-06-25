@@ -33,6 +33,11 @@ public class Intersections implements Serializable
 		
 	}
 	
+	public void UpdateIntersections(String isBlocked) 
+	{
+		this.isBlocked = isBlocked;
+	}
+	
 	public long getId()
 	{
 		return this.id;

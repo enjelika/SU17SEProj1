@@ -5,9 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +51,8 @@ public class UpdateMapScreen extends JPanel
 					 fStAnd1stAve, fStAnd2ndAve, fStAnd3rdAve, fStAnd4thAve, fStAnd5thAve, fStAnd6thAve, fStAnd7thAve,
 					 gStAnd1stAve, gStAnd2ndAve, gStAnd3rdAve, gStAnd4thAve, gStAnd5thAve, gStAnd6thAve, gStAnd7thAve;
 					 
-	List<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
+	private List<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
+	public List<Intersections> intersections;
 	
     public UpdateMapScreen(ButtonController buttonController)
     {
@@ -660,7 +659,32 @@ public class UpdateMapScreen extends JPanel
 		this.add(mainPane);
     }
     
-    // Load the checkbox values from db
+    // Save the checkbox values into the db
+    public void saveCheckBoxValues()
+    {
+    	try
+    	{
+    		intersections = IntersectionsDAO.listIntersections();
+    		for(int index = 0; index < checkboxes.size(); index++) 
+    		{
+    			if(checkboxes.get(index).isSelected())
+    			{
+    				
+    				intersections.get(index).setIsBlocked("N");
+    			}
+    			else
+    			{
+    				intersections.get(index).setIsBlocked("Y");
+    			}
+    		}
+    	}
+    	catch(Exception ex)
+    	{
+    		System.out.println(ex);
+    	}
+    }
+    
+    // Load the checkbox values from the db
     public void loadCheckboxValues() 
     {
     	List<Intersections> intersections = IntersectionsDAO.listIntersections();
