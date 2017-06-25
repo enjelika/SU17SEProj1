@@ -207,7 +207,7 @@ public class ReportCompanyPerformanceScreen extends JPanel
 		customerNameCB.addActionListener(null); 
 		customerNameCbContainer.add(customerNameCB);
 		
-		// TODO: All Customers check box
+		// TODO: All Customers check box 
 		allCustomers.setName("allCustomersReportCheckbox");
 		allCustomers.setText("All Customers");
 		allCustomers.setFont(new Font("Calibri", Font.PLAIN, 24));

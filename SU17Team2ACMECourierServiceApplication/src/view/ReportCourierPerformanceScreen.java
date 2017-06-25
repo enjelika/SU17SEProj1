@@ -83,7 +83,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 	{
 		this.buttonController = buttonController;
 		
-		allCouriers = new JCheckBox();
+		allCouriers = new JCheckBox(); 
     	
 		buttonController.setViewListener(new ViewListener(){
 			public Object GetView() {
