@@ -249,6 +249,15 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().repaint();
     			break;
     			
+    		case "updateMapButton":
+    			System.out.println("Going to the Update Map Screen...");
+    			mainFrame.getContentPane().removeAll();
+				mainFrame.setContentPane(new view.UpdateMapScreen(this)); 
+				mainFrame.getContentPane().invalidate();
+				mainFrame.getContentPane().revalidate();
+				mainFrame.getContentPane().repaint();
+    			break;	
+    			
     		/*
     		 * Delivery Ticket Menu Buttons
     		 */
