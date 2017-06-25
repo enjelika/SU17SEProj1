@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -28,6 +29,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -56,7 +58,7 @@ import model.Utility;
 @SuppressWarnings({ "serial" })
 public class CreateDeliveryTicketScreen1 extends JPanel
 {
-	private JButton saveButton, resetButton, backButton, logoutButton;
+	private JButton saveButton, resetButton, backButton, logoutButton, printDirectionsButton;
 	private JLabel imageFrame;
 	private JPanel ticketScreen1Container, southButtonContainer, mainPane, imgContainer;
 	public JTextField deliveryCustomerNumText, pickUpCustomerNumText, pickUpTimeField;
@@ -80,6 +82,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     DateFormat dateFormat, timeFormat;
     private int estimatedTime;
     private int deliveryDistance;
+    
+    private Ticket currentTicket;
     
     private ButtonController deliveryTicket1Controller;
     
@@ -145,6 +149,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     	// Back Button
     	Image backButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "backButton2.png");
     	backButton = new JButton(new ImageIcon(backButtonIcon));
+    	
+    	// Print Directions Button
+    	Image printDirectionsButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "printDirectionsButton.png");
+    	printDirectionsButton = new JButton(new ImageIcon(printDirectionsButtonIcon));
     	
     	// Logout Button
 		Image logoutButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "logoutButton.png");
@@ -532,15 +540,23 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		backButton.setName("deliveryTicketButton");
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
-		backButton.setBorder(new EmptyBorder(0, 0, 0, 210));
+		backButton.setBorder(new EmptyBorder(0, 0, 0, 70));
 		backButton.addActionListener(deliveryTicket1Controller);
 		southButtonContainer.add(backButton);
+		
+		// -- Print Directions Button
+		printDirectionsButton.setName("printDirectionsButton");
+		printDirectionsButton.setOpaque(false);
+		printDirectionsButton.setContentAreaFilled(false);
+		printDirectionsButton.setBorder(new EmptyBorder(0, 70, 0, 70));
+		printDirectionsButton.addActionListener(deliveryTicket1Controller);
+		southButtonContainer.add(printDirectionsButton);
 		
 		// -- Logout Button
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(0, 210, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 70, 0, 0));
 		logoutButton.addActionListener(deliveryTicket1Controller);
 		southButtonContainer.add(logoutButton);
 		
@@ -646,4 +662,34 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		currentTicket.SetCreatedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		return currentTicket;
 	}
+	
+	public void SetTicket(Ticket ticket)
+	{
+		currentTicket = ticket;
+	}
+	
+	public void PrintInstructions()
+    {
+    	try {
+    		if(currentTicket != null)
+    		{
+	    		String companyAddress = GetCompanyAddress();
+	    		StreetMap streetMap = new StreetMap();
+	    		
+	    		streetMap.Dijkstra(companyAddress);
+	    		streetMap.GetDirection(currentTicket.GetPickupCustomer().getAddress(), "From company to pickup location");
+	    		streetMap.Dijkstra(currentTicket.GetPickupCustomer().getAddress());
+	    		streetMap.GetDirection(currentTicket.GetDeliveryCustomer().getAddress(), "From pickup location to delivery location");
+	    		streetMap.Dijkstra(currentTicket.GetDeliveryCustomer().getAddress());
+	    		streetMap.GetDirection(companyAddress, "From delivery location to office");
+	    		
+	    		JTextArea text = new JTextArea();
+	    		text.setText(streetMap.Direction);
+				text.print();
+    		}
+		} catch (PrinterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }

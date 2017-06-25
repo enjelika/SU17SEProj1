@@ -603,7 +603,8 @@ public class ButtonController implements ActionListener
 					userTransaction.begin();
 	   	   			TicketDAO.saveTicket(newticket);
 					userTransaction.commit();
-					JOptionPane.showMessageDialog(null, "Ticket was Created.", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
+					createDelivery.SetTicket(newticket);
+					JOptionPane.showMessageDialog(null, "Ticket was Created, with ID# " + newticket.GetTicketID() + ".", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
 	   			else if(viewListener.getClass().getName().contains("EditDeliveryTicketScreen"))
    	   			{
@@ -781,6 +782,11 @@ public class ButtonController implements ActionListener
    	   			{
 	   				EditDeliveryTicketScreen editDelivery = (EditDeliveryTicketScreen)viewListener.GetView();
 	   				editDelivery.PrintInstructions();
+   	   			}
+	   			else if(viewListener.getClass().getName().contains("CreateDeliveryTicketScreen1"))
+   	   			{
+	   				CreateDeliveryTicketScreen1 newDelivery = (CreateDeliveryTicketScreen1)viewListener.GetView();
+	   				newDelivery.PrintInstructions();
    	   			}
    				System.out.println(buttonID + " was pressed");
     			break;
