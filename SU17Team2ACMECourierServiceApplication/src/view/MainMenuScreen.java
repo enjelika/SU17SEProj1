@@ -30,7 +30,7 @@ public class MainMenuScreen extends JPanel
 	 */
 	private static final long serialVersionUID = -7354190704598226135L;
 	
-	private JButton adminMenuButton, customerMaintenanceButton, deliveryTicketButton, reportsButton, settingsButton, logoutButton;
+	private JButton adminMenuButton, customerMaintenanceButton, deliveryTicketButton, reportsButton, settingsButton, updateMapButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel mainMenuContainer, mainPane, imgContainer;
 
@@ -61,7 +61,7 @@ public class MainMenuScreen extends JPanel
 		// Set the Logo image for the North part of the window
 		try 
 		{ 
-			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "smACMECourierServiceLogo.png"));
+			acmeCourierServiceLogo = ImageIO.read(new File(filePath + separator + "images" + separator + "exSmACMECourierServiceLogo.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -93,6 +93,10 @@ public class MainMenuScreen extends JPanel
     	// Settings Button
     	Image settingsButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "settingsButton.png");
     	settingsButton = new JButton(new ImageIcon(settingsButtonIcon));
+    	
+    	// Update Map Button
+    	Image updateMapButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "updateMapButton.png");
+    	updateMapButton = new JButton(new ImageIcon(updateMapButtonIcon));
     	
     	// Logout Button
 		Image logoutButtonIcon = Utility.getImage(filePath + separator + "images" + separator + "logoutButton.png");
@@ -163,9 +167,17 @@ public class MainMenuScreen extends JPanel
 		settingsButton.setName("settingsButton");
 		settingsButton.setOpaque(false);
 		settingsButton.setContentAreaFilled(false);
-		settingsButton.setBorder(new EmptyBorder(5, 75, 15, 75));
+		settingsButton.setBorder(new EmptyBorder(5, 75, 0, 75));
 		settingsButton.addActionListener(mainMenuController);
 		mainMenuContainer.add(settingsButton);
+
+        // -- Update Map Button
+		updateMapButton.setName("updateMapButton");
+		updateMapButton.setOpaque(false);
+		updateMapButton.setContentAreaFilled(false);
+		updateMapButton.setBorder(new EmptyBorder(5, 75, 15, 75));
+		updateMapButton.addActionListener(mainMenuController);
+		mainMenuContainer.add(updateMapButton);
 		
 		// --- end of Box for Menu buttons
 		
@@ -174,7 +186,7 @@ public class MainMenuScreen extends JPanel
 		logoutButton.setName("logoutButton");
 		logoutButton.setOpaque(false);
 		logoutButton.setContentAreaFilled(false);
-		logoutButton.setBorder(new EmptyBorder(49, 215, 0, 0));
+		logoutButton.setBorder(new EmptyBorder(0, 215, 0, 0));
 		logoutButton.addActionListener(mainMenuController);
 		mainPane.add(logoutButton, BorderLayout.SOUTH);
 		
