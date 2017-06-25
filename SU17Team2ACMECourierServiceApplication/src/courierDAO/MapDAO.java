@@ -6,21 +6,24 @@ import javax.persistence.Query;
 
 import courierPD.Map;
 
-public class MapDAO {
-	public static void saveMap(Map map) {
-		emDAO.getEM().persist(map);
+public class MapDAO
+{
+	// Save street segments to the db
+	public static void saveMap(List<Map> streetSegments) 
+	{
+		for(Map streetSegment : streetSegments) 
+		{
+			emDAO.getEM().persist(streetSegment);
+		}
 	}
-	
-		public static void addUser(Map map) {
-			emDAO.getEM().persist(map);
-		}
 
-		public static List<Map> listMap() {
-			Query query = emDAO.getEM().createQuery("SELECT m FROM map m");
-			@SuppressWarnings("unchecked")
-			List<Map> list= (List<Map>) query.getResultList();
+	// Get the list of street segments
+	public static List<Map> listMap()
+	{
+		Query query = emDAO.getEM().createQuery("SELECT m FROM map m");
+		@SuppressWarnings("unchecked")
+		List<Map> list= (List<Map>) query.getResultList();
 
-			return list;
-		}
-
+		return list;
+	}
 }

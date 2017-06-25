@@ -10,6 +10,7 @@
 		 <class>courierPD.Courier</class>
 		 <class>courierPD.Ticket</class>
 		 <class>courierPD.Map</class>
+		 <class>courierPD.Intersections</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sample" />

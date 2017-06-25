@@ -491,8 +491,6 @@ public class EditDeliveryTicketScreen extends JPanel
 		} catch (PrinterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-    	//boolean test = textcomp.print();
-    	
+		}    	
     }
 }

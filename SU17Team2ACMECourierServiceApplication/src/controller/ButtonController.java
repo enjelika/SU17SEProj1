@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import courierDAO.CompanyInfoDAO;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
+import courierDAO.IntersectionsDAO;
+import courierDAO.MapDAO;
 import courierDAO.TicketDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
@@ -33,6 +35,7 @@ import view.LoginScreen;
 import view.ReportCompanyPerformanceScreen;
 import view.ReportCourierPerformanceScreen;
 import view.ReportCustomerBillingScreen;
+import view.UpdateMapScreen;
 import view.UpdatePasswordScreen;
 import view.ViewListener;
 
@@ -518,7 +521,7 @@ public class ButtonController implements ActionListener
 	   					addCustomerScreen.ClearText();
 		   			}
 	   			}
-   	   			// Save for Edit Customer Screen ====== STILL WORKING ON THIS ONE
+   	   			// Save for Edit Customer Screen
    	   			else if(viewListener.getClass().getName().contains("EditCustomerScreen"))
 	   			{
    	   				EditCustomerScreen editCustomerView = (EditCustomerScreen)viewListener.GetView();
@@ -600,7 +603,8 @@ public class ButtonController implements ActionListener
 					userTransaction.begin();
 	   	   			TicketDAO.saveTicket(newticket);
 					userTransaction.commit();
-					JOptionPane.showMessageDialog(null, "Ticket was Created.", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
+					createDelivery.SetTicket(newticket);
+					JOptionPane.showMessageDialog(null, "Ticket was Created, with ID# " + newticket.GetTicketID() + ".", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
 	   			else if(viewListener.getClass().getName().contains("EditDeliveryTicketScreen"))
    	   			{
@@ -612,7 +616,18 @@ public class ButtonController implements ActionListener
 					userTransaction.commit();
 					JOptionPane.showMessageDialog(null, "Ticket was Edited.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
-   	   			System.out.println("Save button pressed...");
+   	   			else if(viewListener.getClass().getName().contains("UpdateMapScreen"))
+	   			{
+	   	   			UpdateMapScreen updateMapScreen = (UpdateMapScreen)viewListener.GetView();
+	   	   			updateMapScreen.updateMap();
+	   	   			EntityTransaction mapTransaction = emDAO.getEM().getTransaction();
+	   	   			mapTransaction.begin();
+	   	   			IntersectionsDAO.saveIntersections(updateMapScreen.intersections);
+	   	   			MapDAO.saveMap(updateMapScreen.streetSegments);
+	   	   			mapTransaction.commit();
+					JOptionPane.showMessageDialog(null, "Map was updated.", "Map View", JOptionPane.INFORMATION_MESSAGE);
+	   			}
+	   			System.out.println("Save button pressed...");
    				break;
    				
    			/*
@@ -767,6 +782,11 @@ public class ButtonController implements ActionListener
    	   			{
 	   				EditDeliveryTicketScreen editDelivery = (EditDeliveryTicketScreen)viewListener.GetView();
 	   				editDelivery.PrintInstructions();
+   	   			}
+	   			else if(viewListener.getClass().getName().contains("CreateDeliveryTicketScreen1"))
+   	   			{
+	   				CreateDeliveryTicketScreen1 newDelivery = (CreateDeliveryTicketScreen1)viewListener.GetView();
+	   				newDelivery.PrintInstructions();
    	   			}
    				System.out.println(buttonID + " was pressed");
     			break;
