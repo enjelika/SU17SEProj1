@@ -33,6 +33,11 @@ public class Intersections implements Serializable
 		
 	}
 	
+	public long getId()
+	{
+		return this.id;
+	}
+	
 	public String getStreet1()
 	{
 		return this.street1;

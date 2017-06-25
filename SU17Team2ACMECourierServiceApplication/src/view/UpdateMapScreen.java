@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -26,6 +28,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.IntersectionsDAO;
+import courierPD.Intersections;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -49,9 +53,21 @@ public class UpdateMapScreen extends JPanel
 					 fStAnd1stAve, fStAnd2ndAve, fStAnd3rdAve, fStAnd4thAve, fStAnd5thAve, fStAnd6thAve, fStAnd7thAve,
 					 gStAnd1stAve, gStAnd2ndAve, gStAnd3rdAve, gStAnd4thAve, gStAnd5thAve, gStAnd6thAve, gStAnd7thAve;
 					 
+	List<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
+	
     public UpdateMapScreen(ButtonController buttonController)
     {
     	mapButtonController = buttonController;
+    	
+    	// Set ViewListener
+		buttonController.setViewListener(new ViewListener()
+		{
+			public Object GetView() 
+			{
+				return UpdateMapScreen.this;
+			}			
+
+		});
     	
     	initCheckBoxes();
     	
@@ -93,6 +109,8 @@ public class UpdateMapScreen extends JPanel
     	logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
     	
     	SetUpView();
+    	
+    	loadCheckboxValues();
     }
     
     // Initialization of all the global check boxes
@@ -107,6 +125,14 @@ public class UpdateMapScreen extends JPanel
 		fStAnd1stAve = new JCheckBox();
 		gStAnd1stAve = new JCheckBox();
 		
+		checkboxes.add(aStAnd1stAve);
+		checkboxes.add(bStAnd1stAve);
+		checkboxes.add(cStAnd1stAve);
+		checkboxes.add(dStAnd1stAve);
+		checkboxes.add(eStAnd1stAve);
+		checkboxes.add(fStAnd1stAve);
+		checkboxes.add(gStAnd1stAve);
+		
 		// 2nd Street Intersections
 		aStAnd2ndAve = new JCheckBox();
 		bStAnd2ndAve = new JCheckBox();
@@ -115,6 +141,14 @@ public class UpdateMapScreen extends JPanel
 		eStAnd2ndAve = new JCheckBox();
 		fStAnd2ndAve = new JCheckBox();
 		gStAnd2ndAve = new JCheckBox();
+		
+		checkboxes.add(aStAnd2ndAve);
+		checkboxes.add(bStAnd2ndAve);
+		checkboxes.add(cStAnd2ndAve);
+		checkboxes.add(dStAnd2ndAve);
+		checkboxes.add(eStAnd2ndAve);
+		checkboxes.add(fStAnd2ndAve);
+		checkboxes.add(gStAnd2ndAve);
 		
 		// 3rd Street Intersections
 		aStAnd3rdAve = new JCheckBox();
@@ -125,6 +159,14 @@ public class UpdateMapScreen extends JPanel
 		fStAnd3rdAve = new JCheckBox();
 		gStAnd3rdAve = new JCheckBox();
 		
+		checkboxes.add(aStAnd3rdAve);
+		checkboxes.add(bStAnd3rdAve);
+		checkboxes.add(cStAnd3rdAve);
+		checkboxes.add(dStAnd3rdAve);
+		checkboxes.add(eStAnd3rdAve);
+		checkboxes.add(fStAnd3rdAve);
+		checkboxes.add(gStAnd3rdAve);
+		
 		// 4th Street Intersections
 		aStAnd4thAve = new JCheckBox();
 		bStAnd4thAve = new JCheckBox();
@@ -133,6 +175,14 @@ public class UpdateMapScreen extends JPanel
 		eStAnd4thAve = new JCheckBox();
 		fStAnd4thAve = new JCheckBox();
 		gStAnd4thAve = new JCheckBox();
+		
+		checkboxes.add(aStAnd4thAve);
+		checkboxes.add(bStAnd4thAve);
+		checkboxes.add(cStAnd4thAve);
+		checkboxes.add(dStAnd4thAve);
+		checkboxes.add(eStAnd4thAve);
+		checkboxes.add(fStAnd4thAve);
+		checkboxes.add(gStAnd4thAve);
 		
 		// 5th Street Intersections
 		aStAnd5thAve = new JCheckBox();
@@ -143,6 +193,14 @@ public class UpdateMapScreen extends JPanel
 		fStAnd5thAve = new JCheckBox();
 		gStAnd5thAve = new JCheckBox();
 		
+		checkboxes.add(aStAnd5thAve);
+		checkboxes.add(bStAnd5thAve);
+		checkboxes.add(cStAnd5thAve);
+		checkboxes.add(dStAnd5thAve);
+		checkboxes.add(eStAnd5thAve);
+		checkboxes.add(fStAnd5thAve);
+		checkboxes.add(gStAnd5thAve);
+		
 		// 6th Street Intersections
 		aStAnd6thAve = new JCheckBox();
 		bStAnd6thAve = new JCheckBox();
@@ -152,6 +210,14 @@ public class UpdateMapScreen extends JPanel
 		fStAnd6thAve = new JCheckBox();
 		gStAnd6thAve = new JCheckBox();
 		
+		checkboxes.add(aStAnd6thAve);
+		checkboxes.add(bStAnd6thAve);
+		checkboxes.add(cStAnd6thAve);
+		checkboxes.add(dStAnd6thAve);
+		checkboxes.add(eStAnd6thAve);
+		checkboxes.add(fStAnd6thAve);
+		checkboxes.add(gStAnd6thAve);
+		
 		// 7th Street Intersections
 		aStAnd7thAve = new JCheckBox();
 		bStAnd7thAve = new JCheckBox();
@@ -160,6 +226,14 @@ public class UpdateMapScreen extends JPanel
 		eStAnd7thAve = new JCheckBox();
 		fStAnd7thAve = new JCheckBox();
 		gStAnd7thAve = new JCheckBox();
+		
+		checkboxes.add(aStAnd7thAve);
+		checkboxes.add(bStAnd7thAve);
+		checkboxes.add(cStAnd7thAve);
+		checkboxes.add(dStAnd7thAve);
+		checkboxes.add(eStAnd7thAve);
+		checkboxes.add(fStAnd7thAve);
+		checkboxes.add(gStAnd7thAve);
     }
     
     public void SetUpView()
@@ -584,5 +658,30 @@ public class UpdateMapScreen extends JPanel
 		
 		mainPane.add(southButtonContainer, BorderLayout.SOUTH);
 		this.add(mainPane);
+    }
+    
+    // Load the checkbox values from db
+    public void loadCheckboxValues() 
+    {
+    	List<Intersections> intersections = IntersectionsDAO.listIntersections();
+    	try
+    	{
+    		for(Intersections intersection : intersections) 
+        	{
+        		if(intersection.getIsBlocked().equals("Y"))
+        		{
+        			checkboxes.get((int) intersection.getId() - 1).setSelected(false);
+        		}
+        		else 
+        		{
+        			checkboxes.get((int) intersection.getId() - 1).setSelected(true);
+        		}
+        		checkboxes.get((int) intersection.getId() - 1).repaint();
+        	}
+    	}
+    	catch(Exception ex)
+    	{
+    		System.out.println(ex);
+    	}
     }
 }
