@@ -43,6 +43,9 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+
 import controller.ButtonController;
 import courierDAO.CustomerDAO;
 import courierDAO.TicketDAO;
@@ -60,6 +63,7 @@ public class ReportCustomerBillingScreen extends JPanel
 	private JPanel mainPane, imgContainer, reportContainer, southButtonContainer, customerBillingReportViewer;
 	private JButton generateReportButton, printReportButton, backButton, logoutButton;
 	public JTable reportTable;
+	private DatePicker time;
 	
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
@@ -212,11 +216,12 @@ public class ReportCustomerBillingScreen extends JPanel
 				reportDateAndCycleContainer.add(reportStartDateLabel);
 			
 				// Report Start Date TextField
-				reportStartDateText = new JTextField("", 5);
-				reportStartDateText.setFont(new Font("Calibri", Font.PLAIN, 24));
-				reportStartDateText.setToolTipText("mm/dd/yy");
-				reportStartDateText.setText("mm/dd/yy");
-				reportDateAndCycleContainer.add(reportStartDateText);
+		    	DatePickerSettings settings = new DatePickerSettings();
+		    	settings.setVisibleClearButton(false);
+		    	time = new DatePicker(settings);
+		    	time.setDateToToday();
+		    	reportDateAndCycleContainer.add(time);
+				
 				
 				// Cycle radio buttons Label
 				JLabel cycleTypeRB = new JLabel();
@@ -315,7 +320,7 @@ public class ReportCustomerBillingScreen extends JPanel
 		try 
 		{ 
 			// Local variables
-			Date startDate = new SimpleDateFormat("MM/dd/yy").parse(reportStartDateText.getText());
+			Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(time.getDateStringOrEmptyString());
 			GregorianCalendar calendar = new GregorianCalendar();
 			calendar.setTime(startDate);
 			if(weeklyCycle.isSelected()) 
