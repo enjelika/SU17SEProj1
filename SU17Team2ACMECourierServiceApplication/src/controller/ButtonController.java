@@ -751,10 +751,9 @@ public class ButtonController implements ActionListener
    	   				Ticket cancelticket = cancelDelivery.GetTicket();
    	   				if(cancelticket != null)
    	   				{
-   	   					cancelticket.SetCanceled("Y");
    						EntityTransaction userTransaction = emDAO.getEM().getTransaction();
    						userTransaction.begin();
-   		   	   			TicketDAO.saveTicket(cancelticket);
+   		   	   			TicketDAO.deleteTicket(cancelticket);
    						userTransaction.commit();
    	   					JOptionPane.showMessageDialog(null, "Ticket was Canceled.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   				}
