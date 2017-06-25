@@ -27,7 +27,9 @@ import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
 import courierDAO.IntersectionsDAO;
+import courierDAO.MapDAO;
 import courierPD.Intersections;
+import courierPD.Map;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -53,6 +55,7 @@ public class UpdateMapScreen extends JPanel
 					 
 	private List<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 	public List<Intersections> intersections;
+	public List<Map> streetSegments;
 	
     public UpdateMapScreen(ButtonController buttonController)
     {
@@ -660,7 +663,7 @@ public class UpdateMapScreen extends JPanel
     }
     
     // Save the checkbox values into the db
-    public void saveCheckBoxValues()
+    private void saveCheckBoxValues()
     {
     	try
     	{
@@ -669,12 +672,52 @@ public class UpdateMapScreen extends JPanel
     		{
     			if(checkboxes.get(index).isSelected())
     			{
-    				
     				intersections.get(index).setIsBlocked("N");
     			}
     			else
     			{
     				intersections.get(index).setIsBlocked("Y");
+    			}
+    		}
+    	}
+    	catch(Exception ex)
+    	{
+    		System.out.println(ex);
+    	}
+    }
+    
+    // Update map
+    public void updateMap()
+    {
+    	saveCheckBoxValues();
+    	try
+    	{
+    		streetSegments = MapDAO.listMap();
+    		for(int index = 0; index < checkboxes.size(); index++) 
+    		{
+    			String street1 = intersections.get(index).getStreet1();
+    			String street2 = intersections.get(index).getStreet2();
+    			if(checkboxes.get(index).isSelected())
+    			{
+    				for(Map streetSegment : streetSegments) 
+    				{
+    					if(streetSegment.getIntersection1().contains(street1)
+            					&& streetSegment.getIntersection1().contains(street2))
+            			{
+    						streetSegment.setDistance(streetSegment.getDefaultDistance());
+            			}
+    				}
+    			}
+    			else
+    			{
+    				for(Map streetSegment : streetSegments) 
+    				{
+    					if(streetSegment.getIntersection1().contains(street1)
+            					&& streetSegment.getIntersection1().contains(street2))
+            			{
+    						streetSegment.setDistance(9999);
+            			}
+    				}
     			}
     		}
     	}

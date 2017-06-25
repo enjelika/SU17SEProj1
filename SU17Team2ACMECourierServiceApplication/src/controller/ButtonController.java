@@ -12,6 +12,7 @@ import courierDAO.CompanyInfoDAO;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
 import courierDAO.IntersectionsDAO;
+import courierDAO.MapDAO;
 import courierDAO.TicketDAO;
 import courierDAO.UserDAO;
 import courierDAO.emDAO;
@@ -617,10 +618,11 @@ public class ButtonController implements ActionListener
    	   			else if(viewListener.getClass().getName().contains("UpdateMapScreen"))
 	   			{
 	   	   			UpdateMapScreen updateMapScreen = (UpdateMapScreen)viewListener.GetView();
-	   	   			updateMapScreen.saveCheckBoxValues();
+	   	   			updateMapScreen.updateMap();
 	   	   			EntityTransaction mapTransaction = emDAO.getEM().getTransaction();
 	   	   			mapTransaction.begin();
 	   	   			IntersectionsDAO.saveIntersections(updateMapScreen.intersections);
+	   	   			MapDAO.saveMap(updateMapScreen.streetSegments);
 	   	   			mapTransaction.commit();
 					JOptionPane.showMessageDialog(null, "Map was updated.", "Map View", JOptionPane.INFORMATION_MESSAGE);
 	   			}

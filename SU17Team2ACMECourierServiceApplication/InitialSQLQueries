@@ -1,6 +1,8 @@
 INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('1', 'admin', 'Y', 'admin', 'admin');
 INSERT INTO `user` (`user_id`, `accesslevel`, `isactive`, `password`, `username`) VALUES ('2', 'user', 'Y', 'user', 'user');
+
 INSERT INTO `COMPANYINFO` (`name`, `address`, `billRate`, `bonusOnTime`, `bonusTimeVariance`, `costPerBlock`, `courierSpeed`, `deliveryTimeAllowance`, `pickUpTimeAllowance`) VALUES ('ACME Courier Service', '4th Ave and D Street', '10.00', '2.00', '5', '2', '2', '10', '10');
+
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1001, '1st Ave and D Street', 'Bickers & Bickers', 'Y');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1002, '2nd Ave and B Street', 'Slaughter & Slaugher', 'Y');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1003, '2nd Ave and F Street', 'Payne & Fears', 'Y');
@@ -12,225 +14,226 @@ INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VA
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1009, '7th Ave and G Street', 'Wright, Judge & Jury', 'Y');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1010, '6th Ave and D Street', 'Susan Liddy-Gates', 'Y');
 
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (1	,'1st Ave and A Street',	'1st Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (2	,'2nd Ave and A Street',	'2nd Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (3	,'3rd Ave and A Street',	'3rd Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (4	,'4th Ave and A Street',	'4th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (5	,'5th Ave and A Street',	'5th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (6	,'6th Ave and A Street',	'6th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (7	,'7th Ave and A Street',	'7th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (8	,'1st Ave and A Street',	'2nd Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (9	,'2nd Ave and A Street',	'3rd Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (10	,'3rd Ave and A Street',	'4th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (11	,'4th Ave and A Street',	'5th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (12	,'5th Ave and A Street',	'6th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (13	,'6th Ave and A Street',	'7th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (14	,'7th Ave and A Street',	'6th Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (15	,'6th Ave and A Street',	'5th Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (16	,'5th Ave and A Street',	'4th Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (17	,'4th Ave and A Street',	'3rd Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (18	,'3rd Ave and A Street',	'2nd Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (19	,'2nd Ave and A Street',	'1st Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (20	,'1st Ave and B Street',	'1st Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (21	,'2nd Ave and B Street',	'2nd Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (22	,'3rd Ave and B Street',	'3rd Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (23	,'4th Ave and B Street',	'4th Ave and A Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (24	,'5th Ave and B Street',	'5th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (25	,'6th Ave and B Street',	'6th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (26	,'7th Ave and B Street',	'7th Ave and A Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (27	,'1st Ave and B Street',	'2nd Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (28	,'2nd Ave and B Street',	'3rd Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (29	,'3rd Ave and B Street',	'4th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (30	,'4th Ave and B Street',	'5th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (31	,'5th Ave and B Street',	'6th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (32	,'6th Ave and B Street',	'7th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (33	,'7th Ave and B Street',	'6th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (34	,'6th Ave and B Street',	'5th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (35	,'5th Ave and B Street',	'4th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (36	,'4th Ave and B Street',	'3rd Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (37	,'3rd Ave and B Street',	'2nd Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (38	,'2nd Ave and B Street',	'1st Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (39	,'1st Ave and B Street',	'1st Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (40	,'2nd Ave and B Street',	'2nd Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (41	,'3rd Ave and B Street',	'3rd Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (42	,'4th Ave and B Street',	'4th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (43	,'5th Ave and B Street',	'5th Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (44	,'6th Ave and B Street',	'6th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (45	,'7th Ave and B Street',	'7th Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (46	,'1st Ave and C Street',	'1st Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (47	,'2nd Ave and C Street',	'2nd Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (48	,'3rd Ave and C Street',	'3rd Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (49	,'4th Ave and C Street',	'4th Ave and B Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (50	,'5th Ave and C Street',	'5th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (51	,'6th Ave and C Street',	'6th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (52	,'7th Ave and C Street',	'7th Ave and B Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (53	,'1st Ave and C Street',	'2nd Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (54	,'2nd Ave and C Street',	'3rd Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (55	,'3rd Ave and C Street',	'4th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (56	,'4th Ave and C Street',	'5th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (57	,'5th Ave and C Street',	'6th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (58	,'6th Ave and C Street',	'7th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (59	,'7th Ave and C Street',	'6th Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (60	,'6th Ave and C Street',	'5th Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (61	,'5th Ave and C Street',	'4th Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (62	,'4th Ave and C Street',	'3rd Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (63	,'3rd Ave and C Street',	'2nd Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (64	,'2nd Ave and C Street',	'1st Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (65	,'1st Ave and C Street',	'1st Ave and D Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (66	,'2nd Ave and C Street',	'2nd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (67	,'3rd Ave and C Street',	'3rd Ave and D Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (68	,'4th Ave and C Street',	'4th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (69	,'5th Ave and C Street',	'5th Ave and D Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (70	,'6th Ave and C Street',	'6th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (71	,'7th Ave and C Street',	'7th Ave and D Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (72	,'1st Ave and D Street',	'1st Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (73	,'2nd Ave and D Street',	'2nd Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (74	,'3rd Ave and D Street',	'3rd Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (75	,'4th Ave and D Street',	'4th Ave and C Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (76	,'5th Ave and D Street',	'5th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (77	,'6th Ave and D Street',	'6th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (78	,'7th Ave and D Street',	'7th Ave and C Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (79	,'1st Ave and D Street',	'2nd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (80	,'2nd Ave and D Street',	'3rd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (81	,'3rd Ave and D Street',	'4th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (82	,'4th Ave and D Street',	'5th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (83	,'5th Ave and D Street',	'6th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (84	,'6th Ave and D Street',	'7th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (85	,'7th Ave and D Street',	'6th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (86	,'6th Ave and D Street',	'5th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (87	,'5th Ave and D Street',	'4th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (88	,'4th Ave and D Street',	'3rd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (89	,'3rd Ave and D Street',	'2nd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (90	,'2nd Ave and D Street',	'1st Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (91	,'1st Ave and D Street',	'1st Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (92	,'2nd Ave and D Street',	'2nd Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (93	,'3rd Ave and D Street',	'3rd Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (94	,'4th Ave and D Street',	'4th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (95	,'5th Ave and D Street',	'5th Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (96	,'6th Ave and D Street',	'6th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (97	,'7th Ave and D Street',	'7th Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (98	,'1st Ave and E Street',	'1st Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (99	,'2nd Ave and E Street',	'2nd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (100,'3rd Ave and E Street',	'3rd Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (101,'4th Ave and E Street',	'4th Ave and D Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (102,'5th Ave and E Street',	'5th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (103,'6th Ave and E Street',	'6th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (104,'7th Ave and E Street',	'7th Ave and D Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (105,'1st Ave and E Street',	'2nd Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (106,'2nd Ave and E Street',	'3rd Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (107,'3rd Ave and E Street',	'4th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (108,'4th Ave and E Street',	'5th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (109,'5th Ave and E Street',	'6th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (110,'6th Ave and E Street',	'7th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (111,'7th Ave and E Street',	'6th Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (112,'6th Ave and E Street',	'5th Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (113,'5th Ave and E Street',	'4th Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (114,'4th Ave and E Street',	'3rd Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (115,'3rd Ave and E Street',	'2nd Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (116,'2nd Ave and E Street',	'1st Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (117,'1st Ave and E Street',	'1st Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (118,'2nd Ave and E Street',	'2nd Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (119,'3rd Ave and E Street',	'3rd Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (120,'4th Ave and E Street',	'4th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (121,'5th Ave and E Street',	'5th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (122,'6th Ave and E Street',	'6th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (123,'7th Ave and E Street',	'7th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (124,'1st Ave and F Street',	'1st Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (125,'2nd Ave and F Street',	'2nd Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (126,'3rd Ave and F Street',	'3rd Ave and E Street',	1, 'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (127,'4th Ave and F Street',	'4th Ave and E Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (128,'5th Ave and F Street',	'5th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (129,'6th Ave and F Street',	'6th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (130,'7th Ave and F Street',	'7th Ave and E Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (131,'1st Ave and F Street',	'2nd Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (132,'2nd Ave and F Street',	'3rd Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (133,'3rd Ave and F Street',	'4th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (134,'4th Ave and F Street',	'5th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (135,'5th Ave and F Street',	'6th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (136,'6th Ave and F Street',	'7th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (137,'7th Ave and F Street',	'6th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (138,'6th Ave and F Street',	'5th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (139,'5th Ave and F Street',	'4th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (140,'4th Ave and F Street',	'3rd Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (141,'3rd Ave and F Street',	'2nd Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (142,'2nd Ave and F Street',	'1st Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (143,'1st Ave and F Street',	'1st Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (144,'2nd Ave and F Street',	'2nd Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (145,'3rd Ave and F Street',	'3rd Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (146,'4th Ave and F Street',	'4th Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (147,'5th Ave and F Street',	'5th Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (148,'6th Ave and F Street',	'6th Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (149,'7th Ave and F Street',	'7th Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (150,'1st Ave and G Street',	'1st Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (151,'2nd Ave and G Street',	'2nd Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (152,'3rd Ave and G Street',	'3rd Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (153,'4th Ave and G Street',	'4th Ave and F Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (154,'5th Ave and G Street',	'5th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (155,'6th Ave and G Street',	'6th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (156,'7th Ave and G Street',	'7th Ave and F Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (157,'1st Ave and G Street',	'2nd Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (158,'2nd Ave and G Street',	'3rd Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (159,'3rd Ave and G Street',	'4th Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (160,'4th Ave and G Street',	'5th Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (161,'5th Ave and G Street',	'6th Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (162,'6th Ave and G Street',	'7th Ave and G Street',	1,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (163,'7th Ave and G Street',	'6th Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (164,'6th Ave and G Street',	'5th Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (165,'5th Ave and G Street',	'4th Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (166,'4th Ave and G Street',	'3rd Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (167,'3rd Ave and G Street',	'2nd Ave and G Street',	9999,	'Y');
-INSERT INTO `map`(`map_id`, `intersection1`, `intersection2`, `distance`, `isactive`) VALUES (168,'2nd Ave and G Street',	'1st Ave and G Street',	9999,	'Y');
+INSERT INTO INTERSECTIONS(id, Street1, Street2, IsBlocked) VALUES
+	  (1, 'A Street','1st Ave','N'),
+	  (2, 'B Street','1st Ave','N'),
+	  (3, 'C Street','1st Ave','N'),
+	  (4, 'D Street','1st Ave','N'),
+	  (5, 'E Street','1st Ave','N'),
+	  (6, 'F Street','1st Ave','N'),
+	  (7, 'G Street','1st Ave','N'),
+	  (8, 'A Street','2nd Ave','N'),
+	  (9, 'B Street','2nd Ave','N'),
+	  (10, 'C Street','2nd Ave','N'),
+	  (11, 'D Street','2nd Ave','N'),
+	  (12, 'E Street','2nd Ave','N'),
+	  (13, 'F Street','2nd Ave','N'),
+	  (14, 'G Street','2nd Ave','N'),
+	  (15, 'A Street','3rd Ave','N'),
+	  (16, 'B Street','3rd Ave','N'),
+	  (17, 'C Street','3rd Ave','N'),
+	  (18, 'D Street','3rd Ave','N'),
+	  (19, 'E Street','3rd Ave','N'),
+	  (20, 'F Street','3rd Ave','N'),
+	  (21, 'G Street','3rd Ave','N'),
+	  (22, 'A Street','4th Ave','N'),
+	  (23, 'B Street','4th Ave','N'),
+	  (24, 'C Street','4th Ave','N'),
+	  (25, 'D Street','4th Ave','N'),
+	  (26, 'E Street','4th Ave','N'),
+	  (27, 'F Street','4th Ave','N'),
+	  (28, 'G Street','4th Ave','N'),
+	  (29, 'A Street','5th Ave','N'),
+	  (30, 'B Street','5th Ave','N'),
+	  (31, 'C Street','5th Ave','N'),
+	  (32, 'D Street','5th Ave','N'),
+	  (33, 'E Street','5th Ave','N'),
+	  (34, 'F Street','5th Ave','N'),
+	  (35, 'G Street','5th Ave','N'),
+	  (36, 'A Street','6th Ave','N'),
+	  (37, 'B Street','6th Ave','N'),
+	  (38, 'C Street','6th Ave','N'),
+	  (39, 'D Street','6th Ave','N'),
+	  (40, 'E Street','6th Ave','N'),
+	  (41, 'F Street','6th Ave','N'),
+	  (42, 'G Street','6th Ave','N'),
+	  (43, 'A Street','7th Ave','N'),
+	  (44, 'B Street','7th Ave','N'),
+	  (45, 'C Street','7th Ave','N'),
+	  (46, 'D Street','7th Ave','N'),
+	  (47, 'E Street','7th Ave','N'),
+	  (48, 'F Street','7th Ave','N'),
+	  (49, 'G Street','7th Ave','N');
+	
+INSERT INTO MAP(streetSegmentId, intersection1, intersection2, distance, defaultDistance) VALUES
+	(1,'1st Ave and A Street','1st Ave and B Street',9999,9999),
+	(2,'2nd Ave and A Street','2nd Ave and B Street',1,1),
+	(3,'3rd Ave and A Street','3rd Ave and B Street',9999,9999),
+	(4,'4th Ave and A Street','4th Ave and B Street',1,1),
+	(5,'5th Ave and A Street','5th Ave and B Street',9999,9999),
+	(6,'6th Ave and A Street','6th Ave and B Street',1,1),
+	(7,'7th Ave and A Street','7th Ave and B Street',9999,9999),
+	(8,'1st Ave and A Street','2nd Ave and A Street',1,1),
+	(9,'2nd Ave and A Street','3rd Ave and A Street',1,1),
+	(10,'3rd Ave and A Street','4th Ave and A Street',1,1),
+	(11,'4th Ave and A Street','5th Ave and A Street',1,1),
+	(12,'5th Ave and A Street','6th Ave and A Street',1,1),
+	(13,'6th Ave and A Street','7th Ave and A Street',1,1),
+	(14,'7th Ave and A Street','6th Ave and A Street',9999,9999),
+	(15,'6th Ave and A Street','5th Ave and A Street',9999,9999),
+	(16,'5th Ave and A Street','4th Ave and A Street',9999,9999),
+	(17,'4th Ave and A Street','3rd Ave and A Street',9999,9999),
+	(18,'3rd Ave and A Street','2nd Ave and A Street',9999,9999),
+	(19,'2nd Ave and A Street','1st Ave and A Street',9999,9999),
+	(20,'1st Ave and B Street','1st Ave and A Street',1,1),
+	(21,'2nd Ave and B Street','2nd Ave and A Street',1,1),
+	(22,'3rd Ave and B Street','3rd Ave and A Street',1,1),
+	(23,'4th Ave and B Street','4th Ave and A Street',9999,9999),
+	(24,'5th Ave and B Street','5th Ave and A Street',1,1),
+	(25,'6th Ave and B Street','6th Ave and A Street',1,1),
+	(26,'7th Ave and B Street','7th Ave and A Street',1,1),
+	(27,'1st Ave and B Street','2nd Ave and B Street',9999,9999),
+	(28,'2nd Ave and B Street','3rd Ave and B Street',9999,9999),
+	(29,'3rd Ave and B Street','4th Ave and B Street',9999,9999),
+	(30,'4th Ave and B Street','5th Ave and B Street',9999,9999),
+	(31,'5th Ave and B Street','6th Ave and B Street',9999,9999),
+	(32,'6th Ave and B Street','7th Ave and B Street',9999,9999),
+	(33,'7th Ave and B Street','6th Ave and B Street',1,1),
+	(34,'6th Ave and B Street','5th Ave and B Street',1,1),
+	(35,'5th Ave and B Street','4th Ave and B Street',1,1),
+	(36,'4th Ave and B Street','3rd Ave and B Street',1,1),
+	(37,'3rd Ave and B Street','2nd Ave and B Street',1,1),
+	(38,'2nd Ave and B Street','1st Ave and B Street',1,1),
+	(39,'1st Ave and B Street','1st Ave and C Street',9999,9999),
+	(40,'2nd Ave and B Street','2nd Ave and C Street',1,1),
+	(41,'3rd Ave and B Street','3rd Ave and C Street',9999,9999),
+	(42,'4th Ave and B Street','4th Ave and C Street',1,1),
+	(43,'5th Ave and B Street','5th Ave and C Street',9999,9999),
+	(44,'6th Ave and B Street','6th Ave and C Street',1,1),
+	(45,'7th Ave and B Street','7th Ave and C Street',9999,9999),
+	(46,'1st Ave and C Street','1st Ave and B Street',1,1),
+	(47,'2nd Ave and C Street','2nd Ave and B Street',1,1),
+	(48,'3rd Ave and C Street','3rd Ave and B Street',1,1),
+	(49,'4th Ave and C Street','4th Ave and B Street',9999,9999),
+	(50,'5th Ave and C Street','5th Ave and B Street',1,1),
+	(51,'6th Ave and C Street','6th Ave and B Street',1,1),
+	(52,'7th Ave and C Street','7th Ave and B Street',1,1),
+	(53,'1st Ave and C Street','2nd Ave and C Street',1,1),
+	(54,'2nd Ave and C Street','3rd Ave and C Street',1,1),
+	(55,'3rd Ave and C Street','4th Ave and C Street',1,1),
+	(56,'4th Ave and C Street','5th Ave and C Street',1,1),
+	(57,'5th Ave and C Street','6th Ave and C Street',1,1),
+	(58,'6th Ave and C Street','7th Ave and C Street',1,1),
+	(59,'7th Ave and C Street','6th Ave and C Street',9999,9999),
+	(60,'6th Ave and C Street','5th Ave and C Street',9999,9999),
+	(61,'5th Ave and C Street','4th Ave and C Street',9999,9999),
+	(62,'4th Ave and C Street','3rd Ave and C Street',9999,9999),
+	(63,'3rd Ave and C Street','2nd Ave and C Street',9999,9999),
+	(64,'2nd Ave and C Street','1st Ave and C Street',9999,9999),
+	(65,'1st Ave and C Street','1st Ave and D Street',9999,9999),
+	(66,'2nd Ave and C Street','2nd Ave and D Street',1,1),
+	(67,'3rd Ave and C Street','3rd Ave and D Street',9999,9999),
+	(68,'4th Ave and C Street','4th Ave and D Street',1,1),
+	(69,'5th Ave and C Street','5th Ave and D Street',9999,9999),
+	(70,'6th Ave and C Street','6th Ave and D Street',1,1),
+	(71,'7th Ave and C Street','7th Ave and D Street',9999,9999),
+	(72,'1st Ave and D Street','1st Ave and C Street',1,1),
+	(73,'2nd Ave and D Street','2nd Ave and C Street',1,1),
+	(74,'3rd Ave and D Street','3rd Ave and C Street',1,1),
+	(75,'4th Ave and D Street','4th Ave and C Street',9999,9999),
+	(76,'5th Ave and D Street','5th Ave and C Street',1,1),
+	(77,'6th Ave and D Street','6th Ave and C Street',1,1),
+	(78,'7th Ave and D Street','7th Ave and C Street',1,1),
+	(79,'1st Ave and D Street','2nd Ave and D Street',1,1),
+	(80,'2nd Ave and D Street','3rd Ave and D Street',1,1),
+	(81,'3rd Ave and D Street','4th Ave and D Street',1,1),
+	(82,'4th Ave and D Street','5th Ave and D Street',1,1),
+	(83,'5th Ave and D Street','6th Ave and D Street',1,1),
+	(84,'6th Ave and D Street','7th Ave and D Street',1,1),
+	(85,'7th Ave and D Street','6th Ave and D Street',1,1),
+	(86,'6th Ave and D Street','5th Ave and D Street',1,1),
+	(87,'5th Ave and D Street','4th Ave and D Street',1,1),
+	(88,'4th Ave and D Street','3rd Ave and D Street',1,1),
+	(89,'3rd Ave and D Street','2nd Ave and D Street',1,1),
+	(90,'2nd Ave and D Street','1st Ave and D Street',1,1),
+	(91,'1st Ave and D Street','1st Ave and E Street',9999,9999),
+	(92,'2nd Ave and D Street','2nd Ave and E Street',1,1),
+	(93,'3rd Ave and D Street','3rd Ave and E Street',9999,9999),
+	(94,'4th Ave and D Street','4th Ave and E Street',1,1),
+	(95,'5th Ave and D Street','5th Ave and E Street',9999,9999),
+	(96,'6th Ave and D Street','6th Ave and E Street',1,1),
+	(97,'7th Ave and D Street','7th Ave and E Street',9999,9999),
+	(98,'1st Ave and E Street','1st Ave and D Street',1,1),
+	(99,'2nd Ave and E Street','2nd Ave and D Street',1,1),
+	(100,'3rd Ave and E Street','3rd Ave and D Street',1,1),
+	(101,'4th Ave and E Street','4th Ave and D Street',9999,9999),
+	(102,'5th Ave and E Street','5th Ave and D Street',1,1),
+	(103,'6th Ave and E Street','6th Ave and D Street',1,1),
+	(104,'7th Ave and E Street','7th Ave and D Street',1,1),
+	(105,'1st Ave and E Street','2nd Ave and E Street',1,1),
+	(106,'2nd Ave and E Street','3rd Ave and E Street',1,1),
+	(107,'3rd Ave and E Street','4th Ave and E Street',1,1),
+	(108,'4th Ave and E Street','5th Ave and E Street',1,1),
+	(109,'5th Ave and E Street','6th Ave and E Street',1,1),
+	(110,'6th Ave and E Street','7th Ave and E Street',1,1),
+	(111,'7th Ave and E Street','6th Ave and E Street',9999,9999),
+	(112,'6th Ave and E Street','5th Ave and E Street',9999,9999),
+	(113,'5th Ave and E Street','4th Ave and E Street',9999,9999),
+	(114,'4th Ave and E Street','3rd Ave and E Street',9999,9999),
+	(115,'3rd Ave and E Street','2nd Ave and E Street',9999,9999),
+	(116,'2nd Ave and E Street','1st Ave and E Street',9999,9999),
+	(117,'1st Ave and E Street','1st Ave and F Street',9999,9999),
+	(118,'2nd Ave and E Street','2nd Ave and F Street',1,1),
+	(119,'3rd Ave and E Street','3rd Ave and F Street',9999,9999),
+	(120,'4th Ave and E Street','4th Ave and F Street',1,1),
+	(121,'5th Ave and E Street','5th Ave and F Street',9999,9999),
+	(122,'6th Ave and E Street','6th Ave and F Street',1,1),
+	(123,'7th Ave and E Street','7th Ave and F Street',9999,9999),
+	(124,'1st Ave and F Street','1st Ave and E Street',1,1),
+	(125,'2nd Ave and F Street','2nd Ave and E Street',1,1),
+	(126,'3rd Ave and F Street','3rd Ave and E Street',1,1),
+	(127,'4th Ave and F Street','4th Ave and E Street',9999,9999),
+	(128,'5th Ave and F Street','5th Ave and E Street',1,1),
+	(129,'6th Ave and F Street','6th Ave and E Street',1,1),
+	(130,'7th Ave and F Street','7th Ave and E Street',1,1),
+	(131,'1st Ave and F Street','2nd Ave and F Street',9999,9999),
+	(132,'2nd Ave and F Street','3rd Ave and F Street',9999,9999),
+	(133,'3rd Ave and F Street','4th Ave and F Street',9999,9999),
+	(134,'4th Ave and F Street','5th Ave and F Street',9999,9999),
+	(135,'5th Ave and F Street','6th Ave and F Street',9999,9999),
+	(136,'6th Ave and F Street','7th Ave and F Street',9999,9999),
+	(137,'7th Ave and F Street','6th Ave and F Street',1,1),
+	(138,'6th Ave and F Street','5th Ave and F Street',1,1),
+	(139,'5th Ave and F Street','4th Ave and F Street',1,1),
+	(140,'4th Ave and F Street','3rd Ave and F Street',1,1),
+	(141,'3rd Ave and F Street','2nd Ave and F Street',1,1),
+	(142,'2nd Ave and F Street','1st Ave and F Street',1,1),
+	(143,'1st Ave and F Street','1st Ave and G Street',9999,9999),
+	(144,'2nd Ave and F Street','2nd Ave and G Street',1,1),
+	(145,'3rd Ave and F Street','3rd Ave and G Street',9999,9999),
+	(146,'4th Ave and F Street','4th Ave and G Street',1,1),
+	(147,'5th Ave and F Street','5th Ave and G Street',9999,9999),
+	(148,'6th Ave and F Street','6th Ave and G Street',1,1),
+	(149,'7th Ave and F Street','7th Ave and G Street',9999,9999),
+	(150,'1st Ave and G Street','1st Ave and F Street',1,1),
+	(151,'2nd Ave and G Street','2nd Ave and F Street',1,1),
+	(152,'3rd Ave and G Street','3rd Ave and F Street',1,1),
+	(153,'4th Ave and G Street','4th Ave and F Street',9999,9999),
+	(154,'5th Ave and G Street','5th Ave and F Street',1,1),
+	(155,'6th Ave and G Street','6th Ave and F Street',1,1),
+	(156,'7th Ave and G Street','7th Ave and F Street',1,1),
+	(157,'1st Ave and G Street','2nd Ave and G Street',1,1),
+	(158,'2nd Ave and G Street','3rd Ave and G Street',1,1),
+	(159,'3rd Ave and G Street','4th Ave and G Street',1,1),
+	(160,'4th Ave and G Street','5th Ave and G Street',1,1),
+	(161,'5th Ave and G Street','6th Ave and G Street',1,1),
+	(162,'6th Ave and G Street','7th Ave and G Street',1,1),
+	(163,'7th Ave and G Street','6th Ave and G Street',9999,9999),
+	(164,'6th Ave and G Street','5th Ave and G Street',9999,9999),
+	(165,'5th Ave and G Street','4th Ave and G Street',9999,9999),
+	(166,'4th Ave and G Street','3rd Ave and G Street',9999,9999),
+	(167,'3rd Ave and G Street','2nd Ave and G Street',9999,9999),
+	(168,'2nd Ave and G Street','1st Ave and G Street',9999,9999);
 
-
-INSERT INTO INTERSECTIONS(id, Street1,Street2,IsBlocked) VALUES
-  (1, 'A Street','1st Ave','N'),
-  (2, 'B Street','1st Ave','N'),
-  (3, 'C Street','1st Ave','N'),
-  (4, 'D Street','1st Ave','N'),
-  (5, 'E Street','1st Ave','N'),
-  (6, 'F Street','1st Ave','N'),
-  (7, 'G Street','1st Ave','N'),
-  (8, 'A Street','2nd Ave','N'),
-  (9, 'B Street','2nd Ave','N'),
-  (10, 'C Street','2nd Ave','N'),
-  (11, 'D Street','2nd Ave','N'),
-  (12, 'E Street','2nd Ave','N'),
-  (13, 'F Street','2nd Ave','N'),
-  (14, 'G Street','2nd Ave','N'),
-  (15, 'A Street','3rd Ave','N'),
-  (16, 'B Street','3rd Ave','N'),
-  (17, 'C Street','3rd Ave','N'),
-  (18, 'D Street','3rd Ave','N'),
-  (19, 'E Street','3rd Ave','N'),
-  (20, 'F Street','3rd Ave','N'),
-  (21, 'G Street','3rd Ave','N'),
-  (22, 'A Street','4th Ave','N'),
-  (23, 'B Street','4th Ave','N'),
-  (24, 'C Street','4th Ave','N'),
-  (25, 'D Street','4th Ave','N'),
-  (26, 'E Street','4th Ave','N'),
-  (27, 'F Street','4th Ave','N'),
-  (28, 'G Street','4th Ave','N'),
-  (29, 'A Street','5th Ave','N'),
-  (30, 'B Street','5th Ave','N'),
-  (31, 'C Street','5th Ave','N'),
-  (32, 'D Street','5th Ave','N'),
-  (33, 'E Street','5th Ave','N'),
-  (34, 'F Street','5th Ave','N'),
-  (35, 'G Street','5th Ave','N'),
-  (36, 'A Street','6th Ave','N'),
-  (37, 'B Street','6th Ave','N'),
-  (38, 'C Street','6th Ave','N'),
-  (39, 'D Street','6th Ave','N'),
-  (40, 'E Street','6th Ave','N'),
-  (41, 'F Street','6th Ave','N'),
-  (42, 'G Street','6th Ave','N'),
-  (43, 'A Street','7th Ave','N'),
-  (44, 'B Street','7th Ave','N'),
-  (45, 'C Street','7th Ave','N'),
-  (46, 'D Street','7th Ave','N'),
-  (47, 'E Street','7th Ave','N'),
-  (48, 'F Street','7th Ave','N'),
-  (49, 'G Street','7th Ave','N');
-
-
+	
+	

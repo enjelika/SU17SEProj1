@@ -12,9 +12,9 @@ public class Map {
 private static final long serialVersionUID = 1L;
 	
 	@Id //signifies the primary key
-    @Column(name = "map_id", nullable = false)
+    @Column(name = "streetSegmentId", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private long mapId;
+	private long streetSegmentId;
 	
 	@Column(name = "intersection1", nullable = false,length = 75, unique=false)
 	private String intersection1;
@@ -25,23 +25,13 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "distance", nullable = false,length = 10)
 	private int distance;
 	
-	@Column(name = "isactive", nullable = false,length = 1)
-	private String isActive;
+	@Column(name = "defaultDistance", nullable = false,length = 10)
+	private int defaultDistance;
 
 	public Map()
 	{
 		
 	}
-	
-	public Map(String intersection1, String intersection2, int distance, String isactive)
-	{
-		this();
-		this.intersection1 = intersection1;
-		this.intersection2 = intersection2;
-		this.distance = distance;
-		this.isActive = isactive;
-	}
-	
 
 	public String getIntersection1()
 	{
@@ -73,13 +63,13 @@ private static final long serialVersionUID = 1L;
 		this.distance = distance;
 	}
 	
-	public String getIsActive()
+	public void setDefaultDistance(int defaultDistance)
 	{
-		return this.isActive;
+		this.defaultDistance = defaultDistance;
 	}
 	
-	public void setIsActive(String isActive)
+	public int getDefaultDistance()
 	{
-		this.isActive = isActive;
+		return defaultDistance;
 	}
 }
