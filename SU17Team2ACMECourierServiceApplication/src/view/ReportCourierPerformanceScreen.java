@@ -379,7 +379,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 			String description = courierId + "                                                 " 
 									+ courierName + "\n" + reportCycleDate + "\n" + totalDeliveredPackage + "\n"
 									+ percentOnTimeDelivery;
-			headerText.setFont(new Font("Serif", Font.BOLD, 16));
+			headerText.setFont(new Font("Serif", Font.BOLD, 12));
 			headerText.setEditable(false);  
 		    headerText.setOpaque(false);  
 		    headerText.setFocusable(false);
@@ -388,14 +388,14 @@ public class ReportCourierPerformanceScreen extends JPanel
 			
 			// Create table data for report and add it into the report template
 			reportTable = new JTable(rowData, Header);
-			reportTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
-			reportTable.setFont(new Font("Serif", Font.BOLD, 16));
+			reportTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
+			reportTable.setFont(new Font("Serif", Font.BOLD, 12));
 			reportTable.setRowHeight(18);
 			reportTable.setEnabled(false);
 			reportTable.setShowHorizontalLines(true);
 			reportTable.setGridColor(Color.black);
 			JScrollPane reportTableScroller = new JScrollPane(reportTable);
-			reportTableScroller.setPreferredSize(new Dimension(850, 255));
+			reportTableScroller.setPreferredSize(new Dimension(600, 255));
 			reportTableScroller.setAutoscrolls(true);
 			reportTemplate.add(reportTableScroller, BorderLayout.CENTER);
 			
