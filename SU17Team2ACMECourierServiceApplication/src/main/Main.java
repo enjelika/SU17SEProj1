@@ -16,7 +16,7 @@ public class Main extends JFrame
 	public static void main(String[] args)
 	{
 		/**
-		 *  The Model (think of this as our Repository class from work - hence why it is static)
+		 *  The Model
 		 */
 		model = new Model();
 		
