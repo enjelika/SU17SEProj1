@@ -360,14 +360,14 @@ public class ReportCourierPerformanceScreen extends JPanel
 			{
 				try
 			    {
-					Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
-				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
-					
 				    rowData[row][0] = ticket.GetTicketID();
 					rowData[row][1] = ticket.GetEstimatedDeliveryTime();
 					rowData[row][2] = ticket.GetDeliveryTime();
 					
-					if(Math.abs((deliveryDate.getTime() / One_Minute_In_Millis) - (estimatedDeliveryTime.getTime() / One_Minute_In_Millis)) <= ticket.GetBonusTimeVariance())
+					Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+					
+				    if(Math.abs((deliveryDate.getTime() / One_Minute_In_Millis) - (estimatedDeliveryTime.getTime() / One_Minute_In_Millis)) <= ticket.GetBonusTimeVariance())
 					{
 						rowData[row][3] = "Yes";
 					}
