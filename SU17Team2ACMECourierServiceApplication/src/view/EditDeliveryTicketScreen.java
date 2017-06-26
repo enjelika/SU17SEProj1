@@ -459,6 +459,9 @@ public class EditDeliveryTicketScreen extends JPanel
     {
     	currentTicket = ticket;
     	estDeliveryTimeText.setText(ticket.GetEstimatedDeliveryTime());	
+    	pickUpTimeText.setText(ticket.GetPickupTime());
+    	deliveryTimeText.setText(ticket.GetDeliveryTime());
+    	courierNameCB.setSelectedItem(ticket.GetCourier().getName());
     }
 	
     private String GetCompanyAddress() {

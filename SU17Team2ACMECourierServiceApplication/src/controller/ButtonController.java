@@ -614,7 +614,7 @@ public class ButtonController implements ActionListener
 					userTransaction.begin();
 	   	   			TicketDAO.saveTicket(editticket);
 					userTransaction.commit();
-					JOptionPane.showMessageDialog(null, "Ticket was Edited.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Update Successful.", "Edit Ticket", JOptionPane.INFORMATION_MESSAGE);
    	   			}
    	   			else if(viewListener.getClass().getName().contains("UpdateMapScreen"))
 	   			{
