@@ -597,6 +597,12 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		if(pickupCustomer != null && deliveryCustomer != null)
 		{
 			SetEstimatedBlocksAndCost();
+			if(!CanMakeDelivery())
+			{
+				quotedPriceText.setText("N/A");
+				estDeliveryTimeText.setText("N/A");
+				estBlocksText.setText("N/A");
+			}
 		}
 	}
 	
