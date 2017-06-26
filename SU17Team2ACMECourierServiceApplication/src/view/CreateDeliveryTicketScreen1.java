@@ -85,12 +85,14 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     private int deliveryDistance;
     
     private Ticket currentTicket;
+    private CompanyInfo company;
     
     private ButtonController deliveryTicket1Controller;
     
     public CreateDeliveryTicketScreen1(ButtonController buttonController)
     {
     	deliveryTicket1Controller = buttonController;
+    	company = CompanyInfoDAO.findCompanyInfo("");
     	
 		courierNameCB = new JComboBox<String>();
     	    
@@ -617,7 +619,6 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     
 	private void SetEstimatedCostAndTime(int blocks)
 	{
-		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
 		quotedPriceText.setText(String.valueOf(blocks * company.getCostPerBlock() + company.getBillRate()));
 		if(!time.getTimeStringOrEmptyString().equals(""))
 		{
@@ -628,10 +629,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	}
 	
     private String GetCompanyAddress() {
-		String companyAddress = "";
-		
-		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
-		companyAddress = company.getAddress();
+		String companyAddress = company.getAddress();
 		return companyAddress;
 	}
 
@@ -653,7 +651,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		Ticket currentTicket = new Ticket();
 		currentTicket.SetPickupCustomer(pickupCustomer);
 		currentTicket.SetDeliveryCustomer(deliveryCustomer);
-		currentTicket.SetPickupTime(time.getTimeStringOrEmptyString());
+		currentTicket.SetRequestedPickupTime(time.getTimeStringOrEmptyString());
 		currentTicket.SetEstimatedDeliveryTime(estDeliveryTimeText.getText());
 		if(pickUpSelection.isSelected())
 			currentTicket.SetPayee(pickupCustomer);
@@ -661,6 +659,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			currentTicket.SetPayee(deliveryCustomer);
 		currentTicket.SetCost(quotedPriceText.getText());
 		currentTicket.SetCreatedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		currentTicket.SetCostVariance(company.getBonusTimeVariance()); 
 		return currentTicket;
 	}
 	
@@ -687,7 +686,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	    		JTextArea text = new JTextArea();
 	    		text.setText("Ticket ID: "
 	                    + currentTicket.GetTicketID() + "\nPickup Time: "
-	                    + currentTicket.GetPickupTime() + "\nPickup Customer: " + currentTicket.GetPickupCustomer().getName()
+	                    + currentTicket.GetRequestedPickupTime() + "\nPickup Customer: " + currentTicket.GetPickupCustomer().getName()
 	                    + "\nDelivery Customer: " + currentTicket.GetDeliveryCustomer().getName()
 	                    + "\n\n" + streetMap.Direction);
 				text.print();

@@ -68,12 +68,14 @@ public class EditDeliveryTicketScreen extends JPanel
     String dateText, timeText, packageID;
     
     private Ticket currentTicket;
+    private CompanyInfo company;
     
     private ButtonController editDeliveryTicketController;
     
     public EditDeliveryTicketScreen(ButtonController buttonController)
     {
     	editDeliveryTicketController = buttonController;
+    	company = CompanyInfoDAO.findCompanyInfo("");
     	
 		courierNameCB = new JComboBox<String>(); 
 		
@@ -447,6 +449,7 @@ public class EditDeliveryTicketScreen extends JPanel
 		currentTicket.SetPickupTime(pickUpTimeText.getText());
 		currentTicket.SetDeliveryTime(deliveryTimeText.getText());
 		currentTicket.SetCourier(activeCourier);
+		currentTicket.SetCostVariance(company.getBonusTimeVariance());
 		return currentTicket;
 	}
 	
@@ -459,15 +462,20 @@ public class EditDeliveryTicketScreen extends JPanel
     {
     	currentTicket = ticket;
     	estDeliveryTimeText.setText(ticket.GetEstimatedDeliveryTime());	
-    	pickUpTimeText.setText(ticket.GetPickupTime());
-    	deliveryTimeText.setText(ticket.GetDeliveryTime());
-    	courierNameCB.setSelectedItem(ticket.GetCourier().getName());
+    	if(ticket.GetPickupTime() == null)
+    		pickUpTimeText.setText("");
+    	else
+    		pickUpTimeText.setText(ticket.GetPickupTime());
+    	if(ticket.GetDeliveryTime() == null)
+    		deliveryTimeText.setText("");
+    	else
+    		deliveryTimeText.setText(ticket.GetDeliveryTime());
+    	if(ticket.GetCourier() != null)
+    		courierNameCB.setSelectedItem(ticket.GetCourier().getName());
     }
 	
     private String GetCompanyAddress() {
 		String companyAddress = "";
-		
-		CompanyInfo company = CompanyInfoDAO.findCompanyInfo("");
 		companyAddress = company.getAddress();
 		return companyAddress;
 	}
@@ -490,7 +498,7 @@ public class EditDeliveryTicketScreen extends JPanel
 	    		JTextArea text = new JTextArea();
 	    		text.setText("Ticket ID: "
 	                    + currentTicket.GetTicketID() + "\nPickup Time: "
-	                    + currentTicket.GetPickupTime() + "\nPickup Customer: " + currentTicket.GetPickupCustomer().getName()
+	                    + currentTicket.GetRequestedPickupTime() + "\nPickup Customer: " + currentTicket.GetPickupCustomer().getName()
 	                    + "\nDelivery Customer: " + currentTicket.GetDeliveryCustomer().getName()
 	                    + "\n\n" + streetMap.Direction);
 				text.print();

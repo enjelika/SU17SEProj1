@@ -30,6 +30,9 @@ private static final long serialVersionUID = 1L;
 	@JoinColumn(name = "deliverycustomer",referencedColumnName="customer_id") 
 	private Customer deliverycustomer;
 	
+	@Column(name = "requestedpickuptime", nullable = true,length = 10)
+	private String requestedpickuptime;
+	
 	@Column(name = "pickuptime", nullable = true,length = 10)
 	private String pickuptime;
 	
@@ -50,6 +53,9 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "cost", nullable = false,length = 10)
 	private String cost;
 	
+	@Column(name = "costvariance", nullable = false,length = 10)
+	private int costvariance;
+	
 	@Column(name = "paid", nullable = true,length = 1)
 	private String paid;
 
@@ -62,18 +68,20 @@ private static final long serialVersionUID = 1L;
 		
 	}
 	
-	public Ticket(Customer pickupcustomer, Customer deliverycustomer, String pickuptime, String deliverytime,
-			String estimateddeliverytime, Courier courier, Customer payee, String cost, String paid)
+	public Ticket(Customer pickupcustomer, Customer deliverycustomer, String requestedpickuptime, String pickuptime, String deliverytime,
+			String estimateddeliverytime, Courier courier, Customer payee, String cost, int costvariance, String paid)
 	{
 		this();
 		this.pickupcustomer = pickupcustomer;
 		this.deliverycustomer = deliverycustomer;
+		this.requestedpickuptime = requestedpickuptime;
 		this.pickuptime = pickuptime;
 		this.deliverytime = deliverytime;
 		this.estimateddeliverytime = estimateddeliverytime;
 		this.courier = courier;
 		this.payee = payee;
 		this.cost = cost;
+		this.costvariance = costvariance;
 		this.paid = paid;
 	}
 	
@@ -96,6 +104,17 @@ private static final long serialVersionUID = 1L;
 	{
 		this.deliverycustomer = deliverycustomer;
 	}
+	
+	public String GetRequestedPickupTime()
+	{
+		return this.requestedpickuptime;
+	}
+	
+	public void SetRequestedPickupTime(String requestedpickuptime)
+	{
+		this.requestedpickuptime = requestedpickuptime;
+	}
+	
 	public String GetPickupTime()
 	{
 		return this.pickuptime;
@@ -144,6 +163,16 @@ private static final long serialVersionUID = 1L;
 	public void SetCost(String cost)
 	{
 		this.cost = cost;
+	}
+	
+	public int GetCostVariance()
+	{
+		return this.costvariance;
+	}
+	
+	public void SetCostVariance(int costvariance)
+	{
+		this.costvariance = costvariance;
 	}
 	
 	public String GetPaid()
