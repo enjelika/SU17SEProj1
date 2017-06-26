@@ -449,7 +449,7 @@ public class EditDeliveryTicketScreen extends JPanel
 		currentTicket.SetPickupTime(pickUpTimeText.getText());
 		currentTicket.SetDeliveryTime(deliveryTimeText.getText());
 		currentTicket.SetCourier(activeCourier);
-		currentTicket.SetCostVariance(company.getBonusTimeVariance());
+		currentTicket.SetBonusTimeVariance(company.getBonusTimeVariance());
 		return currentTicket;
 	}
 	

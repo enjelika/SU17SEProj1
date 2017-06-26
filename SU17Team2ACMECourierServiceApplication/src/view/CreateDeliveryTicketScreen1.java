@@ -672,7 +672,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			currentTicket.SetPayee(deliveryCustomer);
 		currentTicket.SetCost(quotedPriceText.getText());
 		currentTicket.SetCreatedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-		currentTicket.SetCostVariance(company.getBonusTimeVariance()); 
+		currentTicket.SetBonusTimeVariance(company.getBonusTimeVariance()); 
 		return currentTicket;
 	}
 	

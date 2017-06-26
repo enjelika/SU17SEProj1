@@ -53,8 +53,8 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "cost", nullable = false,length = 10)
 	private String cost;
 	
-	@Column(name = "costvariance", nullable = false,length = 10)
-	private int costvariance;
+	@Column(name = "bonusTimeVariance", nullable = false,length = 10)
+	private int bonusTimeVariance;
 	
 	@Column(name = "paid", nullable = true,length = 1)
 	private String paid;
@@ -69,7 +69,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public Ticket(Customer pickupcustomer, Customer deliverycustomer, String requestedpickuptime, String pickuptime, String deliverytime,
-			String estimateddeliverytime, Courier courier, Customer payee, String cost, int costvariance, String paid)
+			String estimateddeliverytime, Courier courier, Customer payee, String cost, int bonusTimeVariance, String paid)
 	{
 		this();
 		this.pickupcustomer = pickupcustomer;
@@ -81,7 +81,7 @@ private static final long serialVersionUID = 1L;
 		this.courier = courier;
 		this.payee = payee;
 		this.cost = cost;
-		this.costvariance = costvariance;
+		this.bonusTimeVariance = bonusTimeVariance;
 		this.paid = paid;
 	}
 	
@@ -165,14 +165,14 @@ private static final long serialVersionUID = 1L;
 		this.cost = cost;
 	}
 	
-	public int GetCostVariance()
+	public int GetBonusTimeVariance()
 	{
-		return this.costvariance;
+		return this.bonusTimeVariance;
 	}
 	
-	public void SetCostVariance(int costvariance)
+	public void SetBonusTimeVariance(int bonusTimeVariance)
 	{
-		this.costvariance = costvariance;
+		this.bonusTimeVariance = bonusTimeVariance;
 	}
 	
 	public String GetPaid()

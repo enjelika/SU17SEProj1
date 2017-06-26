@@ -48,6 +48,7 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ButtonController;
+import courierDAO.CompanyInfoDAO;
 import courierDAO.CourierDAO;
 import courierDAO.CustomerDAO;
 import courierDAO.TicketDAO;
@@ -352,20 +353,30 @@ public class ReportCourierPerformanceScreen extends JPanel
 			Object[][] rowData = new Object[numberOfRow][Header.length];
 			int row = 0;
 			int numberOfTicketDeliveryOnTime = 0;
+			long One_Minute_In_Millis = 60000;
 			
 			// Retrieve data from the db
 			for(Ticket ticket : tickets) 
 			{
-				rowData[row][0] = ticket.GetTicketID();
-				rowData[row][1] = ticket.GetEstimatedDeliveryTime();
-				rowData[row][2] = ticket.GetDeliveryTime();
-				rowData[row][3] = "Yes";	// TODO: Need to check from the db to see if this courier has bonus for this ticket
-			    row++;
-			    
-			    try
+				try
 			    {
-			    	Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
+					Date deliveryDate = new SimpleDateFormat("HH:mm").parse(ticket.GetDeliveryTime());
 				    Date estimatedDeliveryTime = new SimpleDateFormat("HH:mm").parse(ticket.GetEstimatedDeliveryTime());
+					
+				    rowData[row][0] = ticket.GetTicketID();
+					rowData[row][1] = ticket.GetEstimatedDeliveryTime();
+					rowData[row][2] = ticket.GetDeliveryTime();
+					
+					if(Math.abs((deliveryDate.getTime() / One_Minute_In_Millis) - (estimatedDeliveryTime.getTime() / One_Minute_In_Millis)) <= ticket.GetBonusTimeVariance())
+					{
+						rowData[row][3] = "Yes";
+					}
+					else
+					{
+						rowData[row][3] = "No";
+					}
+				    row++;
+				    
 					if(deliveryDate.before(estimatedDeliveryTime) || deliveryDate.equals(estimatedDeliveryTime)) 
 					{
 						numberOfTicketDeliveryOnTime++;
