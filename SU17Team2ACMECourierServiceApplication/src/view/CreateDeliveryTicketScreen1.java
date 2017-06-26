@@ -88,6 +88,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     private CompanyInfo company;
     
     private ButtonController deliveryTicket1Controller;
+    private int totalDeliveryDistance;
     
     public CreateDeliveryTicketScreen1(ButtonController buttonController)
     {
@@ -285,6 +286,7 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 			pickUpTimeTextboxContainer.setBorder(new EmptyBorder(0, 25, 0, 25));
 			
 			// -- Pick Up Time TextField
+			time.setText("8:00am");
 			pickUpTimeTextboxContainer.add(time);
 			pickUpTimeAndBillToRBContainer.add(pickUpTimeTextboxContainer);
 			 		
@@ -614,7 +616,18 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 		
 		estBlocksText.setText(String.valueOf(streetMap.TotalDistance));
 		SetEstimatedCostAndTime(streetMap.TotalDistance);
+		totalDeliveryDistance = streetMap.TotalDistance;
 		
+	}
+	
+	public boolean CanMakeDelivery()
+	{
+		boolean canDeliver = true;
+		if(totalDeliveryDistance >= 9999 || totalDeliveryDistance <= 0)
+			canDeliver = false;
+		else
+			canDeliver = true;
+		return canDeliver;
 	}
     
 	private void SetEstimatedCostAndTime(int blocks)

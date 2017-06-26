@@ -600,11 +600,16 @@ public class ButtonController implements ActionListener
 	   				CreateDeliveryTicketScreen1 createDelivery = (CreateDeliveryTicketScreen1)viewListener.GetView();
    	   				Ticket newticket = createDelivery.GetTicket();
 					EntityTransaction userTransaction = emDAO.getEM().getTransaction();
-					userTransaction.begin();
-	   	   			TicketDAO.saveTicket(newticket);
-					userTransaction.commit();
-					createDelivery.SetTicket(newticket);
-					JOptionPane.showMessageDialog(null, "Ticket was Created, with ID# " + newticket.GetTicketID() + ".", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
+					if(createDelivery.CanMakeDelivery())
+					{
+						userTransaction.begin();
+	   	   				TicketDAO.saveTicket(newticket);
+	   	   				userTransaction.commit();
+						createDelivery.SetTicket(newticket);
+						JOptionPane.showMessageDialog(null, "Ticket was Created, with ID# " + newticket.GetTicketID() + ".", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Customers are in a undeliverable location.", "Create Ticket", JOptionPane.INFORMATION_MESSAGE);					
    	   			}
 	   			else if(viewListener.getClass().getName().contains("EditDeliveryTicketScreen"))
    	   			{
@@ -735,20 +740,7 @@ public class ButtonController implements ActionListener
 				mainFrame.getContentPane().invalidate();
 				mainFrame.getContentPane().revalidate();
 				mainFrame.getContentPane().repaint();
-    			break;	
-    			
-    		/*
-    		 *  Create Delivery Ticket Screen buttons
-    		 */
-    		case "nextTicketScreenButton":
-    			System.out.println("Going to the next Create a Delivery Ticket screen..."); 
-    			mainFrame.getContentPane().removeAll();
-				mainFrame.setContentPane(new view.CreateDeliveryTicketScreen2(this)); 
-				mainFrame.getContentPane().invalidate();
-				mainFrame.getContentPane().revalidate();
-				mainFrame.getContentPane().repaint();
-    			break;
-    			
+    			break;		
     		case "ticketBackButton":
     			System.out.println("Going back to Create a Delivery Ticket screen 1..."); 
     			mainFrame.getContentPane().removeAll();
