@@ -6,17 +6,20 @@ import java.util.Map;
 public class Intersection implements Comparable<Intersection>
 {
 
+	// Variables
 	public final String streetName;
 	public String Direction = "";
 	public int distance;
 	public Intersection previous = null;
 	public final Map<Intersection, Integer> neighbours = new HashMap<>();
 	
+	// Constructor
 	public Intersection(String name) 
 	{
 		this.streetName = name;
 	}
 	
+	// Get Direction
 	public void GetDirection(String description) 
 	{
 		if(this == this.previous) 
@@ -40,10 +43,5 @@ public class Intersection implements Comparable<Intersection>
 		if(distance == other.distance) 
 			return streetName.compareTo(other.streetName);
 		return Integer.compare(distance, other.distance);
-	}
-	
-	public String toString() 
-	{
-		return "(" + streetName + "," + distance + ")";
 	}
 }

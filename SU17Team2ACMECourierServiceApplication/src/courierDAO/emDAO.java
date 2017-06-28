@@ -5,15 +5,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 // entity manger 
-public class emDAO {
-		
+public class emDAO 
+{
 		static EntityManagerFactory entityManagerFactory;
 		static EntityManager em;
 		
 		public static void initEM()
 		{
-		entityManagerFactory =  Persistence.createEntityManagerFactory("Courier");
-	    em = entityManagerFactory.createEntityManager();
+			entityManagerFactory =  Persistence.createEntityManagerFactory("Courier");
+		    em = entityManagerFactory.createEntityManager();
 		}
 		
 		public static EntityManager getEM()

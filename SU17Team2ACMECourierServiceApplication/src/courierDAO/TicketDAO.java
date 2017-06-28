@@ -19,6 +19,7 @@ public class TicketDAO
 		emDAO.getEM().persist(ticket);
 	}
 	
+	// Delete a ticket
 	public static void deleteTicket(Ticket ticket)
 	{
 		emDAO.getEM().remove(ticket);

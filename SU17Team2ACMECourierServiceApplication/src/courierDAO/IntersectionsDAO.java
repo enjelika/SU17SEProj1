@@ -8,6 +8,7 @@ import courierPD.Intersections;
 
 public class IntersectionsDAO
 {
+	// Save Intersections
 	public static void saveIntersections(List<Intersections>  intersections) 
 	{
 		for(Intersections intersection : intersections)
@@ -16,6 +17,7 @@ public class IntersectionsDAO
 		}
 	}
 	
+	// Get list of intersections
 	public static List<Intersections> listIntersections() 
 	{
 		Query query = emDAO.getEM().createQuery("SELECT i FROM Intersections i");
@@ -25,19 +27,19 @@ public class IntersectionsDAO
 		return list;
 	}
 	
-	// Find a customer by name
+	// Find an intersection by Id
 	public static Intersections findIntersectionById(long id) 
 	{
 		Query query = emDAO.getEM().createQuery("SELECT intersection FROM Intersections intersection WHERE intersection.id = '" + id + "'");
-		Intersections customer = null;
+		Intersections intersection = null;
 		try
 		{
-			customer = (Intersections)query.getSingleResult();
+			intersection = (Intersections)query.getSingleResult();
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
 		}
-		return customer;
+		return intersection;
 	}
 }
