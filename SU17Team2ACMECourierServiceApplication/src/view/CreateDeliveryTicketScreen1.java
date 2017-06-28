@@ -14,6 +14,7 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -638,7 +639,9 @@ public class CreateDeliveryTicketScreen1 extends JPanel
     
 	private void SetEstimatedCostAndTime(int blocks)
 	{
-		quotedPriceText.setText(String.valueOf(blocks * company.getCostPerBlock() + company.getBillRate()));
+		DecimalFormat df = new DecimalFormat("0.00##");
+		String result = df.format(blocks * company.getCostPerBlock() + company.getBillRate());
+		quotedPriceText.setText(result);
 		if(!time.getTimeStringOrEmptyString().equals(""))
 		{
 			LocalTime tempTime = LocalTime.parse(time.getTimeStringOrEmptyString());
@@ -697,6 +700,10 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	    		
 	    		streetMap.Dijkstra(companyAddress);
 	    		streetMap.GetDirection(currentTicket.GetPickupCustomer().getAddress(), "From company to pickup location");
+
+	    		LocalTime tempTime = LocalTime.parse(time.getTimeStringOrEmptyString());
+	    		tempTime = tempTime.minusMinutes(streetMap.TotalDistance * company.getCourierSpeed());
+	    		
 	    		streetMap.Dijkstra(currentTicket.GetPickupCustomer().getAddress());
 	    		streetMap.GetDirection(currentTicket.GetDeliveryCustomer().getAddress(), "From pickup location to delivery location");
 	    		streetMap.Dijkstra(currentTicket.GetDeliveryCustomer().getAddress());
@@ -704,7 +711,8 @@ public class CreateDeliveryTicketScreen1 extends JPanel
 	    		
 	    		JTextArea text = new JTextArea();
 	    		text.setText("Ticket ID: "
-	                    + currentTicket.GetTicketID() + "\nPickup Time: "
+	                    + currentTicket.GetTicketID() + "\nLeave Office Time: "
+	    	            + tempTime.toString() + "\nPickup Time: "
 	                    + currentTicket.GetRequestedPickupTime() + "\nPickup Customer: " + currentTicket.GetPickupCustomer().getName()
 	                    + "\nDelivery Customer: " + currentTicket.GetDeliveryCustomer().getName()
 	                    + "\n\n" + streetMap.Direction);
