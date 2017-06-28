@@ -14,6 +14,12 @@ INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VA
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1009, '7th Ave and G Street', 'Wright, Judge & Jury', 'Y');
 INSERT INTO `CUSTOMER` (`customer_id`, `address`, `customerName`, `isactive`) VALUES (1010, '6th Ave and D Street', 'Susan Liddy-Gates', 'Y');
 
+INSERT INTO `courier`(`courier_id`, `isactive`, `name`) VALUES (1,'Y','Jack Sprat');
+INSERT INTO `courier`(`courier_id`, `isactive`, `name`) VALUES (2,'Y','Peter Pumkin');
+INSERT INTO `courier`(`courier_id`, `isactive`, `name`) VALUES (3,'Y','Jack Candle');
+INSERT INTO `courier`(`courier_id`, `isactive`, `name`) VALUES (4,'Y','Mary Muffet');
+INSERT INTO `courier`(`courier_id`, `isactive`, `name`) VALUES (5,'Y','Ken Cole');
+
 INSERT INTO INTERSECTIONS(id, Street1, Street2, IsBlocked) VALUES
 	  (1, 'A Street','1st Ave','N'),
 	  (2, 'B Street','1st Ave','N'),

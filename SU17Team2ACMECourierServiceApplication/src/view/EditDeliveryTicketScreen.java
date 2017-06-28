@@ -490,7 +490,7 @@ public class EditDeliveryTicketScreen extends JPanel
 	    		StreetMap streetMap = new StreetMap();
 	    		
 	    		streetMap.Dijkstra(companyAddress);
-	    		streetMap.GetDirection(currentTicket.GetPickupCustomer().getAddress(), "From company to pickup location");
+	    		streetMap.GetDirection(currentTicket.GetPickupCustomer().getAddress(), "From office to pickup location");
 	    		LocalTime tempTime = LocalTime.parse(currentTicket.GetRequestedPickupTime());
 	    		tempTime = tempTime.minusMinutes(streetMap.TotalDistance * company.getCourierSpeed());
 	    		
