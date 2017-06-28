@@ -359,7 +359,8 @@ public class ReportCustomerBillingScreen extends JPanel
 			{
 				rowData[row][0] = ticket.GetTicketID();
 				rowData[row][1] = ticket.GetDeliveryCustomer().getName();
-				rowData[row][2] = ticket.GetCourier().getName();
+				if(ticket.GetCourier() != null)
+					rowData[row][2] = ticket.GetCourier().getName();
 				rowData[row][3] = ticket.GetDeliveryTime();
 				rowData[row][4] = "$" + String.format("%.2f", Double.parseDouble(ticket.GetCost()));
 				rowData[row][5] = ticket.GetPaid();
@@ -368,7 +369,7 @@ public class ReportCustomerBillingScreen extends JPanel
 			    // Calculate customer's balance
 			    try 
 			    {
-					if(ticket.GetPaid().equals("N"))
+					if(ticket.GetPaid() == null || ticket.GetPaid().equals("N"))
 					{
 						balance += Double.parseDouble(ticket.GetCost());
 					}

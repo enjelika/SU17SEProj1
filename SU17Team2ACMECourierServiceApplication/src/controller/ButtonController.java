@@ -504,6 +504,10 @@ public class ButtonController implements ActionListener
 		   				{
 		   					JOptionPane.showMessageDialog(null, "Invalid input! Customer's name and address cannot be blank.", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
 		   				}
+		   				else if(!addCustomerScreen.ValidateAddress(customerAddress))
+		   				{
+		   					JOptionPane.showMessageDialog(null, "Invalid address! Customer's address is not found on the map.", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
 		   				else
 		   				{
 		   					Customer customer = new Customer(customerName, customerAddress, "Y");
@@ -512,7 +516,7 @@ public class ButtonController implements ActionListener
 							CustomerDAO.addCustomer(customer);
 							addCustomerTransaction.commit();
 							addCustomerScreen.ClearText();
-							JOptionPane.showMessageDialog(null, "Customer is created!", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Customer is created! Customer Id is " + customer.getCustomerID(), "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
 		   				}
 	   				}
 	   				catch(Exception e)
@@ -533,6 +537,10 @@ public class ButtonController implements ActionListener
 		   				if(customerId.isEmpty() || customerName.isEmpty() || customerAddress.isEmpty()) 
 		   				{
 							JOptionPane.showMessageDialog(null, "The text fields can not be blank!", "Edit Customer Screen", JOptionPane.INFORMATION_MESSAGE);
+		   				}
+		   				else if(!editCustomerView.ValidateAddress(customerAddress))
+		   				{
+		   					JOptionPane.showMessageDialog(null, "Invalid address! Customer's address is not found on the map.", "Add Customer Screen", JOptionPane.INFORMATION_MESSAGE);
 		   				}
 		   				else 
 		   				{

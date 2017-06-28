@@ -1,21 +1,14 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 import courierDAO.MapDAO;
-import courierPD.Courier;
 
 public class StreetMap
 {	
 	// Mapping of intersection names to Intersection objects, built from a set of Street Segment
 	private static Map<String, Intersection> map;
-	
-	// Map file Name
-	private String mapFileName = "StreetSegments.csv";
 			
 	// Direction for the courier
 	public String Direction = "";

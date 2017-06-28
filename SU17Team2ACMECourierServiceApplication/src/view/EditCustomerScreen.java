@@ -7,15 +7,19 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -26,7 +30,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CustomerDAO;
+import courierDAO.IntersectionsDAO;
 import courierPD.Customer;
+import courierPD.Intersections;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -37,7 +44,8 @@ public class EditCustomerScreen extends JPanel
 	private JButton findButton, resetButton, saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel editCustomerContainer, southButtonContainer, mainPane, imgContainer;
-
+	private JComboBox<String> customerAddressComboBox, customerNameComboBox, customerIdComboBox;
+	
 	public JTextField customerIdField, customerNameField, addressField;
 	public JRadioButton activeStatusSelection, inactiveStatusSelection;
 	
@@ -167,13 +175,27 @@ public class EditCustomerScreen extends JPanel
 			idTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
 			// -- Customer ID TextField
-			customerIdField = new JTextField("", 20);
+			customerIdField = new JTextField("", 17);
 			customerIdField.setHorizontalAlignment(JTextField.LEFT);
 			customerIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
 			customerIdField.setBorder(new LineBorder(Color.BLUE, 1));
 			idTextboxContainer.add(customerIdField);
 			customerIdContainer.add(idTextboxContainer);
-		
+			
+			// -- Customer Id ComboBox
+			customerIdComboBox = new JComboBox<String>();
+			customerIdComboBox.setPreferredSize(new Dimension(40, 10));
+			customerIdComboBox.setFont(new Font("Calibri", Font.PLAIN, 24));
+			PopulateCustomerIdDataComboBox();
+			customerIdComboBox.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
+		        	customerIdField.setText(arg0.getItem().toString());
+		        }
+		    });
+			customerIdContainer.add(customerIdComboBox);
+
 		// -- end of Customer ID Field
 			
 		/*
@@ -196,13 +218,27 @@ public class EditCustomerScreen extends JPanel
 			nameTextboxContainer.setBorder(new EmptyBorder(0, 10, 0, 0));
 			
 			// -- Customer Name TextField
-			customerNameField = new JTextField("", 20);
+			customerNameField = new JTextField("", 16);
 	    	customerNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerNameField.setBorder(new LineBorder(Color.BLUE, 1));
 	    	nameTextboxContainer.add(customerNameField);
 			customerNameContainer.add(nameTextboxContainer);
 		
+			// -- Customer Name ComboBox
+			customerNameComboBox = new JComboBox<String>();
+			customerNameComboBox.setPreferredSize(new Dimension(40, 10));
+			customerNameComboBox.setFont(new Font("Calibri", Font.PLAIN, 24));
+			PopulateCustomerNameDataComboBox();
+			customerNameComboBox.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
+		        	customerNameField.setText(arg0.getItem().toString());
+		        }
+		    });
+			customerNameContainer.add(customerNameComboBox);
+			
 		// -- end of Customer Name Field
 		customerFields.add(customerIdContainer);
 		customerFields.add(customerNameContainer);
@@ -249,6 +285,20 @@ public class EditCustomerScreen extends JPanel
 	    	addressTextBoxContainer.add(addressField);
 	    	addressContainer.add(addressTextBoxContainer);
 		
+	    	// -- Customer Address ComboBox
+			customerAddressComboBox = new JComboBox<String>();
+			customerAddressComboBox.setPreferredSize(new Dimension(40, 10));
+			customerAddressComboBox.setFont(new Font("Calibri", Font.PLAIN, 24));
+			PopulateAddressDataComboBox();
+			customerAddressComboBox.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
+		        	addressField.setText(arg0.getItem().toString());
+		        }
+		    });
+			addressContainer.add(customerAddressComboBox);
+	    	
 		// -- end of Address Field
 	    editCustomerContainer.add(addressContainer);
 		
@@ -370,5 +420,54 @@ public class EditCustomerScreen extends JPanel
     	customerNameField.setText("");
     	addressField.setText("");
     	activeStatusSelection.setSelected(true);
+    }
+    
+    // Validate the input customer's address
+    public boolean ValidateAddress(String address) 
+    {
+    	boolean isValidAddress = false;
+    	List<Intersections> intersections = IntersectionsDAO.listIntersections();
+		for(Intersections intersection : intersections) 
+    	{
+			if(address.equals(intersection.getStreet2() + " And " + intersection.getStreet1()))
+			{
+				isValidAddress = true; 
+				break;
+			}
+    	}
+		return isValidAddress;
+    }
+    
+    // Populate address data for combo box
+    private void PopulateAddressDataComboBox()
+    {
+    	//Get Data
+    	List<Intersections> intersections = IntersectionsDAO.listIntersections();
+    	for(Intersections intersection : intersections) 
+    	{
+    		customerAddressComboBox.addItem(intersection.getStreet2() + " And " + intersection.getStreet1());
+		}
+    }
+    
+    // Populate customer name data for combo box
+    private void PopulateCustomerNameDataComboBox()
+    {
+    	//Get Data
+    	List<Customer> customers = CustomerDAO.ListCustomer();
+    	for(Customer customer : customers) 
+    	{
+    		customerNameComboBox.addItem(customer.getName());
+		}
+    }
+    
+    // Populate customer id data for combo box
+    private void PopulateCustomerIdDataComboBox()
+    {
+    	//Get Data
+    	List<Customer> customers = CustomerDAO.ListCustomer();
+    	for(Customer customer : customers) 
+    	{
+    		customerIdComboBox.addItem(Long.toString(customer.getCustomerID()));
+		}
     }
 }

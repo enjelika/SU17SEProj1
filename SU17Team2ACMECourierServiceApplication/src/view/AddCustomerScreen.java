@@ -7,14 +7,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +28,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.ButtonController;
+import courierDAO.CourierDAO;
+import courierDAO.IntersectionsDAO;
+import courierPD.Courier;
 import courierPD.Customer;
+import courierPD.Intersections;
 import model.Utility;
 
 @SuppressWarnings("serial")
@@ -35,9 +43,10 @@ public class AddCustomerScreen extends JPanel
 	private JButton saveButton, backButton, logoutButton;
 	private JLabel imageFrame;
 	private JPanel addCustomerContainer, southButtonContainer, mainPane, imgContainer;
+	private JComboBox<String> customerAddressComboBox;
 	
 	public JTextField customerIdField, customerNameField, customerAddressField;
-	
+
 	protected final static String filePath = System.getProperty("user.dir"); 
     protected final static String separator = System.getProperty("file.separator");
     private BufferedImage acmeCourierServiceLogo;
@@ -216,6 +225,20 @@ public class AddCustomerScreen extends JPanel
 	    	customerAddressField.setBorder(new LineBorder(Color.BLUE, 1));
 	    	addressTextboxContainer.add(customerAddressField);
 			customerAddressContainer.add(addressTextboxContainer);
+			
+			// -- Customer Address ComboBox
+			customerAddressComboBox = new JComboBox<String>();
+			customerAddressComboBox.setPreferredSize(new Dimension(40, 10));
+			customerAddressComboBox.setFont(new Font("Calibri", Font.PLAIN, 24));
+			PopulateAddressDataComboBox();
+			customerAddressComboBox.addItemListener(new ItemListener() 
+			{
+		        public void itemStateChanged(ItemEvent arg0) 
+		        {
+		        	customerAddressField.setText(arg0.getItem().toString());
+		        }
+		    });
+			customerAddressContainer.add(customerAddressComboBox);
 		
 		// -- end of Customer Name Field
 		addCustomerContainer.add(customerAddressContainer);		
@@ -263,6 +286,7 @@ public class AddCustomerScreen extends JPanel
 		this.add(mainPane);
     }
     
+    // Save customer
     public void SaveCustomer() 
     {
 		customer.UpdateCustomer(
@@ -272,9 +296,37 @@ public class AddCustomerScreen extends JPanel
 		"Y");
     }
     
+    // Clear text fields
     public void ClearText() 
     {
     	customerNameField.setText("");
     	customerAddressField.setText("");
+    }
+    
+    // Validate the input customer's address
+    public boolean ValidateAddress(String address) 
+    {
+    	boolean isValidAddress = false;
+    	List<Intersections> intersections = IntersectionsDAO.listIntersections();
+		for(Intersections intersection : intersections) 
+    	{
+			if(address.equals(intersection.getStreet2() + " And " + intersection.getStreet1()))
+			{
+				isValidAddress = true; 
+				break;
+			}
+    	}
+		return isValidAddress;
+    }
+    
+    // Populate address data for combo box
+    private void PopulateAddressDataComboBox()
+    {
+    	//Get Data
+    	List<Intersections> intersections = IntersectionsDAO.listIntersections();
+    	for(Intersections intersection : intersections) 
+    	{
+    		customerAddressComboBox.addItem(intersection.getStreet2() + " And " + intersection.getStreet1());
+		}
     }
 }
