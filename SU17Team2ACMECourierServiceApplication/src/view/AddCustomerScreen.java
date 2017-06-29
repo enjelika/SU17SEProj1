@@ -223,8 +223,8 @@ public class AddCustomerScreen extends JPanel
 	    	customerAddressField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerAddressField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerAddressField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	addressTextboxContainer.add(customerAddressField);
-			customerAddressContainer.add(addressTextboxContainer);
+//	    	addressTextboxContainer.add(customerAddressField);
+//			customerAddressContainer.add(addressTextboxContainer);
 			
 			// -- Customer Address ComboBox
 			customerAddressComboBox = new JComboBox<String>();

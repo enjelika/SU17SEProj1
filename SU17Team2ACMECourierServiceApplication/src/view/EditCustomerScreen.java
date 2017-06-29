@@ -179,8 +179,8 @@ public class EditCustomerScreen extends JPanel
 			customerIdField.setHorizontalAlignment(JTextField.LEFT);
 			customerIdField.setFont(new Font("Calibri", Font.PLAIN, 28));
 			customerIdField.setBorder(new LineBorder(Color.BLUE, 1));
-			idTextboxContainer.add(customerIdField);
-			customerIdContainer.add(idTextboxContainer);
+//			idTextboxContainer.add(customerIdField);
+//			customerIdContainer.add(idTextboxContainer);
 			
 			// -- Customer Id ComboBox
 			customerIdComboBox = new JComboBox<String>();
@@ -222,8 +222,8 @@ public class EditCustomerScreen extends JPanel
 	    	customerNameField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerNameField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerNameField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	nameTextboxContainer.add(customerNameField);
-			customerNameContainer.add(nameTextboxContainer);
+//	    	nameTextboxContainer.add(customerNameField);
+//			customerNameContainer.add(nameTextboxContainer);
 		
 			// -- Customer Name ComboBox
 			customerNameComboBox = new JComboBox<String>();
@@ -264,7 +264,7 @@ public class EditCustomerScreen extends JPanel
 		 */
 		JPanel addressContainer = new JPanel();
 		addressContainer.setLayout(new BoxLayout(addressContainer, BoxLayout.X_AXIS));
-		addressContainer.setBorder(new EmptyBorder(15, 25, 5, 225));
+		addressContainer.setBorder(new EmptyBorder(15, 25, 5, 25));
 		
 			// -- Address Label
 			JLabel addressLabel = new JLabel();
@@ -287,7 +287,7 @@ public class EditCustomerScreen extends JPanel
 		
 	    	// -- Customer Address ComboBox
 			customerAddressComboBox = new JComboBox<String>();
-			customerAddressComboBox.setPreferredSize(new Dimension(40, 10));
+//			customerAddressComboBox.setPreferredSize(new Dimension(40, 10));
 			customerAddressComboBox.setFont(new Font("Calibri", Font.PLAIN, 24));
 			PopulateAddressDataComboBox();
 			customerAddressComboBox.addItemListener(new ItemListener() 

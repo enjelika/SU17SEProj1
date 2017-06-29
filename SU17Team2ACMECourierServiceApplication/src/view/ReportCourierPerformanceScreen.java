@@ -204,6 +204,7 @@ public class ReportCourierPerformanceScreen extends JPanel
 				allCouriers.setFont(new Font("Calibri", Font.PLAIN, 24));
 				allCouriers.setOpaque(false);
 				allCouriers.setContentAreaFilled(false);
+				allCouriers.setVisible(false);
 				allCouriers.setBorder(new EmptyBorder(0, 10, 0, 10));
 				// TODO: Action Listener
 				courierNameCbContainer.add(allCouriers);

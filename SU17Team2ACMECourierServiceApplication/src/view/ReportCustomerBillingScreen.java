@@ -202,6 +202,7 @@ public class ReportCustomerBillingScreen extends JPanel
 				allCustomers.setFont(new Font("Calibri", Font.PLAIN, 24));
 				allCustomers.setOpaque(false);
 				allCustomers.setContentAreaFilled(false);
+				allCustomers.setVisible(false);
 				allCustomers.setBorder(new EmptyBorder(0, 10, 0, 10));
 				// TODO: Action Listener
 				customerNameCbContainer.add(allCustomers);
