@@ -223,8 +223,8 @@ public class AddCustomerScreen extends JPanel
 	    	customerAddressField.setHorizontalAlignment(JTextField.LEFT);
 	    	customerAddressField.setFont(new Font("Calibri", Font.PLAIN, 28));
 	    	customerAddressField.setBorder(new LineBorder(Color.BLUE, 1));
-	    	addressTextboxContainer.add(customerAddressField);
-			customerAddressContainer.add(addressTextboxContainer);
+	    	//addressTextboxContainer.add(customerAddressField);
+			//customerAddressContainer.add(addressTextboxContainer);
 			
 			// -- Customer Address ComboBox
 			customerAddressComboBox = new JComboBox<String>();
@@ -310,7 +310,7 @@ public class AddCustomerScreen extends JPanel
     	List<Intersections> intersections = IntersectionsDAO.listIntersections();
 		for(Intersections intersection : intersections) 
     	{
-			if(address.equals(intersection.getStreet2() + " And " + intersection.getStreet1()))
+			if(address.equals(intersection.getStreet2() + " and " + intersection.getStreet1()))
 			{
 				isValidAddress = true; 
 				break;
@@ -326,7 +326,7 @@ public class AddCustomerScreen extends JPanel
     	List<Intersections> intersections = IntersectionsDAO.listIntersections();
     	for(Intersections intersection : intersections) 
     	{
-    		customerAddressComboBox.addItem(intersection.getStreet2() + " And " + intersection.getStreet1());
+    		customerAddressComboBox.addItem(intersection.getStreet2() + " and " + intersection.getStreet1());
 		}
     }
 }
