@@ -507,7 +507,6 @@ public class EditDeliveryTicketScreen extends JPanel
 	                    + "\nDelivery Customer: " + currentTicket.GetDeliveryCustomer().getName()
 	                    + "\n\n" + streetMap.Direction);
 				text.print();
-				text.print();
     		}
 		} catch (PrinterException e) {
 			// TODO Auto-generated catch block

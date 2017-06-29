@@ -429,7 +429,7 @@ public class EditCustomerScreen extends JPanel
     	List<Intersections> intersections = IntersectionsDAO.listIntersections();
 		for(Intersections intersection : intersections) 
     	{
-			if(address.equals(intersection.getStreet2() + " And " + intersection.getStreet1()))
+			if(address.equals(intersection.getStreet2() + " and " + intersection.getStreet1()))
 			{
 				isValidAddress = true; 
 				break;
@@ -445,7 +445,7 @@ public class EditCustomerScreen extends JPanel
     	List<Intersections> intersections = IntersectionsDAO.listIntersections();
     	for(Intersections intersection : intersections) 
     	{
-    		customerAddressComboBox.addItem(intersection.getStreet2() + " And " + intersection.getStreet1());
+    		customerAddressComboBox.addItem(intersection.getStreet2() + " and " + intersection.getStreet1());
 		}
     }
     
